@@ -9,7 +9,7 @@ Imports System.Runtime.InteropServices
 ' Revisar los valores de los atributos del ensamblado
 
 <Assembly: AssemblyTitle("STI-Ventas")>
-<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyDescription("STI Ventas")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("STI-Ventas")>
 <Assembly: AssemblyCopyright("Copyright ©  2022")>
