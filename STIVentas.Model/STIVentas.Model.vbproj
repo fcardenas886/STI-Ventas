@@ -64,7 +64,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnidadController.vb" />
+    <Compile Include="IDBOperations.vb" />
+    <Compile Include="IDBTable.vb" />
+    <Compile Include="UnidadMedidaModel.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

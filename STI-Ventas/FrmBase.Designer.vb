@@ -95,6 +95,7 @@ Partial Class FrmBase
         '
         'btnClose
         '
+        Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnClose.Location = New System.Drawing.Point(475, 20)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
@@ -134,9 +135,11 @@ Partial Class FrmBase
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.btnClose
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.panelContainer)
         Me.Name = "FrmBase"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Template"
         Me.panelContainer.ResumeLayout(False)
         Me.GroupBoxData.ResumeLayout(False)
