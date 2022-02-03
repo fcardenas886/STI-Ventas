@@ -32,6 +32,9 @@ Partial Class FrmUnitOfMeasure
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
+        'btnSave
+        '
+        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.txtAlias)
