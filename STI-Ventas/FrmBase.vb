@@ -187,6 +187,7 @@ Public Class FrmBase
     Protected Overridable Sub OnFormLoaded()
         isNewRecord = True
         LoadRecords()
+        SetupDataGridView(dtGridView)
     End Sub
 
     ''' <summary>

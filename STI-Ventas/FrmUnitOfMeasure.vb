@@ -182,7 +182,13 @@ Public Class FrmUnitOfMeasure
 
     End Sub
 
-    Private Sub FrmUnitOfMeasure_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    ''' <summary>
+    ''' Indica si debe haber interacción con el usuario para eliminar un registro
+    ''' </summary>
+    ''' <returns>True si actualizo</returns>
+    ''' <remarks>31.01.2021 jorge.nin92@gmail.com: Se crea el metodo</remarks>
+    Protected Friend Overrides Function AskToDelete() As Boolean
+        Return ConfirmDeleteRecord(GetRecordIdentification())
+    End Function
 
-    End Sub
 End Class

@@ -1,6 +1,6 @@
 ﻿
 
-Imports MySql.Data.MySqlClient
+'Imports MySql.Data.MySqlClient
 
 Module conex
 
@@ -9,7 +9,7 @@ Module conex
     "Uid=freddyc;" &
     "Pwd=fc6543as;"
 
-    Public myconx As MySqlConnection = New MySqlConnection(strcon)
+    'Public myconx As MySqlConnection = New MySqlConnection(strcon)
 
 
 End Module

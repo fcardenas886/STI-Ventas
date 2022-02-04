@@ -65,11 +65,16 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompraDetallesModel.vb" />
+    <Compile Include="CompraHeaderModel.vb" />
+    <Compile Include="GrupoProveedorModel.vb" />
     <Compile Include="IDBOperations.vb" />
     <Compile Include="IDBTable.vb" />
+    <Compile Include="MonedaModel.vb" />
+    <Compile Include="ProveedorModel.vb" />
+    <Compile Include="TransaccionInventarioModel.vb" />
     <Compile Include="UnidadMedidaModel.vb" />
     <Compile Include="conex.vb" />
-    <Compile Include="UnidadController.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

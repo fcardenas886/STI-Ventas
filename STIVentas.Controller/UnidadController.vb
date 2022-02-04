@@ -46,7 +46,7 @@ Public Class UnidadController : Inherits ControllerBase : Implements IDBOperatio
             table = CType(iTable, UnidadMedidaModel)
             params = New List(Of MySqlParameter)
             dbConnector = New DBConnector()
-            sql = "DELETE FROM TblUnidadMedida WHERE Id = @Id;"
+            sql = "DELETE FROM TblUnidadMedida WHERE IdUnidad = @Id;"
 
             params.Add(BuildParameter("@Id", table.Unidad, DbType.String))
 
@@ -71,7 +71,7 @@ Public Class UnidadController : Inherits ControllerBase : Implements IDBOperatio
             table = CType(iTable, UnidadMedidaModel)
             params = New List(Of MySqlParameter)
             dbConnector = New DBConnector()
-            sql = "UPDATE TblUnidadMedida SET Nombre = @Name, Alias = @Alias WHERE Id = @Id;"
+            sql = "UPDATE TblUnidadMedida SET Nombre = @Name, Alias = @Alias WHERE IdUnidad = @Id;"
 
             params.Add(BuildParameter("@Name", table.Nombre, DbType.String))
             params.Add(BuildParameter("@Alias", table.AliasUnidad, DbType.String))
