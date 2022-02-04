@@ -15,6 +15,23 @@ Public Class FrmMainMDI
         child.MdiParent = Me
         child.Show()
     End Sub
+
+    '' <remarks>03.02.2021 jorge.nin92@gmail.com: Add grupo de proveedores</remarks>
+    Private Sub GrupoDeProveedoresToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GrupoDeProveedoresToolStripMenuItem.Click
+        Dim child As Form = New FrmGrupoProveedor With {
+            .MdiParent = Me
+        }
+        child.Show()
+    End Sub
+
+    '' <remarks>03.02.2021 jorge.nin92@gmail.com: Add Monedas</remarks>
+    Private Sub MonedasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MonedasToolStripMenuItem.Click
+        Dim child As Form = New FrmMoneda With {
+            .MdiParent = Me
+        }
+        child.Show()
+    End Sub
+
 #End Region
 
 #Region "Class methods"

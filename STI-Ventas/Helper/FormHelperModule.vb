@@ -35,6 +35,7 @@ Module FormHelperModule
         dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
         dgv.BackgroundColor = Color.White
         dgv.ReadOnly = True
+        dgv.AllowUserToResizeColumns = True
     End Sub
 
     Public Sub ValidateLetters(ByVal o As Object, ByVal e As KeyPressEventArgs)

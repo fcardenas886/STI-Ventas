@@ -27,6 +27,14 @@ Public Class ProveedorModel : Implements IDBTable
 		End Set
 	End Property
 
+	''' <summary>
+	''' Constructor sin params
+	''' </summary>
+	''' <remarks>03.02.2021 jorge.nin92@gmail.com: Se agrega constructor vacio</remarks>
+	Sub New()
+		RecordId = 0
+	End Sub
+
 	Sub New(ByVal Id_ As Integer, ByVal IdProveedor_ As String, ByVal Nombre_ As String, ByVal AliasName_ As String, ByVal Direccion_ As String, ByVal Grupo_ As String, ByVal RUT_ As String, ByVal Moneda_ As String, ByVal Telefono_ As String, ByVal Email_ As String, ByVal Contacto_ As String, ByVal FormaPago_ As String)
 		Id = Id_
 		IdProveedor = IdProveedor_

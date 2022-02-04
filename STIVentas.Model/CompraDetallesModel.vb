@@ -25,6 +25,14 @@ Public Class CompraDetallesModel : Implements IDBTable
 		End Set
 	End Property
 
+	''' <summary>
+	''' Constructor sin params
+	''' </summary>
+	''' <remarks>03.02.2021 jorge.nin92@gmail.com: Se agrega constructor vacio</remarks>
+	Sub New()
+		RecordId = 0
+	End Sub
+
 	Sub New(ByVal Id_ As Integer, ByVal IdCompra_ As Integer, ByVal NumeroLinea_ As Integer, ByVal IdProducto_ As Integer, ByVal Unidad_ As String, ByVal NombreProducto_ As String, ByVal Cantidad_ As Decimal, ByVal PrecioUnitario_ As Decimal, ByVal Descuento_ As Decimal, ByVal MontoNeto_ As Decimal)
 		Id = Id_
 		IdCompra = IdCompra_

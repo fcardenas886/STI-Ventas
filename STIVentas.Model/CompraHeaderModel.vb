@@ -25,6 +25,14 @@ Public Class CompraHeaderModel : Implements IDBTable
 		End Set
 	End Property
 
+	''' <summary>
+	''' Constructor sin params
+	''' </summary>
+	''' <remarks>03.02.2021 jorge.nin92@gmail.com: Se agrega constructor vacio</remarks>
+	Sub New()
+		RecordId = 0
+	End Sub
+
 	Sub New(ByVal Id_ As Integer, ByVal NumeroCompra_ As String, ByVal Moneda_ As String, ByVal Nombre_ As String, ByVal IdProveedor_ As String, ByVal OrdenProveedor_ As String, ByVal Estado_ As Byte, ByVal FormaPago_ As String, ByVal FechaEntrega_ As DateTime, ByVal Correo_ As String, ByVal Contacto_ As String)
 		Id = Id_
 		NumeroCompra = NumeroCompra_

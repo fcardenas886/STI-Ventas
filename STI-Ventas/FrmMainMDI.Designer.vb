@@ -28,6 +28,8 @@ Partial Class FrmMainMDI
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ConfigurarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolStripUnitOfMeasure = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GrupoDeProveedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MonedasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -35,7 +37,7 @@ Partial Class FrmMainMDI
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 290)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 428)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(800, 22)
         Me.StatusStrip1.TabIndex = 1
@@ -63,7 +65,7 @@ Partial Class FrmMainMDI
         '
         'ConfigurarToolStripMenuItem
         '
-        Me.ConfigurarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolStripUnitOfMeasure})
+        Me.ConfigurarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolStripUnitOfMeasure, Me.GrupoDeProveedoresToolStripMenuItem, Me.MonedasToolStripMenuItem})
         Me.ConfigurarToolStripMenuItem.Name = "ConfigurarToolStripMenuItem"
         Me.ConfigurarToolStripMenuItem.Size = New System.Drawing.Size(76, 20)
         Me.ConfigurarToolStripMenuItem.Text = "Configurar"
@@ -71,8 +73,20 @@ Partial Class FrmMainMDI
         'toolStripUnitOfMeasure
         '
         Me.toolStripUnitOfMeasure.Name = "toolStripUnitOfMeasure"
-        Me.toolStripUnitOfMeasure.Size = New System.Drawing.Size(182, 22)
+        Me.toolStripUnitOfMeasure.Size = New System.Drawing.Size(191, 22)
         Me.toolStripUnitOfMeasure.Text = "Unidades de medida"
+        '
+        'GrupoDeProveedoresToolStripMenuItem
+        '
+        Me.GrupoDeProveedoresToolStripMenuItem.Name = "GrupoDeProveedoresToolStripMenuItem"
+        Me.GrupoDeProveedoresToolStripMenuItem.Size = New System.Drawing.Size(191, 22)
+        Me.GrupoDeProveedoresToolStripMenuItem.Text = "Grupo de proveedores"
+        '
+        'MonedasToolStripMenuItem
+        '
+        Me.MonedasToolStripMenuItem.Name = "MonedasToolStripMenuItem"
+        Me.MonedasToolStripMenuItem.Size = New System.Drawing.Size(191, 22)
+        Me.MonedasToolStripMenuItem.Text = "Monedas"
         '
         'FrmMainMDI
         '
@@ -104,4 +118,6 @@ Partial Class FrmMainMDI
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents ConfigurarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents toolStripUnitOfMeasure As ToolStripMenuItem
+    Friend WithEvents GrupoDeProveedoresToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MonedasToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -27,6 +27,14 @@ Public Class TransaccionInventarioModel : Implements IDBTable
 		End Set
 	End Property
 
+	''' <summary>
+	''' Constructor sin params
+	''' </summary>
+	''' <remarks>03.02.2021 jorge.nin92@gmail.com: Se agrega constructor vacio</remarks>
+	Sub New()
+		RecordId = 0
+	End Sub
+
 	Sub New(ByVal Id_ As Integer, ByVal IdArticulo_ As Integer, ByVal Moneda_ As String, ByVal FechaMovimiento_ As DateTime, ByVal Costo_ As Decimal, ByVal Estatus_ As Byte, ByVal TipoTransaccion_ As Byte, ByVal Referencia_ As String, ByVal NumeroReferencia_ As String, ByVal Cantidad_ As Decimal, ByVal Unidad_ As String, ByVal IdTransaccion_ As String)
 		Id = Id_
 		IdArticulo = IdArticulo_

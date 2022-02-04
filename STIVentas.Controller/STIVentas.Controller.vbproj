@@ -69,7 +69,9 @@
   <ItemGroup>
     <Compile Include="ControllerBase.vb" />
     <Compile Include="DBConnector.vb" />
+    <Compile Include="GrupoProveedorController.vb" />
     <Compile Include="ModulePOS.vb" />
+    <Compile Include="MonedaController.vb" />
     <Compile Include="UnidadController.vb" />
     <Compile Include="UnidadModel.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

@@ -29,6 +29,14 @@ Public Class MonedaModel : Implements IDBTable
 		End Set
 	End Property
 
+	''' <summary>
+	''' Constructor sin params
+	''' </summary>
+	''' <remarks>03.02.2021 jorge.nin92@gmail.com: Se agrega constructor vacio</remarks>
+	Sub New()
+		RecordId = 0
+	End Sub
+
 	Sub New(ByVal Id_ As Integer, ByVal CodigoMoneda_ As String, ByVal Nombre_ As String, ByVal Descripcion_ As String, ByVal Simbolo_ As String, ByVal CodigoISO_ As String, ByVal Redondear_ As Boolean, ByVal TipoRedondeo_ As Byte, ByVal RedondeoVentas_ As Byte, ByVal RedondeoCompras_ As Byte, ByVal RedondeoInventario_ As Byte, ByVal RedondearCompras_ As Boolean, ByVal RedondearVentas_ As Boolean, ByVal RedondearInventario_ As Boolean)
 		Id = Id_
 		CodigoMoneda = CodigoMoneda_

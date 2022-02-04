@@ -18,6 +18,14 @@ Public Class GrupoProveedorModel : Implements IDBTable
 		End Set
 	End Property
 
+	''' <summary>
+	''' Constructor sin params
+	''' </summary>
+	''' <remarks>03.02.2021 jorge.nin92@gmail.com: Se agrega constructor vacio</remarks>
+	Sub New()
+		RecordId = 0
+	End Sub
+
 	Sub New(ByVal Id_ As Integer, ByVal Grupo_ As String, ByVal Nombre_ As String)
 		Me.Id = Id_
 		Me.Grupo = Grupo_

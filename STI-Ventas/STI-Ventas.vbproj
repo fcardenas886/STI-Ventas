@@ -89,6 +89,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Catalogs\FrmGrupoProveedor.Designer.vb">
+      <DependentUpon>FrmGrupoProveedor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmGrupoProveedor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\FrmMoneda.Designer.vb">
+      <DependentUpon>FrmMoneda.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmMoneda.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmBase.Designer.vb">
       <DependentUpon>FrmBase.vb</DependentUpon>
     </Compile>
@@ -127,6 +139,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Catalogs\FrmGrupoProveedor.resx">
+      <DependentUpon>FrmGrupoProveedor.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmBase.resx">
       <DependentUpon>FrmBase.vb</DependentUpon>
     </EmbeddedResource>
