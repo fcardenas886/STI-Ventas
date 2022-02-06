@@ -23,19 +23,16 @@ Partial Class FrmOrdenCompra
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.PanelContainer = New System.Windows.Forms.Panel()
-        Me.GroupBoxHeader = New System.Windows.Forms.GroupBox()
         Me.GroupBoxLine = New System.Windows.Forms.GroupBox()
+        Me.PanelLineActions = New System.Windows.Forms.Panel()
+        Me.btnDeleteLine = New System.Windows.Forms.Button()
+        Me.btnEditLine = New System.Windows.Forms.Button()
+        Me.btnAddLine = New System.Windows.Forms.Button()
+        Me.txtItemName = New System.Windows.Forms.TextBox()
+        Me.txtItemId = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBoxLineDetails = New System.Windows.Forms.GroupBox()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.NuevoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AccionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConfirmarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CancelarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.NuevoToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EliminarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.txtOrdenCompraId = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvLines = New System.Windows.Forms.DataGridView()
         Me.LineNum = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ItemId = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -43,21 +40,24 @@ Partial Class FrmOrdenCompra
         Me.Qty = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.LineAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.txtItemName = New System.Windows.Forms.TextBox()
-        Me.txtItemId = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.PanelLineActions = New System.Windows.Forms.Panel()
-        Me.btnAddLine = New System.Windows.Forms.Button()
-        Me.btnDeleteLine = New System.Windows.Forms.Button()
-        Me.btnEditLine = New System.Windows.Forms.Button()
+        Me.GroupBoxHeader = New System.Windows.Forms.GroupBox()
+        Me.txtOrdenCompraId = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.NuevoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NuevoToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EliminarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AccionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConfirmarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CancelarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PanelContainer.SuspendLayout()
-        Me.GroupBoxHeader.SuspendLayout()
         Me.GroupBoxLine.SuspendLayout()
-        Me.GroupBoxLineDetails.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
-        CType(Me.dgvLines, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelLineActions.SuspendLayout()
+        Me.GroupBoxLineDetails.SuspendLayout()
+        CType(Me.dgvLines, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBoxHeader.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'PanelContainer
@@ -70,18 +70,6 @@ Partial Class FrmOrdenCompra
         Me.PanelContainer.Name = "PanelContainer"
         Me.PanelContainer.Size = New System.Drawing.Size(917, 482)
         Me.PanelContainer.TabIndex = 0
-        '
-        'GroupBoxHeader
-        '
-        Me.GroupBoxHeader.Controls.Add(Me.txtOrdenCompraId)
-        Me.GroupBoxHeader.Controls.Add(Me.Label1)
-        Me.GroupBoxHeader.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBoxHeader.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBoxHeader.Name = "GroupBoxHeader"
-        Me.GroupBoxHeader.Size = New System.Drawing.Size(917, 100)
-        Me.GroupBoxHeader.TabIndex = 0
-        Me.GroupBoxHeader.TabStop = False
-        Me.GroupBoxHeader.Text = "Encabezado"
         '
         'GroupBoxLine
         '
@@ -98,6 +86,87 @@ Partial Class FrmOrdenCompra
         Me.GroupBoxLine.TabStop = False
         Me.GroupBoxLine.Text = "Línea"
         '
+        'PanelLineActions
+        '
+        Me.PanelLineActions.Controls.Add(Me.btnDeleteLine)
+        Me.PanelLineActions.Controls.Add(Me.btnEditLine)
+        Me.PanelLineActions.Controls.Add(Me.btnAddLine)
+        Me.PanelLineActions.Dock = System.Windows.Forms.DockStyle.Right
+        Me.PanelLineActions.Location = New System.Drawing.Point(755, 16)
+        Me.PanelLineActions.Name = "PanelLineActions"
+        Me.PanelLineActions.Size = New System.Drawing.Size(159, 134)
+        Me.PanelLineActions.TabIndex = 9
+        '
+        'btnDeleteLine
+        '
+        Me.btnDeleteLine.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnDeleteLine.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnDeleteLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnDeleteLine.Location = New System.Drawing.Point(0, 47)
+        Me.btnDeleteLine.Name = "btnDeleteLine"
+        Me.btnDeleteLine.Size = New System.Drawing.Size(159, 42)
+        Me.btnDeleteLine.TabIndex = 1
+        Me.btnDeleteLine.Text = "Eliminar"
+        Me.btnDeleteLine.UseVisualStyleBackColor = True
+        '
+        'btnEditLine
+        '
+        Me.btnEditLine.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnEditLine.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnEditLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnEditLine.Location = New System.Drawing.Point(0, 89)
+        Me.btnEditLine.Name = "btnEditLine"
+        Me.btnEditLine.Size = New System.Drawing.Size(159, 45)
+        Me.btnEditLine.TabIndex = 2
+        Me.btnEditLine.Text = "Editar"
+        Me.btnEditLine.UseVisualStyleBackColor = True
+        '
+        'btnAddLine
+        '
+        Me.btnAddLine.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnAddLine.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnAddLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAddLine.Location = New System.Drawing.Point(0, 0)
+        Me.btnAddLine.Name = "btnAddLine"
+        Me.btnAddLine.Size = New System.Drawing.Size(159, 47)
+        Me.btnAddLine.TabIndex = 0
+        Me.btnAddLine.Text = "Agregar"
+        Me.btnAddLine.UseVisualStyleBackColor = True
+        '
+        'txtItemName
+        '
+        Me.txtItemName.Location = New System.Drawing.Point(75, 47)
+        Me.txtItemName.MaxLength = 100
+        Me.txtItemName.Name = "txtItemName"
+        Me.txtItemName.Size = New System.Drawing.Size(224, 20)
+        Me.txtItemName.TabIndex = 8
+        '
+        'txtItemId
+        '
+        Me.txtItemId.Location = New System.Drawing.Point(75, 21)
+        Me.txtItemId.MaxLength = 20
+        Me.txtItemId.Name = "txtItemId"
+        Me.txtItemId.Size = New System.Drawing.Size(104, 20)
+        Me.txtItemId.TabIndex = 7
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(25, 50)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(44, 13)
+        Me.Label2.TabIndex = 6
+        Me.Label2.Text = "Nombre"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(14, 24)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(55, 13)
+        Me.Label3.TabIndex = 5
+        Me.Label3.Text = "Id artículo"
+        '
         'GroupBoxLineDetails
         '
         Me.GroupBoxLineDetails.Controls.Add(Me.dgvLines)
@@ -108,78 +177,6 @@ Partial Class FrmOrdenCompra
         Me.GroupBoxLineDetails.TabIndex = 2
         Me.GroupBoxLineDetails.TabStop = False
         Me.GroupBoxLineDetails.Text = "Detalle de línea"
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.MenuStrip1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoToolStripMenuItem, Me.AccionesToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(917, 25)
-        Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'NuevoToolStripMenuItem
-        '
-        Me.NuevoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.EliminarToolStripMenuItem})
-        Me.NuevoToolStripMenuItem.Name = "NuevoToolStripMenuItem"
-        Me.NuevoToolStripMenuItem.Size = New System.Drawing.Size(63, 21)
-        Me.NuevoToolStripMenuItem.Text = "Edición"
-        '
-        'AccionesToolStripMenuItem
-        '
-        Me.AccionesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfirmarToolStripMenuItem, Me.CancelarToolStripMenuItem})
-        Me.AccionesToolStripMenuItem.Name = "AccionesToolStripMenuItem"
-        Me.AccionesToolStripMenuItem.Size = New System.Drawing.Size(73, 21)
-        Me.AccionesToolStripMenuItem.Text = "Acciones"
-        '
-        'ConfirmarToolStripMenuItem
-        '
-        Me.ConfirmarToolStripMenuItem.Name = "ConfirmarToolStripMenuItem"
-        Me.ConfirmarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ConfirmarToolStripMenuItem.Text = "Confirmar"
-        '
-        'CancelarToolStripMenuItem
-        '
-        Me.CancelarToolStripMenuItem.Name = "CancelarToolStripMenuItem"
-        Me.CancelarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.CancelarToolStripMenuItem.Text = "Cancelar"
-        '
-        'NuevoToolStripMenuItem1
-        '
-        Me.NuevoToolStripMenuItem1.Name = "NuevoToolStripMenuItem1"
-        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
-        Me.NuevoToolStripMenuItem1.Text = "Nuevo"
-        '
-        'EditarToolStripMenuItem
-        '
-        Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.EditarToolStripMenuItem.Text = "Editar"
-        '
-        'EliminarToolStripMenuItem
-        '
-        Me.EliminarToolStripMenuItem.Name = "EliminarToolStripMenuItem"
-        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.EliminarToolStripMenuItem.Text = "Eliminar"
-        '
-        'txtOrdenCompraId
-        '
-        Me.txtOrdenCompraId.Location = New System.Drawing.Point(75, 19)
-        Me.txtOrdenCompraId.MaxLength = 20
-        Me.txtOrdenCompraId.Name = "txtOrdenCompraId"
-        Me.txtOrdenCompraId.Size = New System.Drawing.Size(104, 20)
-        Me.txtOrdenCompraId.TabIndex = 5
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(18, 22)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(46, 13)
-        Me.Label1.TabIndex = 4
-        Me.Label1.Text = "Id orden"
         '
         'dgvLines
         '
@@ -230,86 +227,90 @@ Partial Class FrmOrdenCompra
         Me.LineAmount.Name = "LineAmount"
         Me.LineAmount.ReadOnly = True
         '
-        'txtItemName
+        'GroupBoxHeader
         '
-        Me.txtItemName.Location = New System.Drawing.Point(75, 47)
-        Me.txtItemName.MaxLength = 100
-        Me.txtItemName.Name = "txtItemName"
-        Me.txtItemName.Size = New System.Drawing.Size(224, 20)
-        Me.txtItemName.TabIndex = 8
+        Me.GroupBoxHeader.Controls.Add(Me.txtOrdenCompraId)
+        Me.GroupBoxHeader.Controls.Add(Me.Label1)
+        Me.GroupBoxHeader.Dock = System.Windows.Forms.DockStyle.Top
+        Me.GroupBoxHeader.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBoxHeader.Name = "GroupBoxHeader"
+        Me.GroupBoxHeader.Size = New System.Drawing.Size(917, 100)
+        Me.GroupBoxHeader.TabIndex = 0
+        Me.GroupBoxHeader.TabStop = False
+        Me.GroupBoxHeader.Text = "Encabezado"
         '
-        'txtItemId
+        'txtOrdenCompraId
         '
-        Me.txtItemId.Location = New System.Drawing.Point(75, 21)
-        Me.txtItemId.MaxLength = 20
-        Me.txtItemId.Name = "txtItemId"
-        Me.txtItemId.Size = New System.Drawing.Size(104, 20)
-        Me.txtItemId.TabIndex = 7
+        Me.txtOrdenCompraId.Location = New System.Drawing.Point(75, 19)
+        Me.txtOrdenCompraId.MaxLength = 20
+        Me.txtOrdenCompraId.Name = "txtOrdenCompraId"
+        Me.txtOrdenCompraId.Size = New System.Drawing.Size(104, 20)
+        Me.txtOrdenCompraId.TabIndex = 5
         '
-        'Label2
+        'Label1
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(25, 50)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(44, 13)
-        Me.Label2.TabIndex = 6
-        Me.Label2.Text = "Nombre"
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(18, 22)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(46, 13)
+        Me.Label1.TabIndex = 4
+        Me.Label1.Text = "Id orden"
         '
-        'Label3
+        'MenuStrip1
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(14, 24)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(55, 13)
-        Me.Label3.TabIndex = 5
-        Me.Label3.Text = "Id artículo"
+        Me.MenuStrip1.AllowMerge = False
+        Me.MenuStrip1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.MenuStrip1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoToolStripMenuItem, Me.AccionesToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(917, 25)
+        Me.MenuStrip1.TabIndex = 0
+        Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'PanelLineActions
+        'NuevoToolStripMenuItem
         '
-        Me.PanelLineActions.Controls.Add(Me.btnDeleteLine)
-        Me.PanelLineActions.Controls.Add(Me.btnEditLine)
-        Me.PanelLineActions.Controls.Add(Me.btnAddLine)
-        Me.PanelLineActions.Dock = System.Windows.Forms.DockStyle.Right
-        Me.PanelLineActions.Location = New System.Drawing.Point(755, 16)
-        Me.PanelLineActions.Name = "PanelLineActions"
-        Me.PanelLineActions.Size = New System.Drawing.Size(159, 134)
-        Me.PanelLineActions.TabIndex = 9
+        Me.NuevoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoToolStripMenuItem1, Me.EditarToolStripMenuItem, Me.EliminarToolStripMenuItem})
+        Me.NuevoToolStripMenuItem.Name = "NuevoToolStripMenuItem"
+        Me.NuevoToolStripMenuItem.Size = New System.Drawing.Size(63, 21)
+        Me.NuevoToolStripMenuItem.Text = "Edición"
         '
-        'btnAddLine
+        'NuevoToolStripMenuItem1
         '
-        Me.btnAddLine.Dock = System.Windows.Forms.DockStyle.Top
-        Me.btnAddLine.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnAddLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAddLine.Location = New System.Drawing.Point(0, 0)
-        Me.btnAddLine.Name = "btnAddLine"
-        Me.btnAddLine.Size = New System.Drawing.Size(159, 47)
-        Me.btnAddLine.TabIndex = 0
-        Me.btnAddLine.Text = "Agregar"
-        Me.btnAddLine.UseVisualStyleBackColor = True
+        Me.NuevoToolStripMenuItem1.Name = "NuevoToolStripMenuItem1"
+        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(124, 22)
+        Me.NuevoToolStripMenuItem1.Text = "Nuevo"
         '
-        'btnDeleteLine
+        'EditarToolStripMenuItem
         '
-        Me.btnDeleteLine.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnDeleteLine.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnDeleteLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDeleteLine.Location = New System.Drawing.Point(0, 47)
-        Me.btnDeleteLine.Name = "btnDeleteLine"
-        Me.btnDeleteLine.Size = New System.Drawing.Size(159, 42)
-        Me.btnDeleteLine.TabIndex = 1
-        Me.btnDeleteLine.Text = "Eliminar"
-        Me.btnDeleteLine.UseVisualStyleBackColor = True
+        Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.EditarToolStripMenuItem.Text = "Editar"
         '
-        'btnEditLine
+        'EliminarToolStripMenuItem
         '
-        Me.btnEditLine.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.btnEditLine.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnEditLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnEditLine.Location = New System.Drawing.Point(0, 89)
-        Me.btnEditLine.Name = "btnEditLine"
-        Me.btnEditLine.Size = New System.Drawing.Size(159, 45)
-        Me.btnEditLine.TabIndex = 2
-        Me.btnEditLine.Text = "Editar"
-        Me.btnEditLine.UseVisualStyleBackColor = True
+        Me.EliminarToolStripMenuItem.Name = "EliminarToolStripMenuItem"
+        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.EliminarToolStripMenuItem.Text = "Eliminar"
+        '
+        'AccionesToolStripMenuItem
+        '
+        Me.AccionesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfirmarToolStripMenuItem, Me.CancelarToolStripMenuItem})
+        Me.AccionesToolStripMenuItem.Name = "AccionesToolStripMenuItem"
+        Me.AccionesToolStripMenuItem.Size = New System.Drawing.Size(73, 21)
+        Me.AccionesToolStripMenuItem.Text = "Acciones"
+        '
+        'ConfirmarToolStripMenuItem
+        '
+        Me.ConfirmarToolStripMenuItem.Name = "ConfirmarToolStripMenuItem"
+        Me.ConfirmarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ConfirmarToolStripMenuItem.Text = "Confirmar"
+        '
+        'CancelarToolStripMenuItem
+        '
+        Me.CancelarToolStripMenuItem.Name = "CancelarToolStripMenuItem"
+        Me.CancelarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CancelarToolStripMenuItem.Text = "Cancelar"
         '
         'FrmOrdenCompra
         '
@@ -322,15 +323,15 @@ Partial Class FrmOrdenCompra
         Me.Name = "FrmOrdenCompra"
         Me.Text = "Orden de compra"
         Me.PanelContainer.ResumeLayout(False)
-        Me.GroupBoxHeader.ResumeLayout(False)
-        Me.GroupBoxHeader.PerformLayout()
         Me.GroupBoxLine.ResumeLayout(False)
         Me.GroupBoxLine.PerformLayout()
+        Me.PanelLineActions.ResumeLayout(False)
         Me.GroupBoxLineDetails.ResumeLayout(False)
+        CType(Me.dgvLines, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBoxHeader.ResumeLayout(False)
+        Me.GroupBoxHeader.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        CType(Me.dgvLines, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelLineActions.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

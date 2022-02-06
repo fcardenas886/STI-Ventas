@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="CompraDetallesModel.vb" />
     <Compile Include="CompraHeaderModel.vb" />
+    <Compile Include="Enums\EstadoOrdenCompra.vb" />
     <Compile Include="Enums\TipoRedondeo.vb" />
     <Compile Include="GrupoProveedorModel.vb" />
     <Compile Include="Helpers\DataModelHelper.vb" />

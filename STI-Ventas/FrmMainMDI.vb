@@ -40,8 +40,20 @@ Public Class FrmMainMDI
         child.Show()
     End Sub
 
+    '' <remarks>05.02.2021 jorge.nin92@gmail.com: Add ListPageOC</remarks>
     Private Sub TodasLasOrdenesDeCompraToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TodasLasOrdenesDeCompraToolStripMenuItem.Click
+        Dim child As Form = New FrmComprasListPage With {
+            .MdiParent = Me
+        }
+        child.Show()
+    End Sub
 
+    '' <remarks>05.02.2021 jorge.nin92@gmail.com: Add Ordens compra</remarks>
+    Private Sub NuevaCompraToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NuevaCompraToolStripMenuItem.Click
+        Dim child As Form = New FrmOrdenCompra With {
+            .MdiParent = Me
+        }
+        child.Show()
     End Sub
 
 #End Region

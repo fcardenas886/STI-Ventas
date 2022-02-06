@@ -10,7 +10,7 @@ Public Class CompraHeaderModel : Implements IDBTable
 	Public Property Nombre As String
 	Public Property IdProveedor As String
 	Public Property OrdenProveedor As String
-	Public Property Estado As Byte
+	Public Property Estado As EstadoOrdenCompra
 	Public Property FormaPago As String
 	Public Property FechaEntrega As DateTime
 	Public Property Correo As String
@@ -33,7 +33,8 @@ Public Class CompraHeaderModel : Implements IDBTable
 		RecordId = 0
 	End Sub
 
-	Sub New(ByVal Id_ As Integer, ByVal NumeroCompra_ As String, ByVal Moneda_ As String, ByVal Nombre_ As String, ByVal IdProveedor_ As String, ByVal OrdenProveedor_ As String, ByVal Estado_ As Byte, ByVal FormaPago_ As String, ByVal FechaEntrega_ As DateTime, ByVal Correo_ As String, ByVal Contacto_ As String)
+	Sub New(ByVal Id_ As Integer, ByVal NumeroCompra_ As String, ByVal Moneda_ As String, ByVal Nombre_ As String, ByVal IdProveedor_ As String,
+			ByVal OrdenProveedor_ As String, ByVal Estado_ As EstadoOrdenCompra, ByVal FormaPago_ As String, ByVal FechaEntrega_ As DateTime, ByVal Correo_ As String, ByVal Contacto_ As String)
 		Id = Id_
 		NumeroCompra = NumeroCompra_
 		Moneda = Moneda_

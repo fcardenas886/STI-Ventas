@@ -95,6 +95,18 @@
     <Compile Include="Catalogs\FrmGrupoProveedor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Purch\FrmComprasListPage.Designer.vb">
+      <DependentUpon>FrmComprasListPage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Purch\FrmComprasListPage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrmListPageBase.Designer.vb">
+      <DependentUpon>FrmListPageBase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrmListPageBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Catalogs\FrmMoneda.Designer.vb">
       <DependentUpon>FrmMoneda.vb</DependentUpon>
     </Compile>
@@ -153,6 +165,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Catalogs\FrmGrupoProveedor.resx">
       <DependentUpon>FrmGrupoProveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Purch\FrmComprasListPage.resx">
+      <DependentUpon>FrmComprasListPage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrmListPageBase.resx">
+      <DependentUpon>FrmListPageBase.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\FrmMoneda.resx">
       <DependentUpon>FrmMoneda.vb</DependentUpon>

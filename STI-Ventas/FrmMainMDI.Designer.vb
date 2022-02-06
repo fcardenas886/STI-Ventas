@@ -30,9 +30,10 @@ Partial Class FrmMainMDI
         Me.toolStripUnitOfMeasure = New System.Windows.Forms.ToolStripMenuItem()
         Me.GrupoDeProveedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MonedasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ProveedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ComprasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TodasLasOrdenesDeCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ProveedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NuevaCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -91,9 +92,15 @@ Partial Class FrmMainMDI
         Me.MonedasToolStripMenuItem.Size = New System.Drawing.Size(191, 22)
         Me.MonedasToolStripMenuItem.Text = "Monedas"
         '
+        'ProveedoresToolStripMenuItem
+        '
+        Me.ProveedoresToolStripMenuItem.Name = "ProveedoresToolStripMenuItem"
+        Me.ProveedoresToolStripMenuItem.Size = New System.Drawing.Size(191, 22)
+        Me.ProveedoresToolStripMenuItem.Text = "Proveedores"
+        '
         'ComprasToolStripMenuItem
         '
-        Me.ComprasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TodasLasOrdenesDeCompraToolStripMenuItem})
+        Me.ComprasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TodasLasOrdenesDeCompraToolStripMenuItem, Me.NuevaCompraToolStripMenuItem})
         Me.ComprasToolStripMenuItem.Name = "ComprasToolStripMenuItem"
         Me.ComprasToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
         Me.ComprasToolStripMenuItem.Text = "Compras"
@@ -104,11 +111,11 @@ Partial Class FrmMainMDI
         Me.TodasLasOrdenesDeCompraToolStripMenuItem.Size = New System.Drawing.Size(226, 22)
         Me.TodasLasOrdenesDeCompraToolStripMenuItem.Text = "Todas las ordenes de compra"
         '
-        'ProveedoresToolStripMenuItem
+        'NuevaCompraToolStripMenuItem
         '
-        Me.ProveedoresToolStripMenuItem.Name = "ProveedoresToolStripMenuItem"
-        Me.ProveedoresToolStripMenuItem.Size = New System.Drawing.Size(191, 22)
-        Me.ProveedoresToolStripMenuItem.Text = "Proveedores"
+        Me.NuevaCompraToolStripMenuItem.Name = "NuevaCompraToolStripMenuItem"
+        Me.NuevaCompraToolStripMenuItem.Size = New System.Drawing.Size(226, 22)
+        Me.NuevaCompraToolStripMenuItem.Text = "Nueva compra"
         '
         'FrmMainMDI
         '
@@ -145,4 +152,5 @@ Partial Class FrmMainMDI
     Friend WithEvents ProveedoresToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ComprasToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TodasLasOrdenesDeCompraToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents NuevaCompraToolStripMenuItem As ToolStripMenuItem
 End Class

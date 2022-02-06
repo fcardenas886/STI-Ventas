@@ -19,6 +19,10 @@ Module FormHelperModule
         MsgBox(exception.Message, MsgBoxStyle.Exclamation, "STI-Ventas") ', GetSTI-VentasName())
     End Sub
 
+    Public Sub HandleException(exception As String)
+        MsgBox(exception, MsgBoxStyle.Exclamation, "STI-Ventas")
+    End Sub
+
     Public Function ConfirmDeleteRecord(ByVal _id As String) As Boolean
         Return MessageBox.Show(String.Format("Desea eliminar el registro {0}", _id), "STI-Ventas", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) = DialogResult.Yes
 

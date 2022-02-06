@@ -68,8 +68,6 @@ Public Class FrmMoneda
 
             If records.Count < 1 And Not String.IsNullOrEmpty(dbController.LastError) Then
                 HandleException(dbController.LastError)
-                dtGridView.Rows.Add()
-                dtGridView.Rows.Add()
             End If
         Catch ex As Exception
             HandleException(ex)

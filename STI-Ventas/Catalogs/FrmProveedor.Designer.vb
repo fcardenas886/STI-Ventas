@@ -71,12 +71,20 @@ Partial Class FrmProveedor
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Size = New System.Drawing.Size(902, 134)
+        Me.GroupBox1.Size = New System.Drawing.Size(1060, 134)
+        '
+        'btnClose
+        '
+        Me.btnClose.TabIndex = 3
+        '
+        'btnDelete
+        '
+        Me.btnDelete.TabIndex = 2
         '
         'txtAlias
         '
         Me.txtAlias.Location = New System.Drawing.Point(105, 71)
-        Me.txtAlias.MaxLength = 100
+        Me.txtAlias.MaxLength = 40
         Me.txtAlias.Name = "txtAlias"
         Me.txtAlias.Size = New System.Drawing.Size(224, 20)
         Me.txtAlias.TabIndex = 11
@@ -131,7 +139,7 @@ Partial Class FrmProveedor
         Me.cboGrupoProveedor.Location = New System.Drawing.Point(418, 18)
         Me.cboGrupoProveedor.Name = "cboGrupoProveedor"
         Me.cboGrupoProveedor.Size = New System.Drawing.Size(132, 21)
-        Me.cboGrupoProveedor.TabIndex = 12
+        Me.cboGrupoProveedor.TabIndex = 13
         '
         'Label4
         '
@@ -166,7 +174,7 @@ Partial Class FrmProveedor
         Me.txtRUT.MaxLength = 20
         Me.txtRUT.Name = "txtRUT"
         Me.txtRUT.Size = New System.Drawing.Size(104, 20)
-        Me.txtRUT.TabIndex = 17
+        Me.txtRUT.TabIndex = 12
         '
         'Label6
         '
@@ -197,17 +205,17 @@ Partial Class FrmProveedor
         'txtDireccion
         '
         Me.txtDireccion.Location = New System.Drawing.Point(646, 45)
-        Me.txtDireccion.MaxLength = 100
+        Me.txtDireccion.MaxLength = 255
         Me.txtDireccion.Name = "txtDireccion"
-        Me.txtDireccion.Size = New System.Drawing.Size(224, 20)
+        Me.txtDireccion.Size = New System.Drawing.Size(392, 20)
         Me.txtDireccion.TabIndex = 23
         '
         'txtContacto
         '
         Me.txtContacto.Location = New System.Drawing.Point(646, 19)
-        Me.txtContacto.MaxLength = 100
+        Me.txtContacto.MaxLength = 255
         Me.txtContacto.Name = "txtContacto"
-        Me.txtContacto.Size = New System.Drawing.Size(224, 20)
+        Me.txtContacto.Size = New System.Drawing.Size(392, 20)
         Me.txtContacto.TabIndex = 22
         '
         'Label8
@@ -231,17 +239,17 @@ Partial Class FrmProveedor
         'txtEmail
         '
         Me.txtEmail.Location = New System.Drawing.Point(646, 98)
-        Me.txtEmail.MaxLength = 100
+        Me.txtEmail.MaxLength = 20
         Me.txtEmail.Name = "txtEmail"
-        Me.txtEmail.Size = New System.Drawing.Size(224, 20)
+        Me.txtEmail.Size = New System.Drawing.Size(392, 20)
         Me.txtEmail.TabIndex = 27
         '
         'txtTelefono
         '
         Me.txtTelefono.Location = New System.Drawing.Point(646, 72)
-        Me.txtTelefono.MaxLength = 100
+        Me.txtTelefono.MaxLength = 255
         Me.txtTelefono.Name = "txtTelefono"
-        Me.txtTelefono.Size = New System.Drawing.Size(224, 20)
+        Me.txtTelefono.Size = New System.Drawing.Size(392, 20)
         Me.txtTelefono.TabIndex = 26
         '
         'Label10
@@ -266,7 +274,7 @@ Partial Class FrmProveedor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(902, 450)
+        Me.ClientSize = New System.Drawing.Size(1060, 450)
         Me.Name = "FrmProveedor"
         Me.Text = "Proveedores"
         Me.GroupBox1.ResumeLayout(False)
