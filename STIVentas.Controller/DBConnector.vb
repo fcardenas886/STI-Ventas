@@ -220,4 +220,38 @@ Public Class DBConnector
 
         Return connectionString
     End Function
+
+    Public Function ReadDataTable(ByVal query As String, ByVal params As List(Of MySqlParameter)) As DataTable
+        Dim dataTable As DataTable
+        Dim command As MySqlCommand
+        Dim adaptor As MySqlDataAdapter
+
+        dataTable = New DataTable()
+
+        Try
+            Using connection As New MySqlConnection(GetConnectionString())
+                connection.Open()
+
+                command = New MySqlCommand(query, connection)
+
+                For Each param As MySqlParameter In params
+                    command.Parameters.Add(param)
+                Next
+
+                adaptor = New MySqlDataAdapter With {
+                    .SelectCommand = command
+                }
+
+                adaptor.Fill(dataTable)
+
+                connection.Close()
+            End Using
+
+        Catch ex As Exception
+            AppendError(ex)
+        End Try
+
+        Return dataTable
+    End Function
+
 End Class

@@ -7,6 +7,8 @@ Imports STIVentas.Model
 ''' <remarks>03.02.2021 jorge.nin92@gmail.com: Se crea la clase</remarks>
 Public Class GrupoProveedorController : Inherits ControllerBase : Implements IDBOperations
 
+    Private Const NombreTabla As String = "TblGrupoProveedor"
+
 #Region "DB Methods"
     Public Overloads Function Insert(iTable As IDBTable) As Boolean Implements IDBOperations.Insert
         Dim ret As Boolean = False
@@ -114,6 +116,11 @@ Public Class GrupoProveedorController : Inherits ControllerBase : Implements IDB
 
         Return ret
     End Function
+
+    Public Overrides Function TableName() As String
+        Return NombreTabla
+    End Function
+
 #End Region
 
 End Class

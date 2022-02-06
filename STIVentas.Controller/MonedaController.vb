@@ -1,7 +1,13 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports STIVentas.Model
 
+''' <summary>
+''' Controller para monedas
+''' </summary>
+''' <remarks>03.02.2021 jorge.nin92@gmail.com: Se crea la clase</remarks>
 Public Class MonedaController : Inherits ControllerBase : Implements IDBOperations
+
+    Private Const NombreTabla As String = "TblMoneda"
 
 #Region "DB Methods"
     Public Overloads Function Insert(iTable As IDBTable) As Boolean Implements IDBOperations.Insert
@@ -17,6 +23,8 @@ Public Class MonedaController : Inherits ControllerBase : Implements IDBOperatio
             dbConnector = New DBConnector()
             sql = "INSERT INTO TblMoneda(CodigoMoneda, Nombre, Descripcion, Simbolo, CodigoISO, Redondear, TipoRedondeo, RedondeoVentas, RedondeoCompras, RedondeoInventario, RedondearCompras, RedondearVentas, RedondearInventario) " _
                     & "VALUES(@Id, @Name, @Descripcion, @Simbolo, @CodigoISO, @Redondear, @TipoRedondeo, @RedondeoVentas, @RedondeoCompras, @RedondeoInventario, @RedondearCompras, @RedondearVentas, @RedondearInventario);"
+
+            CheckNullValues(table)
 
             params.Add(BuildParameter("@Id", table.CodigoMoneda, DbType.String))
             params.Add(BuildParameter("@Name", table.Nombre, DbType.String))
@@ -79,13 +87,15 @@ Public Class MonedaController : Inherits ControllerBase : Implements IDBOperatio
             table = CType(iTable, MonedaModel)
             params = New List(Of MySqlParameter)
             dbConnector = New DBConnector()
-            sql = "UPDATE TblMoneda SET Nombre = @Name, Descripcion = @Descripcion " _
+            sql = "UPDATE TblMoneda SET Nombre = @Name, Descripcion = @Descripcion, " _
                     & "Simbolo = @Simbolo, CodigoISO = @CodigoISO, " _
                     & "Redondear = @Redondear, TipoRedondeo = @TipoRedondeo, " _
                     & "RedondeoVentas = @RedondeoVentas, RedondeoCompras = @RedondeoCompras, " _
                     & "RedondeoInventario = @RedondeoInventario, RedondearCompras = @RedondearCompras, " _
                     & "RedondearVentas = @RedondearVentas, RedondearInventario = @RedondearInventario " _
                     & "WHERE CodigoMoneda = @Id;"
+
+            CheckNullValues(table)
 
             params.Add(BuildParameter("@Id", table.CodigoMoneda, DbType.String))
             params.Add(BuildParameter("@Name", table.Nombre, DbType.String))
@@ -118,15 +128,18 @@ Public Class MonedaController : Inherits ControllerBase : Implements IDBOperatio
         Dim dbConnector As DBConnector
         Dim sql As String
         Dim dataTable As DataTable
+        Dim dbTable As New MonedaModel
+        Dim redondeoType As Type
 
         Try
             dbConnector = New DBConnector()
             sql = "Select Id, CodigoMoneda, IFNULL(Nombre, ''), Descripcion, Simbolo, CodigoISO, Redondear, TipoRedondeo, RedondeoVentas, RedondeoCompras, RedondeoInventario, RedondearCompras, RedondearVentas, RedondearInventario FROM TblMoneda"
 
             dataTable = dbConnector.ReadDataTable(sql)
+            redondeoType = GetType(TipoRedondeoMoneda)
 
             For Each dataRow As DataRow In dataTable.Rows
-                ret.Add(
+                dbTable =
                         New MonedaModel With {
                             .Id = dataRow(0),
                             .CodigoMoneda = dataRow(1),
@@ -135,14 +148,16 @@ Public Class MonedaController : Inherits ControllerBase : Implements IDBOperatio
                             .Simbolo = dataRow(4),
                             .CodigoISO = dataRow(5),
                             .Redondear = dataRow(6),
-                            .TipoRedondeo = dataRow(7),
-                            .RedondeoVentas = dataRow(8),
-                            .RedondeoCompras = dataRow(9),
-                            .RedondeoInventario = dataRow(10),
+                            .TipoRedondeo = [Enum].ToObject(redondeoType, dataRow(7)),
+                            .RedondeoVentas = [Enum].ToObject(redondeoType, dataRow(8)),
+                            .RedondeoCompras = [Enum].ToObject(redondeoType, dataRow(9)),
+                            .RedondeoInventario = [Enum].ToObject(redondeoType, dataRow(10)),
                             .RedondearCompras = dataRow(11),
                             .RedondearVentas = dataRow(12),
                             .RedondearInventario = dataRow(13)}
-                        )
+                CheckNullValues(dbTable)
+
+                ret.Add(dbTable)
             Next
 
             LastError = dbConnector.LastError
@@ -153,5 +168,27 @@ Public Class MonedaController : Inherits ControllerBase : Implements IDBOperatio
 
         Return ret
     End Function
+
+    Public Overrides Function TableName() As String
+        Return NombreTabla
+    End Function
+
+    Private Sub CheckNullValues(ByRef dbTable As MonedaModel)
+
+        If dbTable.TipoRedondeo < 0 Then
+            dbTable.TipoRedondeo = 0
+        End If
+        If dbTable.RedondeoInventario < 0 Then
+            dbTable.RedondeoInventario = 0
+        End If
+        If dbTable.RedondeoVentas < 0 Then
+            dbTable.RedondeoVentas = 0
+        End If
+        If dbTable.RedondeoCompras < 0 Then
+            dbTable.RedondeoCompras = 0
+        End If
+
+
+    End Sub
 #End Region
 End Class

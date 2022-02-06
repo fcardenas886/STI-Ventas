@@ -8,6 +8,8 @@ Imports STIVentas.Model
 ''' <remarks>31.01.2021 jorge.nin92@gmail.com: Se crea la clase</remarks>
 Public Class UnidadController : Inherits ControllerBase : Implements IDBOperations
 
+    Private Const NombreTabla As String = "TblUnidadMedida"
+
 #Region "DB Methods"
     Public Overloads Function Insert(iTable As IDBTable) As Boolean Implements IDBOperations.Insert
         Dim ret As Boolean = False
@@ -117,6 +119,11 @@ Public Class UnidadController : Inherits ControllerBase : Implements IDBOperatio
 
         Return ret
     End Function
+
+    Public Overrides Function TableName() As String
+        Return NombreTabla
+    End Function
+
 #End Region
 
 End Class

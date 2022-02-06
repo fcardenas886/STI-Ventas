@@ -30,6 +30,9 @@ Partial Class FrmMainMDI
         Me.toolStripUnitOfMeasure = New System.Windows.Forms.ToolStripMenuItem()
         Me.GrupoDeProveedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MonedasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ComprasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TodasLasOrdenesDeCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ProveedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -56,7 +59,7 @@ Partial Class FrmMainMDI
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigurarToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigurarToolStripMenuItem, Me.ComprasToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
@@ -65,7 +68,7 @@ Partial Class FrmMainMDI
         '
         'ConfigurarToolStripMenuItem
         '
-        Me.ConfigurarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolStripUnitOfMeasure, Me.GrupoDeProveedoresToolStripMenuItem, Me.MonedasToolStripMenuItem})
+        Me.ConfigurarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolStripUnitOfMeasure, Me.GrupoDeProveedoresToolStripMenuItem, Me.MonedasToolStripMenuItem, Me.ProveedoresToolStripMenuItem})
         Me.ConfigurarToolStripMenuItem.Name = "ConfigurarToolStripMenuItem"
         Me.ConfigurarToolStripMenuItem.Size = New System.Drawing.Size(76, 20)
         Me.ConfigurarToolStripMenuItem.Text = "Configurar"
@@ -87,6 +90,25 @@ Partial Class FrmMainMDI
         Me.MonedasToolStripMenuItem.Name = "MonedasToolStripMenuItem"
         Me.MonedasToolStripMenuItem.Size = New System.Drawing.Size(191, 22)
         Me.MonedasToolStripMenuItem.Text = "Monedas"
+        '
+        'ComprasToolStripMenuItem
+        '
+        Me.ComprasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TodasLasOrdenesDeCompraToolStripMenuItem})
+        Me.ComprasToolStripMenuItem.Name = "ComprasToolStripMenuItem"
+        Me.ComprasToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.ComprasToolStripMenuItem.Text = "Compras"
+        '
+        'TodasLasOrdenesDeCompraToolStripMenuItem
+        '
+        Me.TodasLasOrdenesDeCompraToolStripMenuItem.Name = "TodasLasOrdenesDeCompraToolStripMenuItem"
+        Me.TodasLasOrdenesDeCompraToolStripMenuItem.Size = New System.Drawing.Size(226, 22)
+        Me.TodasLasOrdenesDeCompraToolStripMenuItem.Text = "Todas las ordenes de compra"
+        '
+        'ProveedoresToolStripMenuItem
+        '
+        Me.ProveedoresToolStripMenuItem.Name = "ProveedoresToolStripMenuItem"
+        Me.ProveedoresToolStripMenuItem.Size = New System.Drawing.Size(191, 22)
+        Me.ProveedoresToolStripMenuItem.Text = "Proveedores"
         '
         'FrmMainMDI
         '
@@ -120,4 +142,7 @@ Partial Class FrmMainMDI
     Friend WithEvents toolStripUnitOfMeasure As ToolStripMenuItem
     Friend WithEvents GrupoDeProveedoresToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MonedasToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ProveedoresToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ComprasToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TodasLasOrdenesDeCompraToolStripMenuItem As ToolStripMenuItem
 End Class

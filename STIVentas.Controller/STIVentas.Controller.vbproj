@@ -69,9 +69,14 @@
   <ItemGroup>
     <Compile Include="ControllerBase.vb" />
     <Compile Include="DBConnector.vb" />
+    <Compile Include="DBHelper\DBSelectionField.vb" />
+    <Compile Include="DBHelper\DBFilterFields.vb" />
+    <Compile Include="DBHelper\DBFilterType.vb" />
+    <Compile Include="DBHelper\DBSelect.vb" />
     <Compile Include="GrupoProveedorController.vb" />
     <Compile Include="ModulePOS.vb" />
     <Compile Include="MonedaController.vb" />
+    <Compile Include="ProveedorController.vb" />
     <Compile Include="UnidadController.vb" />
     <Compile Include="UnidadModel.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -110,6 +115,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\STIVentas.Model\STIVentas.Model.vbproj">

@@ -32,6 +32,18 @@ Public Class FrmMainMDI
         child.Show()
     End Sub
 
+    '' <remarks>05.02.2021 jorge.nin92@gmail.com: Add Monedas</remarks>
+    Private Sub ProveedoresToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProveedoresToolStripMenuItem.Click
+        Dim child As Form = New FrmProveedor With {
+            .MdiParent = Me
+        }
+        child.Show()
+    End Sub
+
+    Private Sub TodasLasOrdenesDeCompraToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TodasLasOrdenesDeCompraToolStripMenuItem.Click
+
+    End Sub
+
 #End Region
 
 #Region "Class methods"

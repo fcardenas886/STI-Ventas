@@ -101,6 +101,12 @@
     <Compile Include="Catalogs\FrmMoneda.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Catalogs\FrmProveedor.Designer.vb">
+      <DependentUpon>FrmProveedor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmProveedor.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmBase.Designer.vb">
       <DependentUpon>FrmBase.vb</DependentUpon>
     </Compile>
@@ -137,10 +143,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Purch\FrmOrdenCompra.Designer.vb">
+      <DependentUpon>FrmOrdenCompra.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Purch\FrmOrdenCompra.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Catalogs\FrmGrupoProveedor.resx">
       <DependentUpon>FrmGrupoProveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\FrmMoneda.resx">
+      <DependentUpon>FrmMoneda.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\FrmProveedor.resx">
+      <DependentUpon>FrmProveedor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmBase.resx">
       <DependentUpon>FrmBase.vb</DependentUpon>
@@ -156,6 +174,9 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Purch\FrmOrdenCompra.resx">
+      <DependentUpon>FrmOrdenCompra.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

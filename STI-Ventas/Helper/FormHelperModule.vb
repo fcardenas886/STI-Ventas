@@ -14,15 +14,21 @@ Module FormHelperModule
         End Try
 
     End Sub
-
+#Region "Metodos que muestran mensajes al usuario"
     Public Sub HandleException(ByVal exception As Exception)
-        MsgBox(exception.Message, MsgBoxStyle.Exclamation, "POS") ', GetPOSName())
+        MsgBox(exception.Message, MsgBoxStyle.Exclamation, "STI-Ventas") ', GetSTI-VentasName())
     End Sub
 
     Public Function ConfirmDeleteRecord(ByVal _id As String) As Boolean
-        Return MessageBox.Show(String.Format("Desea eliminar el registro {0}", _id), "POS", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) = DialogResult.Yes
+        Return MessageBox.Show(String.Format("Desea eliminar el registro {0}", _id), "STI-Ventas", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) = DialogResult.Yes
 
     End Function
+
+    Public Function CheckFailed(ByVal _message As String) As Boolean
+        MessageBox.Show(_message, "STI-Ventas", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        Return False
+    End Function
+#End Region
 
     Public Sub SetupDataGridView(ByVal dgv As DataGridView)
         dgv.RowsDefaultCellStyle.BackColor = Color.PaleTurquoise

@@ -67,11 +67,14 @@
   <ItemGroup>
     <Compile Include="CompraDetallesModel.vb" />
     <Compile Include="CompraHeaderModel.vb" />
+    <Compile Include="Enums\TipoRedondeo.vb" />
     <Compile Include="GrupoProveedorModel.vb" />
+    <Compile Include="Helpers\DataModelHelper.vb" />
     <Compile Include="IDBOperations.vb" />
     <Compile Include="IDBTable.vb" />
     <Compile Include="MonedaModel.vb" />
     <Compile Include="ProveedorModel.vb" />
+    <Compile Include="TablaBaseModel.vb" />
     <Compile Include="TransaccionInventarioModel.vb" />
     <Compile Include="UnidadMedidaModel.vb" />
     <Compile Include="conex.vb" />
@@ -110,5 +113,6 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.Reflection
+Imports MySql.Data.MySqlClient
 Imports STIVentas.Model
 
 ''' <summary>
@@ -76,8 +77,105 @@ Public Class ControllerBase : Implements IDBOperations
             .Value = value,
             .DbType = dbType
         }
+        If value Is Nothing Then
+            Select Case dbType
+                Case DbType.String
+                    param.Value = String.Empty
+                Case DbType.Int16
+                Case DbType.Int32
+                Case DbType.Int64
+                Case DbType.Byte
+                Case DbType.Decimal
+                Case DbType.Single
+                Case DbType.Double
+                    param.Value = 0
+                Case DbType.Boolean
+                    param.Value = False
+            End Select
+        End If
+        Return param
+    End Function
+
+    Protected Function BuildParameter(ByVal name As String, ByVal value As Object) As MySqlParameter
+        Dim param As New MySqlParameter With {
+            .ParameterName = name,
+            .Value = value
+        }
 
         Return param
     End Function
+
+    Public Overridable Function GetListSQL(ByVal sql As String) As IEnumerable(Of IDBTable)
+
+        Return Nothing
+    End Function
+
+    Public Overridable Function GetListWithFilters(Of T As {Class, New})(ByVal dbSelect As DBSelect) As List(Of T)
+        Dim ret As List(Of T) = Nothing
+        Dim dbConnector As DBConnector
+        Dim sql As String
+        Dim dataTable As DataTable
+        Dim params As List(Of MySqlParameter)
+
+        Try
+            dbConnector = New DBConnector()
+            sql = dbSelect.GetAsSQL()
+            ret = New List(Of T)
+            params = New List(Of MySqlParameter)
+
+            For Each param As DBFilterFields In dbSelect.FilterFields
+                params.Add(BuildParameter("@" & param.FieldName, param.FieldValue))
+            Next
+
+            dataTable = dbConnector.ReadDataTable(sql, params)
+
+            ret = ToList(Of T)(dataTable)
+
+        Catch ex As Exception
+            AppendError(ex)
+        End Try
+
+        Return ret
+    End Function
+
+    Protected Function ToList(Of T As {Class, New})(ByVal table As DataTable) As List(Of T)
+        Dim list As List(Of T) = Nothing
+
+        Try
+            list = New List(Of T)()
+
+            For Each row In table.AsEnumerable()
+                Dim obj As New T()
+                Dim propertyName As String
+
+                For Each prop In obj.[GetType]().GetProperties()
+                    propertyName = String.Empty
+                    Try
+                        Dim propertyInfo As PropertyInfo = obj.[GetType]().GetProperty(prop.Name)
+                        propertyName = prop.Name
+                        propertyInfo.SetValue(obj, Convert.ChangeType(row(prop.Name), propertyInfo.PropertyType), Nothing)
+                    Catch
+                        HandleCustomRowForQueryToList(obj, row, propertyName)
+                    End Try
+                Next
+
+                list.Add(obj)
+            Next
+
+            Return list
+        Catch ex As Exception
+            strLastError += ex.Message + Environment.NewLine
+        End Try
+        Return list
+    End Function
+
+    Protected Overridable Sub HandleCustomRowForQueryToList(ByRef objectToReturn As Object, ByVal dataRow As DataRow, propertyName As String)
+
+    End Sub
+
+    Public Overridable Function TableName() As String
+        Throw New Exception("Tabla no especificada.")
+    End Function
+
 #End Region
 End Class
