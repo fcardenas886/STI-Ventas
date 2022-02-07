@@ -101,10 +101,17 @@
     <Compile Include="Catalogs\FrmGrupoProveedor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Helper\ISelectedRecord.vb" />
     <Compile Include="Purch\FrmComprasListPage.Designer.vb">
       <DependentUpon>FrmComprasListPage.vb</DependentUpon>
     </Compile>
     <Compile Include="Purch\FrmComprasListPage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrmBuscaProducto.Designer.vb">
+      <DependentUpon>FrmBuscaProducto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrmBuscaProducto.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UIControl\FrmListPageBase.Designer.vb">
@@ -177,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Purch\FrmComprasListPage.resx">
       <DependentUpon>FrmComprasListPage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrmBuscaProducto.resx">
+      <DependentUpon>FrmBuscaProducto.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIControl\FrmListPageBase.resx">
       <DependentUpon>FrmListPageBase.vb</DependentUpon>

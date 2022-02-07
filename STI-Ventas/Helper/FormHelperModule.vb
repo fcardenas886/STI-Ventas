@@ -72,7 +72,8 @@ Module FormHelperModule
             e.Handled = False
         ElseIf Char.IsControl(e.KeyChar) Then
             e.Handled = False
-        ElseIf Char.IsSeparator(e.KeyChar) Then
+            'ElseIf Char.IsSeparator(e.KeyChar) Then
+        ElseIf e.KeyChar = "." Then
             e.Handled = False
         Else
             e.Handled = True

@@ -30,10 +30,23 @@ Public Class FrmListPageBase
     ''' </summary>
     ''' <returns>True si puede borrar el registro</returns>
     ''' <remarks>05.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
-    Protected Friend Function ValidateDelete() As Boolean
+    Protected Friend Overridable Function ValidateDelete() As Boolean
         Dim ret As Boolean = True
 
-        If AskToDelete() Then
+        Return ret
+    End Function
+
+    ''' <summary>
+    ''' Valida si puede eliminar el registro y pregunta al usuario
+    ''' </summary>
+    ''' <returns>True si puede borrar el registro</returns>
+    ''' <remarks>07.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
+    Private Function CanDeleteRecord() As Boolean
+        Dim ret As Boolean
+
+        ret = ValidateDelete()
+
+        If ret And AskToDelete() Then
             ret = ConfirmDeleteRecord(GetRecordIdentification())
         End If
 
@@ -49,7 +62,7 @@ Public Class FrmListPageBase
 
         Dim ret As Boolean = False
 
-        If ValidateDelete() Then
+        If CanDeleteRecord() Then
             ret = DeleteRecord()
 
             If ret Then

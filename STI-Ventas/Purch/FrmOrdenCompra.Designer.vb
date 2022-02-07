@@ -22,8 +22,20 @@ Partial Class FrmOrdenCompra
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.PanelContainer = New System.Windows.Forms.Panel()
         Me.GroupBoxLine = New System.Windows.Forms.GroupBox()
+        Me.txtMontoLinea = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.txtDescuento = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.txtPrecioUnitario = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.cboUnidad = New System.Windows.Forms.ComboBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.txtCantidad = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.btnSeleccionarArticulo = New System.Windows.Forms.Button()
         Me.PanelLineActions = New System.Windows.Forms.Panel()
         Me.btnDeleteLine = New System.Windows.Forms.Button()
         Me.btnEditLine = New System.Windows.Forms.Button()
@@ -39,6 +51,7 @@ Partial Class FrmOrdenCompra
         Me.ItemName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Qty = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Descuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.LineAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBoxHeader = New System.Windows.Forms.GroupBox()
         Me.PanelHeaderActions = New System.Windows.Forms.Panel()
@@ -72,6 +85,7 @@ Partial Class FrmOrdenCompra
         Me.AccionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfirmarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CancelarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ErrorProviderSTI = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.PanelContainer.SuspendLayout()
         Me.GroupBoxLine.SuspendLayout()
         Me.PanelLineActions.SuspendLayout()
@@ -80,6 +94,7 @@ Partial Class FrmOrdenCompra
         Me.GroupBoxHeader.SuspendLayout()
         Me.PanelHeaderActions.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.ErrorProviderSTI, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelContainer
@@ -95,6 +110,17 @@ Partial Class FrmOrdenCompra
         '
         'GroupBoxLine
         '
+        Me.GroupBoxLine.Controls.Add(Me.txtMontoLinea)
+        Me.GroupBoxLine.Controls.Add(Me.Label18)
+        Me.GroupBoxLine.Controls.Add(Me.txtDescuento)
+        Me.GroupBoxLine.Controls.Add(Me.Label17)
+        Me.GroupBoxLine.Controls.Add(Me.txtPrecioUnitario)
+        Me.GroupBoxLine.Controls.Add(Me.Label16)
+        Me.GroupBoxLine.Controls.Add(Me.cboUnidad)
+        Me.GroupBoxLine.Controls.Add(Me.Label15)
+        Me.GroupBoxLine.Controls.Add(Me.txtCantidad)
+        Me.GroupBoxLine.Controls.Add(Me.Label14)
+        Me.GroupBoxLine.Controls.Add(Me.btnSeleccionarArticulo)
         Me.GroupBoxLine.Controls.Add(Me.PanelLineActions)
         Me.GroupBoxLine.Controls.Add(Me.txtItemName)
         Me.GroupBoxLine.Controls.Add(Me.txtItemId)
@@ -103,10 +129,117 @@ Partial Class FrmOrdenCompra
         Me.GroupBoxLine.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBoxLine.Location = New System.Drawing.Point(0, 140)
         Me.GroupBoxLine.Name = "GroupBoxLine"
-        Me.GroupBoxLine.Size = New System.Drawing.Size(961, 149)
+        Me.GroupBoxLine.Size = New System.Drawing.Size(961, 138)
         Me.GroupBoxLine.TabIndex = 1
         Me.GroupBoxLine.TabStop = False
         Me.GroupBoxLine.Text = "Línea"
+        '
+        'txtMontoLinea
+        '
+        Me.txtMontoLinea.Location = New System.Drawing.Point(529, 86)
+        Me.txtMontoLinea.MaxLength = 20
+        Me.txtMontoLinea.Name = "txtMontoLinea"
+        Me.txtMontoLinea.ReadOnly = True
+        Me.txtMontoLinea.Size = New System.Drawing.Size(196, 20)
+        Me.txtMontoLinea.TabIndex = 36
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label18.Location = New System.Drawing.Point(526, 57)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(52, 17)
+        Me.Label18.TabIndex = 35
+        Me.Label18.Text = "Monto"
+        '
+        'txtDescuento
+        '
+        Me.txtDescuento.Location = New System.Drawing.Point(357, 86)
+        Me.txtDescuento.MaxLength = 20
+        Me.txtDescuento.Name = "txtDescuento"
+        Me.txtDescuento.Size = New System.Drawing.Size(141, 20)
+        Me.txtDescuento.TabIndex = 34
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label17.Location = New System.Drawing.Point(354, 57)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(85, 17)
+        Me.Label17.TabIndex = 33
+        Me.Label17.Text = "Descuento"
+        '
+        'txtPrecioUnitario
+        '
+        Me.txtPrecioUnitario.Location = New System.Drawing.Point(201, 86)
+        Me.txtPrecioUnitario.MaxLength = 20
+        Me.txtPrecioUnitario.Name = "txtPrecioUnitario"
+        Me.txtPrecioUnitario.Size = New System.Drawing.Size(141, 20)
+        Me.txtPrecioUnitario.TabIndex = 32
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label16.Location = New System.Drawing.Point(199, 57)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(114, 17)
+        Me.Label16.TabIndex = 31
+        Me.Label16.Text = "Precio unitario"
+        '
+        'cboUnidad
+        '
+        Me.cboUnidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboUnidad.Enabled = False
+        Me.cboUnidad.FormattingEnabled = True
+        Me.cboUnidad.Location = New System.Drawing.Point(621, 21)
+        Me.cboUnidad.Name = "cboUnidad"
+        Me.cboUnidad.Size = New System.Drawing.Size(104, 21)
+        Me.cboUnidad.TabIndex = 9
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(573, 24)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(41, 13)
+        Me.Label15.TabIndex = 29
+        Me.Label15.Text = "Unidad"
+        '
+        'txtCantidad
+        '
+        Me.txtCantidad.Location = New System.Drawing.Point(38, 86)
+        Me.txtCantidad.MaxLength = 20
+        Me.txtCantidad.Name = "txtCantidad"
+        Me.txtCantidad.Size = New System.Drawing.Size(141, 20)
+        Me.txtCantidad.TabIndex = 12
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label14.Location = New System.Drawing.Point(35, 57)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(72, 17)
+        Me.Label14.TabIndex = 11
+        Me.Label14.Text = "Cantidad"
+        '
+        'btnSeleccionarArticulo
+        '
+        Me.btnSeleccionarArticulo.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnSeleccionarArticulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSeleccionarArticulo.Location = New System.Drawing.Point(185, 16)
+        Me.btnSeleccionarArticulo.Name = "btnSeleccionarArticulo"
+        Me.btnSeleccionarArticulo.Size = New System.Drawing.Size(67, 25)
+        Me.btnSeleccionarArticulo.TabIndex = 10
+        Me.btnSeleccionarArticulo.Text = "Buscar"
+        Me.btnSeleccionarArticulo.UseVisualStyleBackColor = True
         '
         'PanelLineActions
         '
@@ -116,7 +249,7 @@ Partial Class FrmOrdenCompra
         Me.PanelLineActions.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelLineActions.Location = New System.Drawing.Point(799, 16)
         Me.PanelLineActions.Name = "PanelLineActions"
-        Me.PanelLineActions.Size = New System.Drawing.Size(159, 130)
+        Me.PanelLineActions.Size = New System.Drawing.Size(159, 119)
         Me.PanelLineActions.TabIndex = 9
         '
         'btnDeleteLine
@@ -124,9 +257,9 @@ Partial Class FrmOrdenCompra
         Me.btnDeleteLine.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnDeleteLine.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnDeleteLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDeleteLine.Location = New System.Drawing.Point(0, 47)
+        Me.btnDeleteLine.Location = New System.Drawing.Point(0, 41)
         Me.btnDeleteLine.Name = "btnDeleteLine"
-        Me.btnDeleteLine.Size = New System.Drawing.Size(159, 38)
+        Me.btnDeleteLine.Size = New System.Drawing.Size(159, 39)
         Me.btnDeleteLine.TabIndex = 1
         Me.btnDeleteLine.Text = "Eliminar"
         Me.btnDeleteLine.UseVisualStyleBackColor = True
@@ -136,9 +269,9 @@ Partial Class FrmOrdenCompra
         Me.btnEditLine.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnEditLine.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnEditLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnEditLine.Location = New System.Drawing.Point(0, 85)
+        Me.btnEditLine.Location = New System.Drawing.Point(0, 80)
         Me.btnEditLine.Name = "btnEditLine"
-        Me.btnEditLine.Size = New System.Drawing.Size(159, 45)
+        Me.btnEditLine.Size = New System.Drawing.Size(159, 39)
         Me.btnEditLine.TabIndex = 2
         Me.btnEditLine.Text = "Editar"
         Me.btnEditLine.UseVisualStyleBackColor = True
@@ -150,17 +283,17 @@ Partial Class FrmOrdenCompra
         Me.btnAddLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAddLine.Location = New System.Drawing.Point(0, 0)
         Me.btnAddLine.Name = "btnAddLine"
-        Me.btnAddLine.Size = New System.Drawing.Size(159, 47)
+        Me.btnAddLine.Size = New System.Drawing.Size(159, 41)
         Me.btnAddLine.TabIndex = 0
         Me.btnAddLine.Text = "Agregar"
         Me.btnAddLine.UseVisualStyleBackColor = True
         '
         'txtItemName
         '
-        Me.txtItemName.Location = New System.Drawing.Point(75, 47)
+        Me.txtItemName.Location = New System.Drawing.Point(357, 21)
         Me.txtItemName.MaxLength = 100
         Me.txtItemName.Name = "txtItemName"
-        Me.txtItemName.Size = New System.Drawing.Size(224, 20)
+        Me.txtItemName.Size = New System.Drawing.Size(155, 20)
         Me.txtItemName.TabIndex = 8
         '
         'txtItemId
@@ -174,7 +307,7 @@ Partial Class FrmOrdenCompra
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(25, 50)
+        Me.Label2.Location = New System.Drawing.Point(307, 24)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(44, 13)
         Me.Label2.TabIndex = 6
@@ -193,9 +326,9 @@ Partial Class FrmOrdenCompra
         '
         Me.GroupBoxLineDetails.Controls.Add(Me.dgvLines)
         Me.GroupBoxLineDetails.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBoxLineDetails.Location = New System.Drawing.Point(0, 289)
+        Me.GroupBoxLineDetails.Location = New System.Drawing.Point(0, 278)
         Me.GroupBoxLineDetails.Name = "GroupBoxLineDetails"
-        Me.GroupBoxLineDetails.Size = New System.Drawing.Size(961, 193)
+        Me.GroupBoxLineDetails.Size = New System.Drawing.Size(961, 204)
         Me.GroupBoxLineDetails.TabIndex = 2
         Me.GroupBoxLineDetails.TabStop = False
         Me.GroupBoxLineDetails.Text = "Detalle de línea"
@@ -205,12 +338,12 @@ Partial Class FrmOrdenCompra
         Me.dgvLines.AllowUserToAddRows = False
         Me.dgvLines.AllowUserToDeleteRows = False
         Me.dgvLines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvLines.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.LineNum, Me.ItemId, Me.ItemName, Me.Qty, Me.UnitPrice, Me.LineAmount})
+        Me.dgvLines.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.LineNum, Me.ItemId, Me.ItemName, Me.Qty, Me.UnitPrice, Me.Descuento, Me.LineAmount})
         Me.dgvLines.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvLines.Location = New System.Drawing.Point(3, 16)
         Me.dgvLines.Name = "dgvLines"
         Me.dgvLines.ReadOnly = True
-        Me.dgvLines.Size = New System.Drawing.Size(955, 174)
+        Me.dgvLines.Size = New System.Drawing.Size(955, 185)
         Me.dgvLines.TabIndex = 0
         '
         'LineNum
@@ -218,6 +351,7 @@ Partial Class FrmOrdenCompra
         Me.LineNum.HeaderText = "Línea"
         Me.LineNum.Name = "LineNum"
         Me.LineNum.ReadOnly = True
+        Me.LineNum.Width = 70
         '
         'ItemId
         '
@@ -230,6 +364,7 @@ Partial Class FrmOrdenCompra
         Me.ItemName.HeaderText = "Nombre artículo"
         Me.ItemName.Name = "ItemName"
         Me.ItemName.ReadOnly = True
+        Me.ItemName.Width = 170
         '
         'Qty
         '
@@ -243,11 +378,19 @@ Partial Class FrmOrdenCompra
         Me.UnitPrice.Name = "UnitPrice"
         Me.UnitPrice.ReadOnly = True
         '
+        'Descuento
+        '
+        Me.Descuento.HeaderText = "Descuento"
+        Me.Descuento.Name = "Descuento"
+        Me.Descuento.ReadOnly = True
+        '
         'LineAmount
         '
         Me.LineAmount.HeaderText = "Monto"
+        Me.LineAmount.MinimumWidth = 50
         Me.LineAmount.Name = "LineAmount"
         Me.LineAmount.ReadOnly = True
+        Me.LineAmount.Width = 140
         '
         'GroupBoxHeader
         '
@@ -299,7 +442,7 @@ Partial Class FrmOrdenCompra
         Me.btnGuardarOC.Location = New System.Drawing.Point(0, 0)
         Me.btnGuardarOC.Name = "btnGuardarOC"
         Me.btnGuardarOC.Size = New System.Drawing.Size(159, 47)
-        Me.btnGuardarOC.TabIndex = 1
+        Me.btnGuardarOC.TabIndex = 100
         Me.btnGuardarOC.Text = "Guardar"
         Me.btnGuardarOC.UseVisualStyleBackColor = True
         '
@@ -319,7 +462,7 @@ Partial Class FrmOrdenCompra
         Me.dateTimeFechaEntrega.MinDate = New Date(2000, 1, 1, 0, 0, 0, 0)
         Me.dateTimeFechaEntrega.Name = "dateTimeFechaEntrega"
         Me.dateTimeFechaEntrega.Size = New System.Drawing.Size(167, 20)
-        Me.dateTimeFechaEntrega.TabIndex = 42
+        Me.dateTimeFechaEntrega.TabIndex = 36
         '
         'txtContacto
         '
@@ -358,7 +501,7 @@ Partial Class FrmOrdenCompra
         Me.txtOrdenProveedor.Location = New System.Drawing.Point(357, 96)
         Me.txtOrdenProveedor.Name = "txtOrdenProveedor"
         Me.txtOrdenProveedor.Size = New System.Drawing.Size(155, 20)
-        Me.txtOrdenProveedor.TabIndex = 37
+        Me.txtOrdenProveedor.TabIndex = 33
         '
         'Label10
         '
@@ -374,7 +517,7 @@ Partial Class FrmOrdenCompra
         Me.txtVendorName.Location = New System.Drawing.Point(85, 96)
         Me.txtVendorName.Name = "txtVendorName"
         Me.txtVendorName.Size = New System.Drawing.Size(167, 20)
-        Me.txtVendorName.TabIndex = 35
+        Me.txtVendorName.TabIndex = 27
         '
         'Label9
         '
@@ -515,13 +658,13 @@ Partial Class FrmOrdenCompra
         'NuevoToolStripMenuItem1
         '
         Me.NuevoToolStripMenuItem1.Name = "NuevoToolStripMenuItem1"
-        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(124, 22)
         Me.NuevoToolStripMenuItem1.Text = "Nuevo"
         '
         'EliminarToolStripMenuItem
         '
         Me.EliminarToolStripMenuItem.Name = "EliminarToolStripMenuItem"
-        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.EliminarToolStripMenuItem.Text = "Eliminar"
         '
         'AccionesToolStripMenuItem
@@ -542,6 +685,10 @@ Partial Class FrmOrdenCompra
         Me.CancelarToolStripMenuItem.Name = "CancelarToolStripMenuItem"
         Me.CancelarToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
         Me.CancelarToolStripMenuItem.Text = "Cancelar"
+        '
+        'ErrorProviderSTI
+        '
+        Me.ErrorProviderSTI.ContainerControl = Me
         '
         'FrmOrdenCompra
         '
@@ -564,6 +711,7 @@ Partial Class FrmOrdenCompra
         Me.PanelHeaderActions.ResumeLayout(False)
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        CType(Me.ErrorProviderSTI, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -581,12 +729,6 @@ Partial Class FrmOrdenCompra
     Friend WithEvents ConfirmarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CancelarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents dgvLines As DataGridView
-    Friend WithEvents LineNum As DataGridViewTextBoxColumn
-    Friend WithEvents ItemId As DataGridViewTextBoxColumn
-    Friend WithEvents ItemName As DataGridViewTextBoxColumn
-    Friend WithEvents Qty As DataGridViewTextBoxColumn
-    Friend WithEvents UnitPrice As DataGridViewTextBoxColumn
-    Friend WithEvents LineAmount As DataGridViewTextBoxColumn
     Friend WithEvents txtOrdenCompraId As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents txtItemName As TextBox
@@ -619,4 +761,23 @@ Partial Class FrmOrdenCompra
     Friend WithEvents Label9 As Label
     Friend WithEvents PanelHeaderActions As Panel
     Friend WithEvents btnGuardarOC As Button
+    Friend WithEvents btnSeleccionarArticulo As Button
+    Friend WithEvents cboUnidad As ComboBox
+    Friend WithEvents Label15 As Label
+    Friend WithEvents txtCantidad As TextBox
+    Friend WithEvents Label14 As Label
+    Friend WithEvents txtMontoLinea As TextBox
+    Friend WithEvents Label18 As Label
+    Friend WithEvents txtDescuento As TextBox
+    Friend WithEvents Label17 As Label
+    Friend WithEvents txtPrecioUnitario As TextBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents LineNum As DataGridViewTextBoxColumn
+    Friend WithEvents ItemId As DataGridViewTextBoxColumn
+    Friend WithEvents ItemName As DataGridViewTextBoxColumn
+    Friend WithEvents Qty As DataGridViewTextBoxColumn
+    Friend WithEvents UnitPrice As DataGridViewTextBoxColumn
+    Friend WithEvents Descuento As DataGridViewTextBoxColumn
+    Friend WithEvents LineAmount As DataGridViewTextBoxColumn
+    Friend WithEvents ErrorProviderSTI As ErrorProvider
 End Class

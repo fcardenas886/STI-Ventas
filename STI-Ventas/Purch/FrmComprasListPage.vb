@@ -25,7 +25,26 @@ Public Class FrmComprasListPage
     ''' <returns>True si elimino</returns>
     ''' <remarks>05.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Friend Overrides Function DeleteRecord() As Boolean
-        Return False
+        Dim deleted As Boolean = False
+        Dim controller As ComprasController
+
+        Try
+            Cursor = Cursors.WaitCursor
+            controller = New ComprasController()
+            deleted = controller.Delete(GetCurrentPurchaseOrder())
+
+            If Not deleted Then
+                HandleException(controller.LastError)
+            End If
+
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            Cursor = Cursors.Default
+        End Try
+
+        Return deleted
+
     End Function
 
     ''' <summary>
@@ -34,6 +53,10 @@ Public Class FrmComprasListPage
     ''' <returns>Devuelve el identificador para el registrro</returns>
     ''' <remarks>05.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Friend Overrides Function GetRecordIdentification() As String
+        If dgvListPage.CurrentRow IsNot Nothing Then
+            Return dgvListPage.CurrentRow().Cells().Item(1).Value
+
+        End If
         Return String.Empty
     End Function
 
@@ -220,6 +243,77 @@ Public Class FrmComprasListPage
             HandleException(ex)
         End Try
         Return recordId
+    End Function
+
+    ''' <summary>
+    ''' Maneja el evento clic del grig
+    ''' </summary>
+    ''' <param name="e">Evento que se detona</param>
+    ''' <remarks>07.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
+    Protected Overrides Sub OnSelectedRow(e As DataGridViewCellEventArgs)
+        If e.RowIndex >= 0 Then
+            OnEditRecordSelected()
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Valida si puede eliminar el registro
+    ''' </summary>
+    ''' <returns>True si puede borrar el registro</returns>
+    ''' <remarks>06.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
+    Protected Friend Overrides Function ValidateDelete() As Boolean
+        Dim ret As Boolean = True
+        Dim ordenCompra As CompraHeaderModel = GetCurrentPurchaseOrder()
+        Dim strMsg As String = String.Empty
+
+        If ordenCompra.Estado <> EstadoOrdenCompra.Borrador Then
+            strMsg = "Solo se pueden eliminar ordenes de venta en borrador"
+        End If
+
+        If Not String.IsNullOrEmpty(strMsg) Then
+            ret = CheckFailed(strMsg)
+        End If
+
+        Return ret
+    End Function
+
+    Public Function GetCurrentPurchaseOrder() As CompraHeaderModel
+        Dim dbTable As New CompraHeaderModel
+        Dim controller As ComprasController
+        Dim records As List(Of CompraHeaderModel)
+        Dim dbSelect As DBSelect
+        Dim strId As String
+        Dim strDetails As String
+
+        Try
+            Cursor = Cursors.WaitCursor
+
+            strId = GetCurrentRecordId().ToString()
+            controller = New ComprasController()
+            dbSelect = New DBSelect(controller.TableName())
+            dbSelect.FilterFields.Add(New DBFilterFields("Id", DBFilterType.Equal, strId))
+
+            records = controller.GetListWithFilters(Of CompraHeaderModel)(dbSelect)
+
+            If records.Count < 0 Then
+                strDetails = String.Format("No se encontro la orden de compra con el identificador interno {0}", strId)
+
+                If Not String.IsNullOrEmpty(controller.LastError) Then
+                    strDetails &= "Detalles del error: " & Environment.NewLine & controller.LastError
+                End If
+
+                Throw New Exception(strDetails)
+            End If
+
+            dbTable = records.FirstOrDefault()
+
+            If records.Count < 1 And Not String.IsNullOrEmpty(controller.LastError) Then
+                Throw New Exception(controller.LastError)
+            End If
+        Finally
+            Cursor = Cursors.Default
+        End Try
+        Return dbTable
     End Function
 
 #End Region
