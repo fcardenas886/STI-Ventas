@@ -56,6 +56,13 @@ Public Class FrmMainMDI
         child.Show()
     End Sub
 
+    Private Sub FormaDePagoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FormaDePagoToolStripMenuItem.Click
+        Dim child As Form = New FrmFormaPago With {
+            .MdiParent = Me
+        }
+        child.Show()
+    End Sub
+
 #End Region
 
 #Region "Class methods"

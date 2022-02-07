@@ -34,8 +34,8 @@ Partial Class FrmListPageBase
         Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PanelContainer = New System.Windows.Forms.Panel()
         Me.GroupBoxButtonActions = New System.Windows.Forms.GroupBox()
-        Me.btnFiltrar = New System.Windows.Forms.Button()
         Me.btnCerrar = New System.Windows.Forms.Button()
+        Me.btnFiltrar = New System.Windows.Forms.Button()
         Me.GroupBoxDetails.SuspendLayout()
         CType(Me.dgvListPage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStripMainActions.SuspendLayout()
@@ -57,9 +57,9 @@ Partial Class FrmListPageBase
         '
         Me.GroupBoxDetails.Controls.Add(Me.dgvListPage)
         Me.GroupBoxDetails.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBoxDetails.Location = New System.Drawing.Point(0, 25)
+        Me.GroupBoxDetails.Location = New System.Drawing.Point(0, 125)
         Me.GroupBoxDetails.Name = "GroupBoxDetails"
-        Me.GroupBoxDetails.Size = New System.Drawing.Size(800, 425)
+        Me.GroupBoxDetails.Size = New System.Drawing.Size(800, 325)
         Me.GroupBoxDetails.TabIndex = 1
         Me.GroupBoxDetails.TabStop = False
         Me.GroupBoxDetails.Text = "Detalles"
@@ -73,7 +73,7 @@ Partial Class FrmListPageBase
         Me.dgvListPage.Location = New System.Drawing.Point(3, 16)
         Me.dgvListPage.Name = "dgvListPage"
         Me.dgvListPage.ReadOnly = True
-        Me.dgvListPage.Size = New System.Drawing.Size(794, 406)
+        Me.dgvListPage.Size = New System.Drawing.Size(794, 306)
         Me.dgvListPage.TabIndex = 0
         '
         'MenuStripMainActions
@@ -99,19 +99,19 @@ Partial Class FrmListPageBase
         'NuevoToolStripMenuItem1
         '
         Me.NuevoToolStripMenuItem1.Name = "NuevoToolStripMenuItem1"
-        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(124, 22)
+        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
         Me.NuevoToolStripMenuItem1.Text = "Nuevo"
         '
         'EditarToolStripMenuItem
         '
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.EditarToolStripMenuItem.Text = "Editar"
         '
         'EliminarToolStripMenuItem
         '
         Me.EliminarToolStripMenuItem.Name = "EliminarToolStripMenuItem"
-        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.EliminarToolStripMenuItem.Text = "Eliminar"
         '
         'AccionesToolStripMenuItem
@@ -149,6 +149,16 @@ Partial Class FrmListPageBase
         Me.GroupBoxButtonActions.TabStop = False
         Me.GroupBoxButtonActions.Text = "Opciones"
         '
+        'btnCerrar
+        '
+        Me.btnCerrar.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btnCerrar.Location = New System.Drawing.Point(43, 50)
+        Me.btnCerrar.Name = "btnCerrar"
+        Me.btnCerrar.Size = New System.Drawing.Size(75, 23)
+        Me.btnCerrar.TabIndex = 1
+        Me.btnCerrar.Text = "Cerrar"
+        Me.btnCerrar.UseVisualStyleBackColor = True
+        '
         'btnFiltrar
         '
         Me.btnFiltrar.Location = New System.Drawing.Point(43, 20)
@@ -158,15 +168,6 @@ Partial Class FrmListPageBase
         Me.btnFiltrar.Text = "Filtrar"
         Me.btnFiltrar.UseVisualStyleBackColor = True
         '
-        'btnCerrar
-        '
-        Me.btnCerrar.Location = New System.Drawing.Point(43, 50)
-        Me.btnCerrar.Name = "btnCerrar"
-        Me.btnCerrar.Size = New System.Drawing.Size(75, 23)
-        Me.btnCerrar.TabIndex = 1
-        Me.btnCerrar.Text = "Cerrar"
-        Me.btnCerrar.UseVisualStyleBackColor = True
-        '
         'FrmListPageBase
         '
         Me.AcceptButton = Me.btnFiltrar
@@ -174,8 +175,8 @@ Partial Class FrmListPageBase
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCerrar
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.PanelContainer)
         Me.Controls.Add(Me.GroupBoxDetails)
+        Me.Controls.Add(Me.PanelContainer)
         Me.Controls.Add(Me.MenuStripMainActions)
         Me.Name = "FrmListPageBase"
         Me.Text = "Lista de datos"

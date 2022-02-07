@@ -34,7 +34,6 @@ Partial Class FrmProveedor
         Me.cboMoneda = New System.Windows.Forms.ComboBox()
         Me.txtRUT = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.txtFormaPago = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtDireccion = New System.Windows.Forms.TextBox()
         Me.txtContacto = New System.Windows.Forms.TextBox()
@@ -44,11 +43,13 @@ Partial Class FrmProveedor
         Me.txtTelefono = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.cboFormaPago = New System.Windows.Forms.ComboBox()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cboFormaPago)
         Me.GroupBox1.Controls.Add(Me.txtEmail)
         Me.GroupBox1.Controls.Add(Me.txtTelefono)
         Me.GroupBox1.Controls.Add(Me.Label10)
@@ -57,7 +58,6 @@ Partial Class FrmProveedor
         Me.GroupBox1.Controls.Add(Me.txtContacto)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.Label9)
-        Me.GroupBox1.Controls.Add(Me.txtFormaPago)
         Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.txtRUT)
         Me.GroupBox1.Controls.Add(Me.Label6)
@@ -185,14 +185,6 @@ Partial Class FrmProveedor
         Me.Label6.TabIndex = 16
         Me.Label6.Text = "RUT"
         '
-        'txtFormaPago
-        '
-        Me.txtFormaPago.Location = New System.Drawing.Point(418, 71)
-        Me.txtFormaPago.MaxLength = 20
-        Me.txtFormaPago.Name = "txtFormaPago"
-        Me.txtFormaPago.Size = New System.Drawing.Size(104, 20)
-        Me.txtFormaPago.TabIndex = 19
-        '
         'Label7
         '
         Me.Label7.AutoSize = True
@@ -270,6 +262,15 @@ Partial Class FrmProveedor
         Me.Label11.TabIndex = 24
         Me.Label11.Text = "Telefono"
         '
+        'cboFormaPago
+        '
+        Me.cboFormaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboFormaPago.FormattingEnabled = True
+        Me.cboFormaPago.Location = New System.Drawing.Point(418, 70)
+        Me.cboFormaPago.Name = "cboFormaPago"
+        Me.cboFormaPago.Size = New System.Drawing.Size(132, 21)
+        Me.cboFormaPago.TabIndex = 15
+        '
         'FrmProveedor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -303,6 +304,6 @@ Partial Class FrmProveedor
     Friend WithEvents txtContacto As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
-    Friend WithEvents txtFormaPago As TextBox
     Friend WithEvents Label7 As Label
+    Friend WithEvents cboFormaPago As ComboBox
 End Class

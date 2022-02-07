@@ -124,10 +124,19 @@ Public Class ControllerBase : Implements IDBOperations
             params = New List(Of MySqlParameter)
 
             For Each param As DBFilterFields In dbSelect.FilterFields
-                params.Add(BuildParameter("@" & param.FieldName, param.FieldValue))
+                If param.FilterType = DBFilterType.Contains Then
+                    params.Add(BuildParameter("?" & param.FieldName, param.FieldValue))
+                Else
+                    params.Add(BuildParameter("@" & param.FieldName, param.FieldValue))
+                End If
+
             Next
 
             dataTable = dbConnector.ReadDataTable(sql, params)
+
+            If (dataTable Is Nothing Or dataTable.Rows.Count < 1) And Not String.IsNullOrEmpty(dbConnector.LastError) Then
+                strLastError += ". " + dbConnector.LastError + Environment.NewLine
+            End If
 
             ret = ToList(Of T)(dataTable)
 

@@ -34,6 +34,7 @@ Partial Class FrmMainMDI
         Me.ComprasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TodasLasOrdenesDeCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NuevaCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FormaDePagoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -69,7 +70,7 @@ Partial Class FrmMainMDI
         '
         'ConfigurarToolStripMenuItem
         '
-        Me.ConfigurarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolStripUnitOfMeasure, Me.GrupoDeProveedoresToolStripMenuItem, Me.MonedasToolStripMenuItem, Me.ProveedoresToolStripMenuItem})
+        Me.ConfigurarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolStripUnitOfMeasure, Me.GrupoDeProveedoresToolStripMenuItem, Me.MonedasToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.FormaDePagoToolStripMenuItem})
         Me.ConfigurarToolStripMenuItem.Name = "ConfigurarToolStripMenuItem"
         Me.ConfigurarToolStripMenuItem.Size = New System.Drawing.Size(76, 20)
         Me.ConfigurarToolStripMenuItem.Text = "Configurar"
@@ -117,6 +118,12 @@ Partial Class FrmMainMDI
         Me.NuevaCompraToolStripMenuItem.Size = New System.Drawing.Size(226, 22)
         Me.NuevaCompraToolStripMenuItem.Text = "Nueva compra"
         '
+        'FormaDePagoToolStripMenuItem
+        '
+        Me.FormaDePagoToolStripMenuItem.Name = "FormaDePagoToolStripMenuItem"
+        Me.FormaDePagoToolStripMenuItem.Size = New System.Drawing.Size(191, 22)
+        Me.FormaDePagoToolStripMenuItem.Text = "Forma de pago"
+        '
         'FrmMainMDI
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -153,4 +160,5 @@ Partial Class FrmMainMDI
     Friend WithEvents ComprasToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TodasLasOrdenesDeCompraToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents NuevaCompraToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FormaDePagoToolStripMenuItem As ToolStripMenuItem
 End Class

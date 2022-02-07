@@ -21,8 +21,8 @@ Public Class ComprasController : Inherits ControllerBase : Implements IDBOperati
             table = CType(iTable, CompraHeaderModel)
             params = New List(Of MySqlParameter)
             dbConnector = New DBConnector()
-            sql = "INSERT INTO TblCompraHeader(NumeroCompra, Moneda, Nombre, IdProveedor, Contacto, OrdenProveedor, Estado, FormaPago, FechaEntrega, Correo, Contacto) " &
-                    "VALUES(@Id, @Moneda, @Name, @IdProveedor, @Contacto, @OrdenProveedor, @Estado, @FormaPago, @FechaEntrega, @Correo, @Contacto);"
+            sql = "INSERT INTO TblCompraHeader(NumeroCompra, Moneda, Nombre, IdProveedor, Contacto, OrdenProveedor, Estado, FormaPago, FechaEntrega, Correo) " &
+                    "VALUES(@Id, @Moneda, @Name, @IdProveedor, @Contacto, @OrdenProveedor, @Estado, @FormaPago, @FechaEntrega, @Correo);"
 
             params.Add(BuildParameter("@Id", table.NumeroCompra, DbType.String))
             params.Add(BuildParameter("@Moneda", table.Moneda, DbType.String))
@@ -33,9 +33,8 @@ Public Class ComprasController : Inherits ControllerBase : Implements IDBOperati
 
             params.Add(BuildParameter("@Estado", table.Estado, DbType.String))
             params.Add(BuildParameter("@FormaPago", table.FormaPago, DbType.String))
-            params.Add(BuildParameter("@FechaEntrega", table.FechaEntrega, DbType.String))
+            params.Add(BuildParameter("@FechaEntrega", table.FechaEntrega, DbType.Date))
             params.Add(BuildParameter("@Correo", table.Correo, DbType.String))
-            params.Add(BuildParameter("@Contacto", table.Contacto, DbType.String))
 
             ret = dbConnector.InsertUpdate(sql, params)
             LastError = dbConnector.LastError
@@ -82,9 +81,9 @@ Public Class ComprasController : Inherits ControllerBase : Implements IDBOperati
             table = CType(iTable, CompraHeaderModel)
             params = New List(Of MySqlParameter)
             dbConnector = New DBConnector()
-            sql = "UPDATE TblCompraHeader SET Nombre = @Name " &
+            sql = "UPDATE TblCompraHeader SET Nombre = @Name, " &
                     "Moneda = @Moneda, IdProveedor = @IdProveedor, Contacto = @Contacto, OrdenProveedor = @OrdenProveedor, " &
-                    "Estado = @Estado, FormaPago = @FormaPago, FechaEntrega = @FechaEntrega, Correo = @Correo, Contacto = @Contacto" &
+                    "Estado = @Estado, FormaPago = @FormaPago, FechaEntrega = @FechaEntrega, Correo = @Correo " &
                     "WHERE NumeroCompra = @Id;"
 
             params.Add(BuildParameter("@Id", table.NumeroCompra, DbType.String))
@@ -96,9 +95,8 @@ Public Class ComprasController : Inherits ControllerBase : Implements IDBOperati
 
             params.Add(BuildParameter("@Estado", table.Estado, DbType.String))
             params.Add(BuildParameter("@FormaPago", table.FormaPago, DbType.String))
-            params.Add(BuildParameter("@FechaEntrega", table.FechaEntrega, DbType.String))
+            params.Add(BuildParameter("@FechaEntrega", table.FechaEntrega, DbType.Date))
             params.Add(BuildParameter("@Correo", table.Correo, DbType.String))
-            params.Add(BuildParameter("@Contacto", table.Contacto, DbType.String))
 
             ret = dbConnector.InsertUpdate(sql, params)
             LastError = dbConnector.LastError
