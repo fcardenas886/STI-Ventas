@@ -37,6 +37,30 @@ Module FormHelperModule
         MessageBox.Show(_message, "STI-Ventas", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         Return False
     End Function
+
+    Public Sub HandleError(exception As Exception)
+        MsgBox(exception.Message, MsgBoxStyle.Critical, "STI-Ventas") ', GetSTI-VentasName())
+    End Sub
+
+    Public Sub HandleError(exception As String)
+        MsgBox(exception, MsgBoxStyle.Critical, "STI-Ventas")
+    End Sub
+
+    Public Function AppendLastError(strLastError As String, strMsg As String) As String
+
+        If String.IsNullOrEmpty(strLastError) Then
+            strLastError = strMsg
+        Else
+            strLastError &= Environment.NewLine & strMsg
+        End If
+
+        Return strLastError
+    End Function
+
+    Public Sub Info(exception As String)
+        MsgBox(exception, MsgBoxStyle.Information, "STI-Ventas")
+    End Sub
+
 #End Region
 
 #Region "Helpers para forms"
@@ -188,5 +212,31 @@ Module FormHelperModule
         End Try
     End Sub
 
+    Public Sub FillUnidadMedidaComboBox(caller As Form, ByRef cboUnidad As ComboBox)
+        Dim controller As UnidadController
+        Dim dbTable As List(Of TablaBaseModel)
+        Dim dbSelect As DBSelect
+
+        Try
+            caller.Cursor = Cursors.WaitCursor
+            cboUnidad.DataSource = Nothing
+
+            controller = New UnidadController()
+            dbSelect = New DBSelect(controller.TableName())
+            dbSelect.SelectFields.Add(New DBSelectionField("IdUnidad", "Id"))
+
+            dbTable = controller.GetListWithFilters(Of TablaBaseModel)(dbSelect)
+
+            cboUnidad.DataSource = dbTable
+            cboUnidad.DisplayMember = "Id"
+            cboUnidad.ValueMember = "Id"
+            cboUnidad.SelectedIndex = -1
+
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            caller.Cursor = Cursors.Default
+        End Try
+    End Sub
 #End Region
 End Module

@@ -24,6 +24,17 @@ Partial Class FrmOrdenCompra
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.PanelContainer = New System.Windows.Forms.Panel()
+        Me.GroupBoxLineDetails = New System.Windows.Forms.GroupBox()
+        Me.dgvLines = New System.Windows.Forms.DataGridView()
+        Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LineNum = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ItemId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ItemName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Qty = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Descuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LineAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PanelHeaderAndLines = New System.Windows.Forms.Panel()
         Me.GroupBoxLine = New System.Windows.Forms.GroupBox()
         Me.txtMontoLinea = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -44,15 +55,6 @@ Partial Class FrmOrdenCompra
         Me.txtItemId = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.GroupBoxLineDetails = New System.Windows.Forms.GroupBox()
-        Me.dgvLines = New System.Windows.Forms.DataGridView()
-        Me.LineNum = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ItemId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ItemName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Qty = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Descuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LineAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBoxHeader = New System.Windows.Forms.GroupBox()
         Me.PanelHeaderActions = New System.Windows.Forms.Panel()
         Me.btnGuardarOC = New System.Windows.Forms.Button()
@@ -87,10 +89,11 @@ Partial Class FrmOrdenCompra
         Me.CancelarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ErrorProviderSTI = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.PanelContainer.SuspendLayout()
-        Me.GroupBoxLine.SuspendLayout()
-        Me.PanelLineActions.SuspendLayout()
         Me.GroupBoxLineDetails.SuspendLayout()
         CType(Me.dgvLines, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelHeaderAndLines.SuspendLayout()
+        Me.GroupBoxLine.SuspendLayout()
+        Me.PanelLineActions.SuspendLayout()
         Me.GroupBoxHeader.SuspendLayout()
         Me.PanelHeaderActions.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -99,14 +102,102 @@ Partial Class FrmOrdenCompra
         '
         'PanelContainer
         '
-        Me.PanelContainer.Controls.Add(Me.GroupBoxLine)
+        Me.PanelContainer.AutoScroll = True
         Me.PanelContainer.Controls.Add(Me.GroupBoxLineDetails)
-        Me.PanelContainer.Controls.Add(Me.GroupBoxHeader)
+        Me.PanelContainer.Controls.Add(Me.PanelHeaderAndLines)
         Me.PanelContainer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelContainer.Location = New System.Drawing.Point(0, 25)
         Me.PanelContainer.Name = "PanelContainer"
         Me.PanelContainer.Size = New System.Drawing.Size(961, 482)
         Me.PanelContainer.TabIndex = 0
+        '
+        'GroupBoxLineDetails
+        '
+        Me.GroupBoxLineDetails.Controls.Add(Me.dgvLines)
+        Me.GroupBoxLineDetails.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBoxLineDetails.Location = New System.Drawing.Point(0, 291)
+        Me.GroupBoxLineDetails.Name = "GroupBoxLineDetails"
+        Me.GroupBoxLineDetails.Size = New System.Drawing.Size(961, 191)
+        Me.GroupBoxLineDetails.TabIndex = 2
+        Me.GroupBoxLineDetails.TabStop = False
+        Me.GroupBoxLineDetails.Text = "Detalle de línea"
+        '
+        'dgvLines
+        '
+        Me.dgvLines.AllowUserToAddRows = False
+        Me.dgvLines.AllowUserToDeleteRows = False
+        Me.dgvLines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvLines.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.LineNum, Me.ItemId, Me.ItemName, Me.Qty, Me.UnitPrice, Me.Descuento, Me.LineAmount})
+        Me.dgvLines.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvLines.Location = New System.Drawing.Point(3, 16)
+        Me.dgvLines.Name = "dgvLines"
+        Me.dgvLines.ReadOnly = True
+        Me.dgvLines.Size = New System.Drawing.Size(955, 172)
+        Me.dgvLines.TabIndex = 0
+        '
+        'Id
+        '
+        Me.Id.Frozen = True
+        Me.Id.HeaderText = "Id"
+        Me.Id.Name = "Id"
+        Me.Id.ReadOnly = True
+        '
+        'LineNum
+        '
+        Me.LineNum.Frozen = True
+        Me.LineNum.HeaderText = "Línea"
+        Me.LineNum.Name = "LineNum"
+        Me.LineNum.ReadOnly = True
+        Me.LineNum.Width = 70
+        '
+        'ItemId
+        '
+        Me.ItemId.HeaderText = "Id Artículo"
+        Me.ItemId.Name = "ItemId"
+        Me.ItemId.ReadOnly = True
+        '
+        'ItemName
+        '
+        Me.ItemName.HeaderText = "Nombre artículo"
+        Me.ItemName.Name = "ItemName"
+        Me.ItemName.ReadOnly = True
+        Me.ItemName.Width = 170
+        '
+        'Qty
+        '
+        Me.Qty.HeaderText = "Cantidad"
+        Me.Qty.Name = "Qty"
+        Me.Qty.ReadOnly = True
+        '
+        'UnitPrice
+        '
+        Me.UnitPrice.HeaderText = "Precio unitario"
+        Me.UnitPrice.Name = "UnitPrice"
+        Me.UnitPrice.ReadOnly = True
+        '
+        'Descuento
+        '
+        Me.Descuento.HeaderText = "Descuento"
+        Me.Descuento.Name = "Descuento"
+        Me.Descuento.ReadOnly = True
+        '
+        'LineAmount
+        '
+        Me.LineAmount.HeaderText = "Monto"
+        Me.LineAmount.MinimumWidth = 50
+        Me.LineAmount.Name = "LineAmount"
+        Me.LineAmount.ReadOnly = True
+        Me.LineAmount.Width = 140
+        '
+        'PanelHeaderAndLines
+        '
+        Me.PanelHeaderAndLines.Controls.Add(Me.GroupBoxLine)
+        Me.PanelHeaderAndLines.Controls.Add(Me.GroupBoxHeader)
+        Me.PanelHeaderAndLines.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelHeaderAndLines.Location = New System.Drawing.Point(0, 0)
+        Me.PanelHeaderAndLines.Name = "PanelHeaderAndLines"
+        Me.PanelHeaderAndLines.Size = New System.Drawing.Size(961, 291)
+        Me.PanelHeaderAndLines.TabIndex = 45
         '
         'GroupBoxLine
         '
@@ -126,8 +217,10 @@ Partial Class FrmOrdenCompra
         Me.GroupBoxLine.Controls.Add(Me.txtItemId)
         Me.GroupBoxLine.Controls.Add(Me.Label2)
         Me.GroupBoxLine.Controls.Add(Me.Label3)
-        Me.GroupBoxLine.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBoxLine.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupBoxLine.Location = New System.Drawing.Point(0, 140)
+        Me.GroupBoxLine.MaximumSize = New System.Drawing.Size(961, 138)
+        Me.GroupBoxLine.MinimumSize = New System.Drawing.Size(961, 138)
         Me.GroupBoxLine.Name = "GroupBoxLine"
         Me.GroupBoxLine.Size = New System.Drawing.Size(961, 138)
         Me.GroupBoxLine.TabIndex = 1
@@ -141,7 +234,7 @@ Partial Class FrmOrdenCompra
         Me.txtMontoLinea.Name = "txtMontoLinea"
         Me.txtMontoLinea.ReadOnly = True
         Me.txtMontoLinea.Size = New System.Drawing.Size(196, 20)
-        Me.txtMontoLinea.TabIndex = 36
+        Me.txtMontoLinea.TabIndex = 15
         '
         'Label18
         '
@@ -160,7 +253,7 @@ Partial Class FrmOrdenCompra
         Me.txtDescuento.MaxLength = 20
         Me.txtDescuento.Name = "txtDescuento"
         Me.txtDescuento.Size = New System.Drawing.Size(141, 20)
-        Me.txtDescuento.TabIndex = 34
+        Me.txtDescuento.TabIndex = 14
         '
         'Label17
         '
@@ -179,7 +272,7 @@ Partial Class FrmOrdenCompra
         Me.txtPrecioUnitario.MaxLength = 20
         Me.txtPrecioUnitario.Name = "txtPrecioUnitario"
         Me.txtPrecioUnitario.Size = New System.Drawing.Size(141, 20)
-        Me.txtPrecioUnitario.TabIndex = 32
+        Me.txtPrecioUnitario.TabIndex = 13
         '
         'Label16
         '
@@ -195,7 +288,6 @@ Partial Class FrmOrdenCompra
         'cboUnidad
         '
         Me.cboUnidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboUnidad.Enabled = False
         Me.cboUnidad.FormattingEnabled = True
         Me.cboUnidad.Location = New System.Drawing.Point(621, 21)
         Me.cboUnidad.Name = "cboUnidad"
@@ -260,7 +352,7 @@ Partial Class FrmOrdenCompra
         Me.btnDeleteLine.Location = New System.Drawing.Point(0, 41)
         Me.btnDeleteLine.Name = "btnDeleteLine"
         Me.btnDeleteLine.Size = New System.Drawing.Size(159, 39)
-        Me.btnDeleteLine.TabIndex = 1
+        Me.btnDeleteLine.TabIndex = 101
         Me.btnDeleteLine.Text = "Eliminar"
         Me.btnDeleteLine.UseVisualStyleBackColor = True
         '
@@ -272,7 +364,7 @@ Partial Class FrmOrdenCompra
         Me.btnEditLine.Location = New System.Drawing.Point(0, 80)
         Me.btnEditLine.Name = "btnEditLine"
         Me.btnEditLine.Size = New System.Drawing.Size(159, 39)
-        Me.btnEditLine.TabIndex = 2
+        Me.btnEditLine.TabIndex = 102
         Me.btnEditLine.Text = "Editar"
         Me.btnEditLine.UseVisualStyleBackColor = True
         '
@@ -284,7 +376,7 @@ Partial Class FrmOrdenCompra
         Me.btnAddLine.Location = New System.Drawing.Point(0, 0)
         Me.btnAddLine.Name = "btnAddLine"
         Me.btnAddLine.Size = New System.Drawing.Size(159, 41)
-        Me.btnAddLine.TabIndex = 0
+        Me.btnAddLine.TabIndex = 100
         Me.btnAddLine.Text = "Agregar"
         Me.btnAddLine.UseVisualStyleBackColor = True
         '
@@ -321,76 +413,6 @@ Partial Class FrmOrdenCompra
         Me.Label3.Size = New System.Drawing.Size(55, 13)
         Me.Label3.TabIndex = 5
         Me.Label3.Text = "Id artículo"
-        '
-        'GroupBoxLineDetails
-        '
-        Me.GroupBoxLineDetails.Controls.Add(Me.dgvLines)
-        Me.GroupBoxLineDetails.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBoxLineDetails.Location = New System.Drawing.Point(0, 278)
-        Me.GroupBoxLineDetails.Name = "GroupBoxLineDetails"
-        Me.GroupBoxLineDetails.Size = New System.Drawing.Size(961, 204)
-        Me.GroupBoxLineDetails.TabIndex = 2
-        Me.GroupBoxLineDetails.TabStop = False
-        Me.GroupBoxLineDetails.Text = "Detalle de línea"
-        '
-        'dgvLines
-        '
-        Me.dgvLines.AllowUserToAddRows = False
-        Me.dgvLines.AllowUserToDeleteRows = False
-        Me.dgvLines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvLines.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.LineNum, Me.ItemId, Me.ItemName, Me.Qty, Me.UnitPrice, Me.Descuento, Me.LineAmount})
-        Me.dgvLines.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvLines.Location = New System.Drawing.Point(3, 16)
-        Me.dgvLines.Name = "dgvLines"
-        Me.dgvLines.ReadOnly = True
-        Me.dgvLines.Size = New System.Drawing.Size(955, 185)
-        Me.dgvLines.TabIndex = 0
-        '
-        'LineNum
-        '
-        Me.LineNum.HeaderText = "Línea"
-        Me.LineNum.Name = "LineNum"
-        Me.LineNum.ReadOnly = True
-        Me.LineNum.Width = 70
-        '
-        'ItemId
-        '
-        Me.ItemId.HeaderText = "Id Artículo"
-        Me.ItemId.Name = "ItemId"
-        Me.ItemId.ReadOnly = True
-        '
-        'ItemName
-        '
-        Me.ItemName.HeaderText = "Nombre artículo"
-        Me.ItemName.Name = "ItemName"
-        Me.ItemName.ReadOnly = True
-        Me.ItemName.Width = 170
-        '
-        'Qty
-        '
-        Me.Qty.HeaderText = "Cantidad"
-        Me.Qty.Name = "Qty"
-        Me.Qty.ReadOnly = True
-        '
-        'UnitPrice
-        '
-        Me.UnitPrice.HeaderText = "Precio unitario"
-        Me.UnitPrice.Name = "UnitPrice"
-        Me.UnitPrice.ReadOnly = True
-        '
-        'Descuento
-        '
-        Me.Descuento.HeaderText = "Descuento"
-        Me.Descuento.Name = "Descuento"
-        Me.Descuento.ReadOnly = True
-        '
-        'LineAmount
-        '
-        Me.LineAmount.HeaderText = "Monto"
-        Me.LineAmount.MinimumWidth = 50
-        Me.LineAmount.Name = "LineAmount"
-        Me.LineAmount.ReadOnly = True
-        Me.LineAmount.Width = 140
         '
         'GroupBoxHeader
         '
@@ -658,13 +680,13 @@ Partial Class FrmOrdenCompra
         'NuevoToolStripMenuItem1
         '
         Me.NuevoToolStripMenuItem1.Name = "NuevoToolStripMenuItem1"
-        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(124, 22)
+        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
         Me.NuevoToolStripMenuItem1.Text = "Nuevo"
         '
         'EliminarToolStripMenuItem
         '
         Me.EliminarToolStripMenuItem.Name = "EliminarToolStripMenuItem"
-        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.EliminarToolStripMenuItem.Text = "Eliminar"
         '
         'AccionesToolStripMenuItem
@@ -677,13 +699,13 @@ Partial Class FrmOrdenCompra
         'ConfirmarToolStripMenuItem
         '
         Me.ConfirmarToolStripMenuItem.Name = "ConfirmarToolStripMenuItem"
-        Me.ConfirmarToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.ConfirmarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ConfirmarToolStripMenuItem.Text = "Confirmar"
         '
         'CancelarToolStripMenuItem
         '
         Me.CancelarToolStripMenuItem.Name = "CancelarToolStripMenuItem"
-        Me.CancelarToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.CancelarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.CancelarToolStripMenuItem.Text = "Cancelar"
         '
         'ErrorProviderSTI
@@ -701,11 +723,12 @@ Partial Class FrmOrdenCompra
         Me.Name = "FrmOrdenCompra"
         Me.Text = "Orden de compra"
         Me.PanelContainer.ResumeLayout(False)
+        Me.GroupBoxLineDetails.ResumeLayout(False)
+        CType(Me.dgvLines, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelHeaderAndLines.ResumeLayout(False)
         Me.GroupBoxLine.ResumeLayout(False)
         Me.GroupBoxLine.PerformLayout()
         Me.PanelLineActions.ResumeLayout(False)
-        Me.GroupBoxLineDetails.ResumeLayout(False)
-        CType(Me.dgvLines, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBoxHeader.ResumeLayout(False)
         Me.GroupBoxHeader.PerformLayout()
         Me.PanelHeaderActions.ResumeLayout(False)
@@ -772,6 +795,8 @@ Partial Class FrmOrdenCompra
     Friend WithEvents Label17 As Label
     Friend WithEvents txtPrecioUnitario As TextBox
     Friend WithEvents Label16 As Label
+    Friend WithEvents ErrorProviderSTI As ErrorProvider
+    Friend WithEvents Id As DataGridViewTextBoxColumn
     Friend WithEvents LineNum As DataGridViewTextBoxColumn
     Friend WithEvents ItemId As DataGridViewTextBoxColumn
     Friend WithEvents ItemName As DataGridViewTextBoxColumn
@@ -779,5 +804,5 @@ Partial Class FrmOrdenCompra
     Friend WithEvents UnitPrice As DataGridViewTextBoxColumn
     Friend WithEvents Descuento As DataGridViewTextBoxColumn
     Friend WithEvents LineAmount As DataGridViewTextBoxColumn
-    Friend WithEvents ErrorProviderSTI As ErrorProvider
+    Friend WithEvents PanelHeaderAndLines As Panel
 End Class

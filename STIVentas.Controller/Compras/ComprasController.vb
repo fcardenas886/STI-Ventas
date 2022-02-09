@@ -153,4 +153,77 @@ Public Class ComprasController : Inherits ControllerBase : Implements IDBOperati
 
 #End Region
 
+#Region "Class methods: POS"
+    Public Function ConfirmPurchaseOrder(table As CompraHeaderModel) As Boolean
+        Dim ret As Boolean = False
+        Dim records As List(Of CompraDetallesModel)
+        Dim transacciones As List(Of TransaccionInventarioModel)
+        Dim inventTrans As TransaccionInventarioModel
+        Dim iCounter As Integer
+        Dim controller As TransaccionInventarioController
+
+        Try
+
+            records = GetPurchaseOrderLines(table.Id)
+
+            If records.Count < 1 And Not String.IsNullOrEmpty(LastError) Then
+                Throw New Exception(String.Format("Error recuperando las líneas. " & LastError))
+            End If
+
+            transacciones = New List(Of TransaccionInventarioModel)
+            iCounter = 1
+
+            For Each purchLine As CompraDetallesModel In records
+                inventTrans = New TransaccionInventarioModel With {
+                    .IdArticulo = purchLine.IdProducto,
+                    .Cantidad = purchLine.Cantidad,
+                    .Costo = purchLine.MontoNeto,
+                    .Estatus = EstadoInventario.Comprado,
+                    .FechaMovimiento = DateTime.Now,
+                    .IdTransaccion = String.Format("{0}-{1}", table.NumeroCompra, iCounter),
+                    .Moneda = table.Moneda,
+                    .NumeroReferencia = table.NumeroCompra,
+                    .Referencia = OrdenCompraReferencia(),
+                    .TipoTransaccion = TipoTransaccionInventario.Compras,
+                    .Unidad = purchLine.Unidad
+                }
+
+                iCounter += 1
+                transacciones.Add(inventTrans)
+            Next
+            controller = New TransaccionInventarioController()
+            ret = controller.InsertTransaction(transacciones)
+
+            LastError = controller.LastError
+        Catch ex As Exception
+            AppendError(ex)
+        End Try
+
+        Return ret
+    End Function
+
+    Public Function GetPurchaseOrderLines(idNumeroCompra As Long)
+        Dim controller As ComprasDetalleController
+        Dim records As List(Of CompraDetallesModel) = Nothing
+        Dim dbSelect As DBSelect
+
+        Try
+            controller = New ComprasDetalleController()
+            dbSelect = New DBSelect(controller.TableName())
+            dbSelect.FilterFields.Add(New DBFilterFields("IdCompra", DBFilterType.Equal, idNumeroCompra))
+
+            records = controller.GetListWithFilters(Of CompraDetallesModel)(dbSelect)
+
+            If records.Count < 1 And Not String.IsNullOrEmpty(controller.LastError) Then
+                Throw New Exception(controller.LastError)
+            End If
+
+        Catch ex As Exception
+            AppendError(ex)
+        End Try
+
+        Return records
+    End Function
+
+#End Region
 End Class

@@ -67,6 +67,8 @@
   <ItemGroup>
     <Compile Include="CompraDetallesModel.vb" />
     <Compile Include="CompraHeaderModel.vb" />
+    <Compile Include="Enums\TipoTransaccionInventario.vb" />
+    <Compile Include="Enums\EstadoInventario.vb" />
     <Compile Include="Enums\EstadoOrdenCompra.vb" />
     <Compile Include="Enums\TipoRedondeo.vb" />
     <Compile Include="FormaPagoModel.vb" />

@@ -12,6 +12,8 @@ Public Class FrmOrdenCompra
     Private IsNewPurchaseOrder As Boolean
     Private AllowInitFromVendor As Boolean
     Private purchLineRecordId As Long
+    Private ItemRecordId As Long
+    Private NumeroLinea As Integer
 
 #End Region
 
@@ -90,14 +92,9 @@ Public Class FrmOrdenCompra
         txtEmail.Clear()
         txtVendorName.Clear()
 
-        txtDescuento.Text = 0
-        txtPrecioUnitario.Text = 0
-        txtCantidad.Text = 0
-
         AllowInitFromVendor = False
         dateTimeFechaEntrega.Value = Date.Now
         cboProveedor.SelectedIndex = -1
-        cboMoneda.SelectedIndex = -1
         cboFormaPago.SelectedIndex = -1
 
         Try
@@ -108,7 +105,7 @@ Public Class FrmOrdenCompra
             HandleException(ex)
         End Try
 
-        txtOrdenCompra.Enabled = True
+        txtOrdenCompra.ReadOnly = False
         AllowInitFromVendor = True
     End Sub
 
@@ -119,6 +116,7 @@ Public Class FrmOrdenCompra
             FillProveedorComboBox(Me, cboProveedor)
             FillCurrencyComboBox(Me, cboMoneda)
             FillFormaPagoComboBox(Me, cboFormaPago)
+            FillUnidadMedidaComboBox(Me, cboUnidad)
         Finally
             Cursor = Cursors.Default
             AllowInitFromVendor = True
@@ -162,10 +160,10 @@ Public Class FrmOrdenCompra
             records = controller.GetListWithFilters(Of CompraHeaderModel)(dbSelect)
 
             If records.Count < 0 Then
-                strDetails = String.Format("No se encontro la orden de compra con el identificador interno {0}", txtOrdenCompraId.Text)
+                strDetails = String.Format("No se encontro la orden de compra con el identificador interno {0}.", txtOrdenCompraId.Text)
 
                 If Not String.IsNullOrEmpty(controller.LastError) Then
-                    strDetails &= "Detalles del error: " & Environment.NewLine & controller.LastError
+                    strDetails &= Environment.NewLine & "Detalles del error: " & Environment.NewLine & controller.LastError
                 End If
 
                 HandleException(strDetails)
@@ -178,15 +176,7 @@ Public Class FrmOrdenCompra
 
             SetValuesFromPurchaseOrder(ordenCompra)
 
-            'dtGridView.DataSource = records
-            dgvLines.Rows.Clear()
-
-            'For Each model As ProveedorModel In records
-            '    dtGridView.Rows().Add(model.IdProveedor, model.Nombre, model.AliasName,
-            '                            model.RUT, model.Grupo, model.Moneda,
-            '                            model.FormaPago, model.Contacto, model.Direccion,
-            '                            model.Telefono, model.Email)
-            'Next
+            GetRecordsAndPopulateLineFields()
 
             If records.Count < 1 And Not String.IsNullOrEmpty(controller.LastError) Then
                 HandleException(controller.LastError)
@@ -292,13 +282,15 @@ Public Class FrmOrdenCompra
                 If ret And String.IsNullOrEmpty(txtOrdenCompraId.Text) Then
                     GetIdFromPurchaseNum(txtOrdenCompra.Text)
                 End If
+                dgvLines.Rows.Clear()
+                ClearLineFields()
             Else
                 ret = controller.Update(GetCurrentPurchaseOrder())
             End If
             If Not ret Then
                 HandleException(controller.LastError)
             Else
-                txtOrdenCompra.Enabled = False
+                txtOrdenCompra.ReadOnly = True
                 IsNewPurchaseOrder = False
             End If
         Catch ex As Exception
@@ -336,7 +328,13 @@ Public Class FrmOrdenCompra
     Protected Sub OnNewRecordSelected()
         ClearFields()
         IsNewPurchaseOrder = True
-        txtOrdenCompra.Enabled = True
+        txtOrdenCompra.ReadOnly = False
+        dgvLines.Rows.Clear()
+        purchLineRecordId = 0
+        ItemRecordId = 0
+        NumeroCompra = String.Empty
+
+        ClearLineFields()
     End Sub
 
     Protected Function DeleteInternal() As Boolean
@@ -345,6 +343,7 @@ Public Class FrmOrdenCompra
 
         If IsNewPurchaseOrder Then
             ClearFields()
+            ClearLineFields()
         ElseIf ValidateDeletePurchaseOrder() Then
             ret = DeleteRecord()
 
@@ -518,28 +517,307 @@ Public Class FrmOrdenCompra
         Try
             product.RecordId = 1
 
+            txtCantidad.Text = 1
+            txtPrecioUnitario.Text = 1.ToString()
+            txtDescuento.Text = 0.ToString()
 
-
+            CalculateNetAmount()
 
         Catch ex As Exception
             HandleException(ex)
         End Try
     End Sub
 
+    Protected Function ValidateWritePurchaseOrder() As Boolean
+        Dim ret As Boolean = True
+        Dim model As CompraHeaderModel
+        Dim strErrorMsg As String = String.Empty
+
+        model = GetCurrentPurchaseOrder()
+
+        If model Is Nothing Then
+            strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar la orden de compra actual")
+        Else
+            If String.IsNullOrEmpty(model.Id) Then
+                strErrorMsg = AppendLastError(strErrorMsg, "No se ha especificado la orden de compra.")
+            End If
+
+        End If
+
+        If Not String.IsNullOrEmpty(strErrorMsg) Then
+            ret = CheckFailed(strErrorMsg)
+        End If
+
+
+        Return ret
+    End Function
+
+    Protected Function ValidateWritePurchaseOrderLine() As Boolean
+        Dim ret As Boolean = True
+        Dim model As CompraHeaderModel
+        Dim modelLine As CompraDetallesModel
+        Dim strErrorMsg As String = String.Empty
+
+        model = GetCurrentPurchaseOrder()
+        modelLine = GetCurrentPurchaseOrderLine()
+
+        If model Is Nothing Then
+            strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar la orden de compra actual.")
+        Else
+            If String.IsNullOrEmpty(model.Id) Then
+                strErrorMsg = AppendLastError(strErrorMsg, "No se ha especificado la orden de compra.")
+            End If
+        End If
+        If modelLine Is Nothing Then
+            strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar la línea de orden de compra actual.")
+        Else
+            If modelLine.IdProducto < 0 Then
+                strErrorMsg = AppendLastError(strErrorMsg, "No se ha especificado el producto para la nueva línea.")
+            End If
+            If modelLine.Cantidad = 0 Then
+                strErrorMsg = AppendLastError(strErrorMsg, "Debe indicar una cantidad para continuar.")
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(strErrorMsg) Then
+            ret = CheckFailed(strErrorMsg)
+        End If
+
+
+        Return ret
+    End Function
+
+    Public Function GetCurrentPurchaseOrderLine() As CompraDetallesModel
+        '' ToDo: Cuando este productos eliminar línea
+        ItemRecordId = 1
+        Dim dbTable As New CompraDetallesModel With {
+            .IdProducto = ItemRecordId,
+            .NombreProducto = txtItemName.Text,
+            .Unidad = cboUnidad.SelectedValue
+        }
+        If Not String.IsNullOrEmpty(txtOrdenCompraId.Text) Then
+            dbTable.IdCompra = CType(txtOrdenCompraId.Text, Integer)
+        End If
+        If Not String.IsNullOrEmpty(txtPrecioUnitario.Text) Then
+            Decimal.TryParse(txtPrecioUnitario.Text, dbTable.PrecioUnitario)
+        End If
+        If Not String.IsNullOrEmpty(txtCantidad.Text) Then
+            Decimal.TryParse(txtCantidad.Text, dbTable.Cantidad)
+        End If
+        If Not String.IsNullOrEmpty(txtMontoLinea.Text) Then
+            Decimal.TryParse(txtMontoLinea.Text, dbTable.MontoNeto)
+        End If
+        If Not String.IsNullOrEmpty(txtDescuento.Text) Then
+            Decimal.TryParse(txtDescuento.Text, dbTable.Descuento)
+        End If
+
+        Return dbTable
+    End Function
+
+    Protected Sub GetRecordsAndPopulateLineFields()
+        Dim controller As ComprasDetalleController
+        Dim records As List(Of CompraDetallesModel)
+        Dim dbSelect As DBSelect
+        Dim isWaitCursor As Boolean
+
+        Try
+            isWaitCursor = True
+            If Cursor IsNot Cursors.WaitCursor Then
+                isWaitCursor = False
+                Cursor = Cursors.WaitCursor
+            End If
+
+            controller = New ComprasDetalleController()
+            dbSelect = New DBSelect(controller.TableName())
+            dbSelect.FilterFields.Add(New DBFilterFields("IdCompra", DBFilterType.Equal, txtOrdenCompraId.Text))
+
+            records = controller.GetListWithFilters(Of CompraDetallesModel)(dbSelect)
+
+            dgvLines.Rows.Clear()
+
+            For Each model As CompraDetallesModel In records
+                dgvLines.Rows().Add(model.Id, model.NumeroLinea, model.IdProducto, model.NombreProducto,
+                                        model.Cantidad, model.PrecioUnitario, model.Descuento,
+                                        model.MontoNeto)
+            Next
+
+            If records.Count < 1 And Not String.IsNullOrEmpty(controller.LastError) Then
+                HandleException(controller.LastError)
+            End If
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            If Not isWaitCursor Then
+                Cursor = Cursors.Default
+            End If
+        End Try
+
+    End Sub
+
+    Protected Sub SetValuesFromPurchaseOrderLine()
+
+        If dgvLines.CurrentRow IsNot Nothing Then
+            purchLineRecordId = CType(dgvLines.CurrentRow.Cells(0).Value, Long)
+            NumeroLinea = CType(dgvLines.CurrentRow.Cells(1).Value, Integer)
+            txtItemId.Text = dgvLines.CurrentRow.Cells(2).Value
+            txtItemName.Text = dgvLines.CurrentRow.Cells(3).Value
+            txtCantidad.Text = dgvLines.CurrentRow.Cells(4).Value
+            txtPrecioUnitario.Text = dgvLines.CurrentRow.Cells(5).Value
+            txtDescuento.Text = dgvLines.CurrentRow.Cells(6).Value
+            txtMontoLinea.Text = dgvLines.CurrentRow.Cells(7).Value
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' Inserta/Actualiza la línea de OC actual
+    ''' </summary>
+    ''' <returns>True si guardo</returns>
+    ''' <remarks>07.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
+    Protected Function UpsertRecordPurchLine() As Boolean
+        Dim ret As Boolean = False
+        Dim controller As ComprasDetalleController
+        Dim lineaCompra As CompraDetallesModel
+
+        Try
+            Cursor = Cursors.WaitCursor
+            controller = New ComprasDetalleController()
+            lineaCompra = GetCurrentPurchaseOrderLine()
+
+            If purchLineRecordId = 0 Then
+                lineaCompra.NumeroLinea = dgvLines.Rows().Count + 1
+                ret = controller.Insert(lineaCompra)
+            Else
+                ret = controller.Update(lineaCompra)
+            End If
+            If Not ret Then
+                HandleException(controller.LastError)
+            Else
+                GetRecordsAndPopulateLineFields()
+                ClearLineFields()
+                purchLineRecordId = 0
+            End If
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            Cursor = Cursors.Default
+        End Try
+
+        Return ret
+    End Function
+
+    ''' <summary>
+    ''' Limpia los campos para líneas
+    ''' </summary>
+    ''' <remarks>07.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
+    Protected Friend Sub ClearLineFields()
+
+        txtItemId.Clear()
+        txtItemName.Clear()
+
+        txtDescuento.Text = 0
+        txtPrecioUnitario.Text = 0
+        txtCantidad.Text = 0
+        txtMontoLinea.Text = "0.00"
+
+        cboUnidad.SelectedIndex = -1
+
+    End Sub
+
+    Protected Function DeletePurchLineRecord() As Boolean
+        Dim deleted As Boolean = False
+        Dim controller As ComprasDetalleController
+        Dim model As CompraDetallesModel
+
+        Try
+            model = GetCurrentPurchaseOrderLine()
+
+            If model.Id = 0 Then
+                ClearLineFields()
+                Return True
+            End If
+
+            Cursor = Cursors.WaitCursor
+            controller = New ComprasDetalleController()
+            deleted = controller.Delete(model)
+
+            If Not deleted Then
+                HandleException(controller.LastError)
+            Else
+                ClearLineFields()
+                GetRecordsAndPopulateLineFields()
+            End If
+
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            Cursor = Cursors.Default
+        End Try
+
+        Return deleted
+
+    End Function
+
+    Protected Sub ConfirmPurchaseOrder()
+        Dim frmConfirm As FrmConfirmarOrdenCompra
+        Dim ordenCompra As CompraHeaderModel
+        Try
+            ordenCompra = GetCurrentPurchaseOrder()
+            ' ToDo: Actualizar
+            If ValidateConfirmPurchaseOrder(ordenCompra) Or True Then
+                frmConfirm = New FrmConfirmarOrdenCompra(ordenCompra)
+
+                If frmConfirm.ShowDialog(Me) = DialogResult.OK Then
+                    If frmConfirm.IsPurchConfirmed Then
+                        Info("OK")
+                    End If
+                End If
+            End If
+
+        Catch ex As Exception
+            HandleException(ex)
+        End Try
+    End Sub
+
+    Protected Function ValidateConfirmPurchaseOrder(ordenCompra As CompraHeaderModel) As Boolean
+        Dim ret As Boolean = True
+        Dim strMsg As String = String.Empty
+
+        If ordenCompra Is Nothing Or ordenCompra.Id = 0 Then
+            strMsg = "No se puede recuperar la orden de compra." & Environment.NewLine
+        Else
+            If ordenCompra.Estado <> EstadoOrdenCompra.Borrador Then
+                strMsg = "La orden de compra tiene un estatus no valido." & Environment.NewLine
+            End If
+            If dgvLines.Rows.Count < 1 Then
+                strMsg = "Se debe especificar al menos una línea para poder confirmar la orden de compra." & Environment.NewLine
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(strMsg) Then
+            ret = CheckFailed(strMsg)
+        End If
+
+        Return ret
+    End Function
 
 #End Region
 
 #Region "Events"
     Private Sub btnDeleteLine_Click(sender As Object, e As EventArgs) Handles btnDeleteLine.Click
-
+        DeletePurchLineRecord()
     End Sub
 
     Private Sub btnAddLine_Click(sender As Object, e As EventArgs) Handles btnAddLine.Click
-
+        If ValidateWritePurchaseOrderLine() Then
+            UpsertRecordPurchLine()
+        End If
     End Sub
 
     Private Sub BtnGuardarOC_Click(sender As Object, e As EventArgs) Handles btnGuardarOC.Click
-        UpsertRecord()
+        If ValidateWritePurchaseOrder() Then
+            UpsertRecord()
+        End If
     End Sub
 
     Private Sub cboProveedor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboProveedor.SelectedIndexChanged
@@ -558,7 +836,7 @@ Public Class FrmOrdenCompra
             txtOrdenCompraId.Text = RecordId.ToString()
             GetRecordsAndPopulateFields()
             IsNewPurchaseOrder = False
-            txtOrdenCompra.Enabled = False
+            txtOrdenCompra.ReadOnly = False
         Else
             OnNewRecordSelected()
         End If
@@ -586,7 +864,7 @@ Public Class FrmOrdenCompra
     End Sub
 
     Private Sub dgvLines_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLines.CellContentDoubleClick
-
+        SetValuesFromPurchaseOrderLine()
     End Sub
 
     Private Sub txtCantidad_TextChanged(sender As Object, e As EventArgs) Handles txtCantidad.TextChanged
@@ -599,10 +877,6 @@ Public Class FrmOrdenCompra
 
     Private Sub txtDescuento_TextChanged(sender As Object, e As EventArgs) Handles txtDescuento.TextChanged
         CalculateNetAmount()
-    End Sub
-
-    Private Sub txtItemId_TextChanged(sender As Object, e As EventArgs) Handles txtItemId.TextChanged
-
     End Sub
 
     Private Sub txtCantidad_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCantidad.KeyPress
@@ -631,6 +905,10 @@ Public Class FrmOrdenCompra
 
     Private Sub btnSeleccionarArticulo_Click(sender As Object, e As EventArgs) Handles btnSeleccionarArticulo.Click
         BuscaProductoRelacionado(True)
+    End Sub
+
+    Private Sub ConfirmarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConfirmarToolStripMenuItem.Click
+        ConfirmPurchaseOrder()
     End Sub
 
 #End Region

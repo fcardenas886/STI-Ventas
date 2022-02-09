@@ -254,4 +254,49 @@ Public Class DBConnector
         Return dataTable
     End Function
 
+    Public Function InsertUpdateTransaction(ByVal sql As String, ByVal params As List(Of MySqlParameter)) As Boolean
+        Dim command As MySqlCommand
+        Dim success As Boolean = False
+        Dim insertResult As Integer
+        Dim transaction As MySqlTransaction
+
+        Try
+            ResetLastError()
+
+            Using connection As New MySqlConnection(GetConnectionString())
+                connection.Open()
+
+                transaction = connection.BeginTransaction(IsolationLevel.Serializable)
+                command = New MySqlCommand(sql, connection, transaction)
+
+                Try
+                    command.CommandType = CommandType.Text
+
+                    For Each param As MySqlParameter In params
+                        command.Parameters.Add(param)
+                    Next
+
+                    insertResult = command.ExecuteNonQuery()
+                    transaction.Commit()
+                    success = insertResult > 0
+                Catch
+                    Try
+                        transaction.Rollback()
+                    Catch ex As Exception
+                        If transaction.Connection IsNot Nothing Then
+                            Throw New Exception("An exception of type " & ex.GetType().ToString() & " was encountered while attempting to roll back the transaction.")
+                        End If
+                    End Try
+                End Try
+
+                connection.Close()
+            End Using
+
+        Catch ex As Exception
+            AppendError(ex)
+        End Try
+
+        Return success
+    End Function
+
 End Class

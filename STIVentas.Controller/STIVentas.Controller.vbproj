@@ -77,6 +77,7 @@
     <Compile Include="DBHelper\DBFilterType.vb" />
     <Compile Include="DBHelper\DBSelect.vb" />
     <Compile Include="GrupoProveedorController.vb" />
+    <Compile Include="Inventario\TransaccionInventarioController.vb" />
     <Compile Include="ModulePOS.vb" />
     <Compile Include="MonedaController.vb" />
     <Compile Include="ProveedorController.vb" />
@@ -126,5 +127,6 @@
       <Name>STIVentas.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
