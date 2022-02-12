@@ -135,7 +135,11 @@ Public Class ControllerBase : Implements IDBOperations
             dataTable = dbConnector.ReadDataTable(sql, params)
 
             If (dataTable Is Nothing Or dataTable.Rows.Count < 1) And Not String.IsNullOrEmpty(dbConnector.LastError) Then
-                strLastError += ". " + dbConnector.LastError + Environment.NewLine
+                If (String.IsNullOrEmpty(strLastError)) Then
+                    strLastError = dbConnector.LastError
+                Else
+                    strLastError += ". " + dbConnector.LastError + Environment.NewLine
+                End If
             End If
 
             ret = ToList(Of T)(dataTable)

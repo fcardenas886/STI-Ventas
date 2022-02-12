@@ -238,5 +238,33 @@ Module FormHelperModule
             caller.Cursor = Cursors.Default
         End Try
     End Sub
+
+    Public Sub FillCategoriaComboBox(caller As Form, ByRef comboBox As ComboBox)
+        Dim controller As CategoriaController
+        Dim dbTable As List(Of TablaBaseModel)
+        Dim dbSelect As DBSelect
+
+        Try
+            caller.Cursor = Cursors.WaitCursor
+            comboBox.DataSource = Nothing
+
+            controller = New CategoriaController()
+            dbSelect = New DBSelect(controller.TableName())
+            dbSelect.SelectFields.Add(New DBSelectionField("IdCategoria", "Id"))
+            dbSelect.FilterFields.Add(New DBFilterFields("Activo", DBFilterType.Equal, True))
+
+            dbTable = controller.GetListWithFilters(Of TablaBaseModel)(dbSelect)
+
+            comboBox.DataSource = dbTable
+            comboBox.DisplayMember = "Id"
+            comboBox.ValueMember = "Id"
+            comboBox.SelectedIndex = -1
+
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            caller.Cursor = Cursors.Default
+        End Try
+    End Sub
 #End Region
 End Module

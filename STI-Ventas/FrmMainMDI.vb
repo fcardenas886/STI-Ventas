@@ -63,6 +63,27 @@ Public Class FrmMainMDI
         child.Show()
     End Sub
 
+    Private Sub CategoriasDeProductosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CategoriasDeProductosToolStripMenuItem.Click
+        Dim child As Form = New FrmCategoriaProducto With {
+            .MdiParent = Me
+        }
+        child.Show()
+    End Sub
+
+    Private Sub ProductosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProductosToolStripMenuItem.Click
+        Dim child As Form = New FrmProductos With {
+            .MdiParent = Me
+        }
+        child.Show()
+    End Sub
+
+    Private Sub TransaccionesDeInventarioToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TransaccionesDeInventarioToolStripMenuItem.Click
+        Dim child As Form = New FrmTransaccionInventarioListPage With {
+           .MdiParent = Me
+       }
+        child.Show()
+    End Sub
+
 #End Region
 
 #Region "Class methods"

@@ -65,8 +65,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoriaModel.vb" />
     <Compile Include="CompraDetallesModel.vb" />
     <Compile Include="CompraHeaderModel.vb" />
+    <Compile Include="Enums\EnumValue.vb" />
     <Compile Include="Enums\TipoTransaccionInventario.vb" />
     <Compile Include="Enums\EstadoInventario.vb" />
     <Compile Include="Enums\EstadoOrdenCompra.vb" />
@@ -77,6 +79,7 @@
     <Compile Include="IDBOperations.vb" />
     <Compile Include="IDBTable.vb" />
     <Compile Include="MonedaModel.vb" />
+    <Compile Include="ProductoModel.vb" />
     <Compile Include="ProveedorModel.vb" />
     <Compile Include="TablaBaseModel.vb" />
     <Compile Include="TransaccionInventarioModel.vb" />

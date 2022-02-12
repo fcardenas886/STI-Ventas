@@ -101,7 +101,19 @@
     <Compile Include="Catalogs\FrmGrupoProveedor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Catalogs\FrmProductos.Designer.vb">
+      <DependentUpon>FrmProductos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmProductos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Helper\ISelectedRecord.vb" />
+    <Compile Include="Catalogs\FrmCategoriaProducto.Designer.vb">
+      <DependentUpon>FrmCategoriaProducto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmCategoriaProducto.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventario\FrmTransaccionInventarioListPage.Designer.vb">
       <DependentUpon>FrmTransaccionInventarioListPage.vb</DependentUpon>
     </Compile>
@@ -193,6 +205,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\FrmGrupoProveedor.resx">
       <DependentUpon>FrmGrupoProveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\FrmCategoriaProducto.resx">
+      <DependentUpon>FrmCategoriaProducto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\FrmProductos.resx">
+      <DependentUpon>FrmProductos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventario\FrmTransaccionInventarioListPage.resx">
       <DependentUpon>FrmTransaccionInventarioListPage.vb</DependentUpon>

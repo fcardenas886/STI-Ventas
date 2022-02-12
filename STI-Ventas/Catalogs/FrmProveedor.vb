@@ -255,7 +255,7 @@ Public Class FrmProveedor
                 dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Moneda", .HeaderText = "Moneda"})
                 dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "FormaPago", .HeaderText = "Forma pago"})
                 dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Contacto", .HeaderText = "Contacto"})
-                dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Dirección", .HeaderText = "Direccióm"})
+                dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Direccion", .HeaderText = "Dirección"})
                 dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Telefono", .HeaderText = "Telefono"})
                 dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Email", .HeaderText = "E-mail"})
             End If
