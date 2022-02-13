@@ -42,6 +42,7 @@ Public Class FrmConfirmarOrdenCompra
                 If isOk Then
                     IsConfirmed = True
                     Info("Se ha confirmado la orden de compra " & ordenCompraActual.NumeroCompra)
+                    DialogResult = DialogResult.OK
                     Close()
                 Else
                     HandleException("Error al confirmar la orden de compra " & ordenCompraActual.NumeroCompra & Environment.NewLine & controller.LastError)
@@ -68,6 +69,10 @@ Public Class FrmConfirmarOrdenCompra
             End If
         End If
 
+        If String.IsNullOrEmpty(txtNumeroLineas.Text) Or CType(txtNumeroLineas.Text, Decimal) = 0 Then
+            strMsg = "La orden de compra debe tener al menos una línea." & Environment.NewLine
+        End If
+
         If Not String.IsNullOrEmpty(strMsg) Then
             ret = CheckFailed(strMsg)
         End If
@@ -76,8 +81,59 @@ Public Class FrmConfirmarOrdenCompra
     End Function
 
     Protected Sub LoadCurrentRecord()
-        txtMontoLinea.Text = "0.0"
+        Dim controller As ComprasController
+        Dim totals As OrdenCompraTotales
+
+        Try
+            Cursor = Cursors.WaitCursor
+
+            txtOrdenCompraId.TextAlign = HorizontalAlignment.Center
+            txtOrdenCompraId.Text = ordenCompraActual.Id.ToString()
+            txtOrdenCompra.Text = ordenCompraActual.NumeroCompra
+            txtVendorName.Text = ordenCompraActual.Nombre
+            txtContacto.Text = ordenCompraActual.Contacto
+            txtEmail.Text = ordenCompraActual.Correo
+            txtOrdenProveedor.Text = ordenCompraActual.OrdenProveedor
+
+            cboEstatus.Items.Add(ordenCompraActual.Estado)
+            cboProveedor.Items.Add(ordenCompraActual.IdProveedor)
+            cboMoneda.Items.Add(ordenCompraActual.Moneda)
+            cboFormaPago.Items.Add(ordenCompraActual.FormaPago)
+
+            cboEstatus.Enabled = False
+            cboProveedor.Enabled = False
+            cboMoneda.Enabled = False
+            cboFormaPago.Enabled = False
+
+            cboEstatus.SelectedIndex = cboEstatus.Items.Count - 1
+            cboProveedor.SelectedIndex = cboProveedor.Items.Count - 1
+            cboMoneda.SelectedIndex = cboMoneda.Items.Count - 1
+            cboFormaPago.SelectedIndex = cboFormaPago.Items.Count - 1
+
+            controller = New ComprasController()
+            totals = controller.GetTotals(ordenCompraActual.Id)
+
+            If totals Is Nothing Then
+                HandleException(IIf(String.IsNullOrEmpty(controller.LastError), "Error recuperando los totales", controller.LastError))
+            Else
+                If Not String.IsNullOrEmpty(controller.LastError) Then
+                    HandleException(controller.LastError)
+                End If
+
+                txtMontoLinea.Text = String.Format("{0:n2}", totals.Total)
+                txtNumeroLineas.Text = String.Format("{0:n2}", totals.NumeroLineas)
+            End If
+
+            txtMontoLinea.TextAlign = HorizontalAlignment.Center
+            txtNumeroLineas.TextAlign = HorizontalAlignment.Center
+
+        Catch ex As Exception
+            HandleError(ex)
+        Finally
+            Cursor = Cursors.Default
+        End Try
     End Sub
+
 #End Region
 
 #Region "Events"
@@ -92,6 +148,12 @@ Public Class FrmConfirmarOrdenCompra
 
     Private Sub FrmConfirmarOrdenCompra_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadCurrentRecord()
+    End Sub
+
+    Private Sub FrmConfirmarOrdenCompra_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Validating
+        If Not ValidateConfirmPurchaseOrder(ordenCompraActual) Then
+            e.Cancel = True
+        End If
     End Sub
 
 #End Region

@@ -156,7 +156,7 @@ Public Class TransaccionInventarioController : Inherits ControllerBase : Impleme
         Return NombreTabla
     End Function
 
-    Public Function InsertTransaction(records As IEnumerable(Of IDBTable)) As Boolean
+    Public Function InsertTransaction(records As IEnumerable(Of IDBTable), additionalSQL As String) As Boolean
         Dim ret As Boolean = False
         Dim params As List(Of MySqlParameter)
         Dim dbConnector As DBConnector
@@ -181,7 +181,7 @@ Public Class TransaccionInventarioController : Inherits ControllerBase : Impleme
                     sBuilder.AppendLine(",")
                 End If
 
-                sBuilder.AppendFormat("VALUES(@Id{0}, @Moneda{0}, @FechaMovimiento{0}, @Costo{0}, @Estatus{0}, @TipoTransaccion{0}, @Referencia{0}, @NumeroReferencia{0}, @Cantidad{0}, @Unidad{0}, @IdTransaccion{0})")
+                sBuilder.AppendFormat("(@Id{0}, @Moneda{0}, @FechaMovimiento{0}, @Costo{0}, @Estatus{0}, @TipoTransaccion{0}, @Referencia{0}, @NumeroReferencia{0}, @Cantidad{0}, @Unidad{0}, @IdTransaccion{0})", iCounter)
 
                 params.Add(BuildParameter($"@Id{iCounter}", record.IdArticulo, DbType.Int32))
                 params.Add(BuildParameter($"@Moneda{iCounter}", record.Moneda, DbType.String))
@@ -202,7 +202,7 @@ Public Class TransaccionInventarioController : Inherits ControllerBase : Impleme
             dbConnector = New DBConnector()
 
             sql = sBuilder.ToString()
-            ret = dbConnector.InsertUpdateTransaction(sql, params)
+            ret = dbConnector.InsertUpdateTransaction(sql, params, additionalSQL)
             LastError = dbConnector.LastError
 
         Catch ex As Exception

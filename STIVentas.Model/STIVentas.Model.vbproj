@@ -82,6 +82,7 @@
     <Compile Include="ProductoModel.vb" />
     <Compile Include="ProveedorModel.vb" />
     <Compile Include="TablaBaseModel.vb" />
+    <Compile Include="Totals\OrdenCompraTotales.vb" />
     <Compile Include="TransaccionInventarioModel.vb" />
     <Compile Include="UnidadMedidaModel.vb" />
     <Compile Include="conex.vb" />

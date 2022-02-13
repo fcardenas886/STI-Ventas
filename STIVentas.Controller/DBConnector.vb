@@ -205,6 +205,28 @@ Public Class DBConnector
 
     End Sub
 
+    Protected Sub AppendInnerError(ByVal exception As Exception)
+        Dim innerException As Exception
+
+        If Not String.IsNullOrEmpty(strLastError) Then
+            strLastError &= strLastError & vbCrLf
+        Else
+            strLastError = exception.Message
+        End If
+
+        Try
+            innerException = exception.InnerException
+
+            While innerException IsNot Nothing
+                strLastError &= vbCrLf & innerException.Message
+                innerException = innerException.InnerException
+            End While
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
     Protected Sub ResetLastError()
         strLastError = ""
     End Sub
@@ -254,7 +276,7 @@ Public Class DBConnector
         Return dataTable
     End Function
 
-    Public Function InsertUpdateTransaction(ByVal sql As String, ByVal params As List(Of MySqlParameter)) As Boolean
+    Public Function InsertUpdateTransaction(ByVal sql As String, ByVal params As List(Of MySqlParameter), Optional additionalSQL As String = "") As Boolean
         Dim command As MySqlCommand
         Dim success As Boolean = False
         Dim insertResult As Integer
@@ -277,9 +299,17 @@ Public Class DBConnector
                     Next
 
                     insertResult = command.ExecuteNonQuery()
+
+                    If Not String.IsNullOrEmpty(additionalSQL) Then
+                        command = New MySqlCommand(additionalSQL, connection, transaction)
+                        command.CommandType = CommandType.Text
+                        insertResult = command.ExecuteNonQuery()
+                    End If
+
                     transaction.Commit()
                     success = insertResult > 0
-                Catch
+                Catch commitException As Exception
+                    AppendInnerError(commitException)
                     Try
                         transaction.Rollback()
                     Catch ex As Exception
@@ -293,7 +323,7 @@ Public Class DBConnector
             End Using
 
         Catch ex As Exception
-            AppendError(ex)
+            AppendInnerError(ex)
         End Try
 
         Return success

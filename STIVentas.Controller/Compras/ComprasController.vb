@@ -161,6 +161,7 @@ Public Class ComprasController : Inherits ControllerBase : Implements IDBOperati
         Dim inventTrans As TransaccionInventarioModel
         Dim iCounter As Integer
         Dim controller As TransaccionInventarioController
+        Dim sqlUpdate As String
 
         Try
 
@@ -191,8 +192,11 @@ Public Class ComprasController : Inherits ControllerBase : Implements IDBOperati
                 iCounter += 1
                 transacciones.Add(inventTrans)
             Next
+
+            sqlUpdate = $"UPDATE TblCompraHeader SET Estado = 1 WHERE Id = {table.Id};"
+
             controller = New TransaccionInventarioController()
-            ret = controller.InsertTransaction(transacciones)
+            ret = controller.InsertTransaction(transacciones, sqlUpdate)
 
             LastError = controller.LastError
         Catch ex As Exception
@@ -225,5 +229,42 @@ Public Class ComprasController : Inherits ControllerBase : Implements IDBOperati
         Return records
     End Function
 
+    Public Function GetTotals(idCompra As Integer) As OrdenCompraTotales
+        Dim totals As OrdenCompraTotales = Nothing
+        Dim dbConnector As DBConnector
+        Dim sql As String
+        Dim dataTable As DataTable
+        Dim params As List(Of MySqlParameter)
+
+        Try
+            params = New List(Of MySqlParameter)
+            dbConnector = New DBConnector()
+            sql = "select count(Id) NumeroLineas, sum(Cantidad) Cantidad, sum(MontoNeto) Total, sum(Descuento) Descuento from stiventas.TblCompraDetalles FORCE INDEX(IdHeader) WHERE IdCompra = @Id;"
+
+            params.Add(BuildParameter("@Id", idCompra, DbType.Int32))
+            dataTable = dbConnector.ReadDataTable(sql, params)
+            totals = New OrdenCompraTotales()
+
+            For Each dataRow As DataRow In dataTable.Rows
+                totals =
+                        New OrdenCompraTotales With {
+                            .NumeroLineas = dataRow(0),
+                            .Cantidad = dataRow(1),
+                            .Total = dataRow(2),
+                            .Descuento = dataRow(3)
+                            }
+                Exit For
+
+            Next
+
+            totals.IdCompra = idCompra
+            LastError = dbConnector.LastError
+
+        Catch ex As Exception
+            AppendError(ex)
+        End Try
+
+        Return totals
+    End Function
 #End Region
 End Class

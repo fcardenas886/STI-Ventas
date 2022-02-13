@@ -159,7 +159,7 @@ Public Class FrmOrdenCompra
 
             records = controller.GetListWithFilters(Of CompraHeaderModel)(dbSelect)
 
-            If records.Count < 0 Then
+            If records.Count < 1 Then
                 strDetails = String.Format("No se encontro la orden de compra con el identificador interno {0}.", txtOrdenCompraId.Text)
 
                 If Not String.IsNullOrEmpty(controller.LastError) Then
@@ -335,6 +335,7 @@ Public Class FrmOrdenCompra
         NumeroCompra = String.Empty
 
         ClearLineFields()
+        EnableFieldsBasedOnEstatus()
     End Sub
 
     Protected Function DeleteInternal() As Boolean
@@ -352,7 +353,7 @@ Public Class FrmOrdenCompra
             End If
 
         End If
-
+        EnableFieldsBasedOnEstatus()
         Return ret
     End Function
 
@@ -769,7 +770,8 @@ Public Class FrmOrdenCompra
 
                 If frmConfirm.ShowDialog(Me) = DialogResult.OK Then
                     If frmConfirm.IsPurchConfirmed Then
-                        Info("OK")
+                        cboEstatus.SelectedIndex = EstadoOrdenCompra.Confirmado
+                        EnableFieldsBasedOnEstatus()
                     End If
                 End If
             End If
@@ -800,6 +802,44 @@ Public Class FrmOrdenCompra
 
         Return ret
     End Function
+
+    Private Sub EnableFieldsBasedOnEstatus()
+        Dim allowEdit As Boolean
+
+        Try
+            allowEdit = cboEstatus.SelectedValue = EstadoOrdenCompra.Borrador
+
+            txtOrdenCompra.ReadOnly = Not allowEdit
+            txtVendorName.ReadOnly = Not allowEdit
+            txtOrdenProveedor.ReadOnly = Not allowEdit
+            txtContacto.ReadOnly = Not allowEdit
+            txtEmail.ReadOnly = Not allowEdit
+            dateTimeFechaEntrega.Enabled = allowEdit
+
+            cboFormaPago.Enabled = Not allowEdit
+            cboProveedor.Enabled = Not allowEdit
+            cboMoneda.Enabled = Not allowEdit
+
+            cboUnidad.Enabled = Not allowEdit
+            txtItemId.ReadOnly = Not allowEdit
+            txtItemName.ReadOnly = Not allowEdit
+            txtCantidad.ReadOnly = Not allowEdit
+            txtDescuento.ReadOnly = Not allowEdit
+            txtPrecioUnitario.ReadOnly = Not allowEdit
+
+            btnAddLine.Enabled = allowEdit
+            btnGuardarOC.Enabled = allowEdit
+            btnEditLine.Enabled = allowEdit
+            btnDeleteLine.Enabled = allowEdit
+
+            btnSeleccionarArticulo.Enabled = allowEdit
+            ConfirmarToolStripMenuItem.Enabled = allowEdit
+            EliminarToolStripMenuItem.Enabled = allowEdit
+
+        Catch ex As Exception
+            HandleException(ex)
+        End Try
+    End Sub
 
 #End Region
 

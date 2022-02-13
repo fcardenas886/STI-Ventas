@@ -431,7 +431,7 @@ Partial Class FrmConfirmarOrdenCompra
         Me.AcceptButton = Me.btnConfirm
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.btnConfirm
+        Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(800, 289)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "FrmConfirmarOrdenCompra"
@@ -475,7 +475,6 @@ Partial Class FrmConfirmarOrdenCompra
     Friend WithEvents txtOrdenCompra As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents Label8 As Label
-    Friend WithEvents txtOrdenCompraId As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Label18 As Label
@@ -485,4 +484,5 @@ Partial Class FrmConfirmarOrdenCompra
     Friend WithEvents txtMontoLinea As TextBox
     Friend WithEvents btnConfirm As Button
     Friend WithEvents btnCancel As Button
+    Friend WithEvents txtOrdenCompraId As TextBox
 End Class

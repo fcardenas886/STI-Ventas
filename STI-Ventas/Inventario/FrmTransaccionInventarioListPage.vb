@@ -100,7 +100,7 @@ Public Class FrmTransaccionInventarioListPage
             dgvListPage.Rows.Clear()
 
             For Each model As TransaccionInventarioModel In records
-                dgvListPage.Rows().Add(model.Id, model.IdArticulo, model.IdArticulo, model.FechaMovimiento,
+                dgvListPage.Rows().Add(model.Id, model.IdArticulo, model.FechaMovimiento,
                                         model.Cantidad, model.Costo, model.Moneda, model.Unidad,
                                         model.TipoTransaccion, model.Referencia, model.NumeroReferencia, model.Estatus)
             Next
