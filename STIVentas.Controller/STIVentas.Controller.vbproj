@@ -67,6 +67,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClienteController.vb" />
     <Compile Include="ControllerBase.vb" />
     <Compile Include="DBConnector.vb" />
     <Compile Include="DBHelper\DBSelectionField.vb" />

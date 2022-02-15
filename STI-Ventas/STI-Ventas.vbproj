@@ -89,6 +89,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Catalogs\FrmCliente.Designer.vb">
+      <DependentUpon>FrmCliente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmCliente.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Catalogs\FrmGrupoProveedor.Designer.vb">
       <DependentUpon>FrmGrupoProveedor.vb</DependentUpon>
     </Compile>
@@ -151,6 +157,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Catalogs\FrmCliente.resx">
+      <DependentUpon>FrmCliente.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\FrmGrupoProveedor.resx">
       <DependentUpon>FrmGrupoProveedor.vb</DependentUpon>
     </EmbeddedResource>
