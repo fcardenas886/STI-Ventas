@@ -47,6 +47,7 @@ Public Class DBSelect
                     sBuilder.Append(", ")
                 End If
                 sBuilder.Append(selectField.GetAsSQL())
+                iCounter += 1
             Next
         Else
             sBuilder.Append("* ")
@@ -60,9 +61,10 @@ Public Class DBSelect
 
             For Each filterField As DBFilterFields In FilterFields
                 If iCounter > 0 Then
-                    sBuilder.Append(", ")
+                    sBuilder.Append(" AND ")
                 End If
                 sBuilder.Append(filterField.GetAsSQL())
+                iCounter += 1
             Next
         End If
 

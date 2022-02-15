@@ -28,7 +28,7 @@ Public Class DBSelectionField
     Friend Function GetAsSQL() As String
         Dim sql As String
 
-        If String.IsNullOrEmpty(FieldName) Then
+        If String.IsNullOrEmpty(FieldAlias) Then
             sql = FieldName
         Else
             sql = FieldName & " AS " & FieldAlias

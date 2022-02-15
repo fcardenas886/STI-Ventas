@@ -10,8 +10,8 @@ Public Class TransaccionInventarioModel : Implements IDBTable
 	Public Property Moneda As String
 	Public Property FechaMovimiento As DateTime
 	Public Property Costo As Decimal
-	Public Property Estatus As Byte
-	Public Property TipoTransaccion As Byte
+	Public Property Estatus As EstadoInventario
+	Public Property TipoTransaccion As TipoTransaccionInventario
 	Public Property Referencia As String
 	Public Property NumeroReferencia As String
 	Public Property Cantidad As Decimal

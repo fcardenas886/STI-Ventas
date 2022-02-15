@@ -144,4 +144,40 @@
         Return resultadoConversion
 
     End Function
+
+
+    Public Shared Function GetDescriptionAttributeAsList(enumType As Type) As List(Of EnumValue)
+
+        If enumType Is Nothing Then
+            Throw New ArgumentNullException(NameOf(enumType), "La Enumeración recibida tiene un valor nothing")
+        End If
+
+        If Not (GetType(System.Enum) = enumType.BaseType) Then
+            Throw New ArgumentException("El parámetro enumType no es Enum", NameOf(enumType))
+        End If
+
+        Dim enumValores As Reflection.FieldInfo() = enumType.GetFields()
+        Dim fieldInfo As Reflection.FieldInfo
+        Dim values As List(Of EnumValue) = New List(Of EnumValue)
+
+        For Each fieldInfo In enumValores
+            If Not fieldInfo.IsSpecialName Then
+                ' Recuperar el nombre del elemento
+                Dim nombre As String = fieldInfo.Name
+
+                ' Recuperar los atributos de este elemento
+                Dim attributes() As ComponentModel.DescriptionAttribute = CType(fieldInfo.GetCustomAttributes(GetType(ComponentModel.DescriptionAttribute), False), ComponentModel.DescriptionAttribute())
+
+                If (attributes.Length > 0) Then
+                    values.Add(New EnumValue(nombre, attributes(0).Description))
+                Else
+                    values.Add(New EnumValue(nombre, nombre))
+                End If
+
+            End If
+        Next
+
+        Return values
+    End Function
+
 End Class

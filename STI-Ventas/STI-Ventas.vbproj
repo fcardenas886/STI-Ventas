@@ -89,16 +89,59 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Catalogs\FrmCliente.Designer.vb">
-      <DependentUpon>FrmCliente.vb</DependentUpon>
+    <Compile Include="Catalogs\FrmFormaPago.Designer.vb">
+      <DependentUpon>FrmFormaPago.vb</DependentUpon>
     </Compile>
-    <Compile Include="Catalogs\FrmCliente.vb">
+    <Compile Include="Catalogs\FrmFormaPago.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Catalogs\FrmGrupoProveedor.Designer.vb">
       <DependentUpon>FrmGrupoProveedor.vb</DependentUpon>
     </Compile>
     <Compile Include="Catalogs\FrmGrupoProveedor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\FrmProductos.Designer.vb">
+      <DependentUpon>FrmProductos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmProductos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helper\ISelectedRecord.vb" />
+    <Compile Include="Catalogs\FrmCategoriaProducto.Designer.vb">
+      <DependentUpon>FrmCategoriaProducto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmCategoriaProducto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventario\FrmTransaccionInventarioListPage.Designer.vb">
+      <DependentUpon>FrmTransaccionInventarioListPage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventario\FrmTransaccionInventarioListPage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Purch\FrmComprasListPage.Designer.vb">
+      <DependentUpon>FrmComprasListPage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Purch\FrmComprasListPage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Purch\FrmConfirmarOrdenCompra.Designer.vb">
+      <DependentUpon>FrmConfirmarOrdenCompra.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Purch\FrmConfirmarOrdenCompra.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrmBuscaProducto.Designer.vb">
+      <DependentUpon>FrmBuscaProducto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrmBuscaProducto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrmListPageBase.Designer.vb">
+      <DependentUpon>FrmListPageBase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrmListPageBase.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Catalogs\FrmMoneda.Designer.vb">
@@ -157,11 +200,32 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Catalogs\FrmCliente.resx">
-      <DependentUpon>FrmCliente.vb</DependentUpon>
+    <EmbeddedResource Include="Catalogs\FrmFormaPago.resx">
+      <DependentUpon>FrmFormaPago.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\FrmGrupoProveedor.resx">
       <DependentUpon>FrmGrupoProveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\FrmCategoriaProducto.resx">
+      <DependentUpon>FrmCategoriaProducto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\FrmProductos.resx">
+      <DependentUpon>FrmProductos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventario\FrmTransaccionInventarioListPage.resx">
+      <DependentUpon>FrmTransaccionInventarioListPage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Purch\FrmComprasListPage.resx">
+      <DependentUpon>FrmComprasListPage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Purch\FrmConfirmarOrdenCompra.resx">
+      <DependentUpon>FrmConfirmarOrdenCompra.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrmBuscaProducto.resx">
+      <DependentUpon>FrmBuscaProducto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrmListPageBase.resx">
+      <DependentUpon>FrmListPageBase.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\FrmMoneda.resx">
       <DependentUpon>FrmMoneda.vb</DependentUpon>

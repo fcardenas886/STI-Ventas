@@ -67,7 +67,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClienteController.vb" />
+    <Compile Include="Catalogs\FormaPagoController.vb" />
+    <Compile Include="Compras\ComprasDetalleController.vb" />
+    <Compile Include="Compras\ComprasController.vb" />
     <Compile Include="ControllerBase.vb" />
     <Compile Include="DBConnector.vb" />
     <Compile Include="DBHelper\DBSelectionField.vb" />
@@ -75,6 +77,9 @@
     <Compile Include="DBHelper\DBFilterType.vb" />
     <Compile Include="DBHelper\DBSelect.vb" />
     <Compile Include="GrupoProveedorController.vb" />
+    <Compile Include="Inventario\CategoriaController.vb" />
+    <Compile Include="Inventario\ProductosController.vb" />
+    <Compile Include="Inventario\TransaccionInventarioController.vb" />
     <Compile Include="ModulePOS.vb" />
     <Compile Include="MonedaController.vb" />
     <Compile Include="ProveedorController.vb" />
@@ -124,5 +129,6 @@
       <Name>STIVentas.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -34,7 +34,6 @@ Partial Class FrmProveedor
         Me.cboMoneda = New System.Windows.Forms.ComboBox()
         Me.txtRUT = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.txtFormaPago = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtDireccion = New System.Windows.Forms.TextBox()
         Me.txtContacto = New System.Windows.Forms.TextBox()
@@ -44,11 +43,13 @@ Partial Class FrmProveedor
         Me.txtTelefono = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.cboFormaPago = New System.Windows.Forms.ComboBox()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cboFormaPago)
         Me.GroupBox1.Controls.Add(Me.txtEmail)
         Me.GroupBox1.Controls.Add(Me.txtTelefono)
         Me.GroupBox1.Controls.Add(Me.Label10)
@@ -57,7 +58,6 @@ Partial Class FrmProveedor
         Me.GroupBox1.Controls.Add(Me.txtContacto)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.Label9)
-        Me.GroupBox1.Controls.Add(Me.txtFormaPago)
         Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.txtRUT)
         Me.GroupBox1.Controls.Add(Me.Label6)
@@ -71,12 +71,20 @@ Partial Class FrmProveedor
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Size = New System.Drawing.Size(902, 134)
+        Me.GroupBox1.Size = New System.Drawing.Size(1060, 134)
+        '
+        'btnClose
+        '
+        Me.btnClose.TabIndex = 3
+        '
+        'btnDelete
+        '
+        Me.btnDelete.TabIndex = 2
         '
         'txtAlias
         '
         Me.txtAlias.Location = New System.Drawing.Point(105, 71)
-        Me.txtAlias.MaxLength = 100
+        Me.txtAlias.MaxLength = 40
         Me.txtAlias.Name = "txtAlias"
         Me.txtAlias.Size = New System.Drawing.Size(224, 20)
         Me.txtAlias.TabIndex = 11
@@ -131,7 +139,7 @@ Partial Class FrmProveedor
         Me.cboGrupoProveedor.Location = New System.Drawing.Point(418, 18)
         Me.cboGrupoProveedor.Name = "cboGrupoProveedor"
         Me.cboGrupoProveedor.Size = New System.Drawing.Size(132, 21)
-        Me.cboGrupoProveedor.TabIndex = 12
+        Me.cboGrupoProveedor.TabIndex = 13
         '
         'Label4
         '
@@ -166,7 +174,7 @@ Partial Class FrmProveedor
         Me.txtRUT.MaxLength = 20
         Me.txtRUT.Name = "txtRUT"
         Me.txtRUT.Size = New System.Drawing.Size(104, 20)
-        Me.txtRUT.TabIndex = 17
+        Me.txtRUT.TabIndex = 12
         '
         'Label6
         '
@@ -176,14 +184,6 @@ Partial Class FrmProveedor
         Me.Label6.Size = New System.Drawing.Size(30, 13)
         Me.Label6.TabIndex = 16
         Me.Label6.Text = "RUT"
-        '
-        'txtFormaPago
-        '
-        Me.txtFormaPago.Location = New System.Drawing.Point(418, 71)
-        Me.txtFormaPago.MaxLength = 20
-        Me.txtFormaPago.Name = "txtFormaPago"
-        Me.txtFormaPago.Size = New System.Drawing.Size(104, 20)
-        Me.txtFormaPago.TabIndex = 19
         '
         'Label7
         '
@@ -197,17 +197,17 @@ Partial Class FrmProveedor
         'txtDireccion
         '
         Me.txtDireccion.Location = New System.Drawing.Point(646, 45)
-        Me.txtDireccion.MaxLength = 100
+        Me.txtDireccion.MaxLength = 255
         Me.txtDireccion.Name = "txtDireccion"
-        Me.txtDireccion.Size = New System.Drawing.Size(224, 20)
+        Me.txtDireccion.Size = New System.Drawing.Size(392, 20)
         Me.txtDireccion.TabIndex = 23
         '
         'txtContacto
         '
         Me.txtContacto.Location = New System.Drawing.Point(646, 19)
-        Me.txtContacto.MaxLength = 100
+        Me.txtContacto.MaxLength = 255
         Me.txtContacto.Name = "txtContacto"
-        Me.txtContacto.Size = New System.Drawing.Size(224, 20)
+        Me.txtContacto.Size = New System.Drawing.Size(392, 20)
         Me.txtContacto.TabIndex = 22
         '
         'Label8
@@ -231,17 +231,17 @@ Partial Class FrmProveedor
         'txtEmail
         '
         Me.txtEmail.Location = New System.Drawing.Point(646, 98)
-        Me.txtEmail.MaxLength = 100
+        Me.txtEmail.MaxLength = 20
         Me.txtEmail.Name = "txtEmail"
-        Me.txtEmail.Size = New System.Drawing.Size(224, 20)
+        Me.txtEmail.Size = New System.Drawing.Size(392, 20)
         Me.txtEmail.TabIndex = 27
         '
         'txtTelefono
         '
         Me.txtTelefono.Location = New System.Drawing.Point(646, 72)
-        Me.txtTelefono.MaxLength = 100
+        Me.txtTelefono.MaxLength = 255
         Me.txtTelefono.Name = "txtTelefono"
-        Me.txtTelefono.Size = New System.Drawing.Size(224, 20)
+        Me.txtTelefono.Size = New System.Drawing.Size(392, 20)
         Me.txtTelefono.TabIndex = 26
         '
         'Label10
@@ -262,11 +262,20 @@ Partial Class FrmProveedor
         Me.Label11.TabIndex = 24
         Me.Label11.Text = "Telefono"
         '
+        'cboFormaPago
+        '
+        Me.cboFormaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboFormaPago.FormattingEnabled = True
+        Me.cboFormaPago.Location = New System.Drawing.Point(418, 70)
+        Me.cboFormaPago.Name = "cboFormaPago"
+        Me.cboFormaPago.Size = New System.Drawing.Size(132, 21)
+        Me.cboFormaPago.TabIndex = 15
+        '
         'FrmProveedor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(902, 450)
+        Me.ClientSize = New System.Drawing.Size(1060, 450)
         Me.Name = "FrmProveedor"
         Me.Text = "Proveedores"
         Me.GroupBox1.ResumeLayout(False)
@@ -295,6 +304,6 @@ Partial Class FrmProveedor
     Friend WithEvents txtContacto As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
-    Friend WithEvents txtFormaPago As TextBox
     Friend WithEvents Label7 As Label
+    Friend WithEvents cboFormaPago As ComboBox
 End Class

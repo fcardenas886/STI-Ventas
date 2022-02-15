@@ -107,7 +107,6 @@ Public Class FrmProveedor
         txtName.Clear()
         txtProveedorId.Clear()
         txtRUT.Clear()
-        txtFormaPago.Clear()
 
         txtContacto.Clear()
         txtDireccion.Clear()
@@ -115,6 +114,7 @@ Public Class FrmProveedor
         txtTelefono.Clear()
         cboGrupoProveedor.SelectedIndex = -1
         cboMoneda.SelectedIndex = -1
+        cboFormaPago.SelectedIndex = -1
 
         txtProveedorId.Enabled = True
     End Sub
@@ -130,7 +130,6 @@ Public Class FrmProveedor
         AddHandler txtName.Enter, AddressOf TextBox_Enter
 
         AddHandler txtRUT.Enter, AddressOf TextBox_Enter
-        AddHandler txtFormaPago.Enter, AddressOf TextBox_Enter
         AddHandler txtContacto.Enter, AddressOf TextBox_Enter
         AddHandler txtDireccion.Enter, AddressOf TextBox_Enter
         AddHandler txtTelefono.Enter, AddressOf TextBox_Enter
@@ -138,6 +137,7 @@ Public Class FrmProveedor
 
         FillGrupoProveedorComboBox()
         FillCurrencyComboBox()
+        FillFormaPagoComboBox()
     End Sub
 
     Public Overrides Function GetCurrentTable() As IDBTable
@@ -147,7 +147,7 @@ Public Class FrmProveedor
             .Nombre = txtName.Text,
             .AliasName = txtAlias.Text,
             .RUT = txtRUT.Text,
-            .FormaPago = txtFormaPago.Text,
+            .FormaPago = cboFormaPago.SelectedValue,
             .Contacto = txtContacto.Text,
             .Direccion = txtDireccion.Text,
             .Telefono = txtTelefono.Text,
@@ -179,7 +179,6 @@ Public Class FrmProveedor
                 txtName.Text = proveedorModel.Nombre
                 txtProveedorId.Text = proveedorModel.IdProveedor
                 txtRUT.Text = proveedorModel.RUT
-                txtFormaPago.Text = proveedorModel.FormaPago
 
                 txtContacto.Text = proveedorModel.Contacto
                 txtDireccion.Text = proveedorModel.Direccion
@@ -209,6 +208,19 @@ Public Class FrmProveedor
                         cboMoneda.SelectedValue = proveedorModel.Moneda
                     Else
                         Me.HandleException(String.Format("No se encontro la moneda {0} en la base de datos", proveedorModel.Moneda))
+                    End If
+                End If
+
+                If String.IsNullOrEmpty(proveedorModel.FormaPago) Then
+                    cboFormaPago.SelectedValue = -1
+                ElseIf ComboBoxHasValue(cboFormaPago, proveedorModel.FormaPago) Then
+                    cboFormaPago.SelectedValue = proveedorModel.FormaPago
+                Else
+                    FillFormaPagoComboBox()
+                    If ComboBoxHasValue(cboFormaPago, proveedorModel.FormaPago) Then
+                        cboFormaPago.SelectedValue = proveedorModel.FormaPago
+                    Else
+                        HandleException(String.Format("No se encontro la forma de pago {0} en la base de datos", proveedorModel.FormaPago))
                     End If
                 End If
 
@@ -243,7 +255,7 @@ Public Class FrmProveedor
                 dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Moneda", .HeaderText = "Moneda"})
                 dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "FormaPago", .HeaderText = "Forma pago"})
                 dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Contacto", .HeaderText = "Contacto"})
-                dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Dirección", .HeaderText = "Direccióm"})
+                dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Direccion", .HeaderText = "Dirección"})
                 dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Telefono", .HeaderText = "Telefono"})
                 dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Email", .HeaderText = "E-mail"})
             End If
@@ -261,6 +273,9 @@ Public Class FrmProveedor
                                         model.Telefono, model.Email)
             Next
 
+            If records.Count < 1 And Not String.IsNullOrEmpty(uomController.LastError) Then
+                HandleException(uomController.LastError)
+            End If
         Catch ex As Exception
             HandleException(ex)
         Finally
@@ -398,6 +413,33 @@ Public Class FrmProveedor
         Return False
     End Function
 
+    Protected Sub FillFormaPagoComboBox()
+        Dim controller As FormaPagoController
+        Dim dbTable As List(Of TablaBaseModel)
+        Dim dbSelect As DBSelect
+
+        Try
+            Cursor = Cursors.WaitCursor
+            cboFormaPago.DataSource = Nothing
+
+            controller = New FormaPagoController()
+            dbSelect = New DBSelect(controller.TableName())
+            dbSelect.SelectFields.Add(New DBSelectionField("IdFormaPago", "Id"))
+
+            dbTable = controller.GetListWithFilters(Of TablaBaseModel)(dbSelect)
+
+            cboFormaPago.DataSource = dbTable
+            cboFormaPago.DisplayMember = "Id"
+            cboFormaPago.ValueMember = "Id"
+            cboFormaPago.SelectedIndex = -1
+
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            Cursor = Cursors.Default
+        End Try
+    End Sub
+
 #End Region
 
 #Region "Events"
@@ -406,6 +448,7 @@ Public Class FrmProveedor
         If e.KeyData = Keys.F5 Then
             FillCurrencyComboBox()
             FillGrupoProveedorComboBox()
+            FillFormaPagoComboBox()
         End If
     End Sub
 #End Region

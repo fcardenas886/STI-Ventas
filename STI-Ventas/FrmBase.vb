@@ -186,8 +186,8 @@ Public Class FrmBase
     ''' <remarks>31.01.2021 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Overridable Sub OnFormLoaded()
         isNewRecord = True
-        LoadRecords()
         SetupDataGridView(dtGridView)
+        LoadRecords()
     End Sub
 
     ''' <summary>

@@ -40,8 +40,48 @@ Public Class FrmMainMDI
         child.Show()
     End Sub
 
+    '' <remarks>05.02.2021 jorge.nin92@gmail.com: Add ListPageOC</remarks>
     Private Sub TodasLasOrdenesDeCompraToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TodasLasOrdenesDeCompraToolStripMenuItem.Click
+        Dim child As Form = New FrmComprasListPage With {
+            .MdiParent = Me
+        }
+        child.Show()
+    End Sub
 
+    '' <remarks>05.02.2021 jorge.nin92@gmail.com: Add Ordens compra</remarks>
+    Private Sub NuevaCompraToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NuevaCompraToolStripMenuItem.Click
+        Dim child As Form = New FrmOrdenCompra With {
+            .MdiParent = Me
+        }
+        child.Show()
+    End Sub
+
+    Private Sub FormaDePagoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FormaDePagoToolStripMenuItem.Click
+        Dim child As Form = New FrmFormaPago With {
+            .MdiParent = Me
+        }
+        child.Show()
+    End Sub
+
+    Private Sub CategoriasDeProductosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CategoriasDeProductosToolStripMenuItem.Click
+        Dim child As Form = New FrmCategoriaProducto With {
+            .MdiParent = Me
+        }
+        child.Show()
+    End Sub
+
+    Private Sub ProductosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProductosToolStripMenuItem.Click
+        Dim child As Form = New FrmProductos With {
+            .MdiParent = Me
+        }
+        child.Show()
+    End Sub
+
+    Private Sub TransaccionesDeInventarioToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TransaccionesDeInventarioToolStripMenuItem.Click
+        Dim child As Form = New FrmTransaccionInventarioListPage With {
+           .MdiParent = Me
+       }
+        child.Show()
     End Sub
 
 #End Region

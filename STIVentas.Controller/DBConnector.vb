@@ -205,6 +205,28 @@ Public Class DBConnector
 
     End Sub
 
+    Protected Sub AppendInnerError(ByVal exception As Exception)
+        Dim innerException As Exception
+
+        If Not String.IsNullOrEmpty(strLastError) Then
+            strLastError &= strLastError & vbCrLf
+        Else
+            strLastError = exception.Message
+        End If
+
+        Try
+            innerException = exception.InnerException
+
+            While innerException IsNot Nothing
+                strLastError &= vbCrLf & innerException.Message
+                innerException = innerException.InnerException
+            End While
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
     Protected Sub ResetLastError()
         strLastError = ""
     End Sub
@@ -215,7 +237,7 @@ Public Class DBConnector
         If Configuration.ConfigurationManager.ConnectionStrings("POS") IsNot Nothing Then
             connectionString = Configuration.ConfigurationManager.ConnectionStrings("POS").ConnectionString
         Else
-            connectionString = "server=a2plcpnl0435.prod.iad2.secureserver.net;user=stiadmin;database=stiventas;port=3306;password=fc6543as;"
+            connectionString = "server=a2plcpnl0435.prod.iad2.secureserver.net;user=stiadmin;database=stiventas;port=3306;password=fc6543as;Convert Zero Datetime=True"
         End If
 
         Return connectionString
@@ -252,6 +274,59 @@ Public Class DBConnector
         End Try
 
         Return dataTable
+    End Function
+
+    Public Function InsertUpdateTransaction(ByVal sql As String, ByVal params As List(Of MySqlParameter), Optional additionalSQL As String = "") As Boolean
+        Dim command As MySqlCommand
+        Dim success As Boolean = False
+        Dim insertResult As Integer
+        Dim transaction As MySqlTransaction
+
+        Try
+            ResetLastError()
+
+            Using connection As New MySqlConnection(GetConnectionString())
+                connection.Open()
+
+                transaction = connection.BeginTransaction(IsolationLevel.Serializable)
+                command = New MySqlCommand(sql, connection, transaction)
+
+                Try
+                    command.CommandType = CommandType.Text
+
+                    For Each param As MySqlParameter In params
+                        command.Parameters.Add(param)
+                    Next
+
+                    insertResult = command.ExecuteNonQuery()
+
+                    If Not String.IsNullOrEmpty(additionalSQL) Then
+                        command = New MySqlCommand(additionalSQL, connection, transaction)
+                        command.CommandType = CommandType.Text
+                        insertResult = command.ExecuteNonQuery()
+                    End If
+
+                    transaction.Commit()
+                    success = insertResult > 0
+                Catch commitException As Exception
+                    AppendInnerError(commitException)
+                    Try
+                        transaction.Rollback()
+                    Catch ex As Exception
+                        If transaction.Connection IsNot Nothing Then
+                            Throw New Exception("An exception of type " & ex.GetType().ToString() & " was encountered while attempting to roll back the transaction.")
+                        End If
+                    End Try
+                End Try
+
+                connection.Close()
+            End Using
+
+        Catch ex As Exception
+            AppendInnerError(ex)
+        End Try
+
+        Return success
     End Function
 
 End Class
