@@ -81,11 +81,7 @@ Public Class ClienteController : Inherits ControllerBase : Implements IDBOperati
             ' ¿  & "RedondeoInventario = @RedondeoInventario, RedondearCompras = @RedondearCompras, " _
             '  & "RedondearVentas = @RedondearVentas, RedondearInventario = @RedondearInventario " _
             '   & "WHERE CodigoMoneda = @Id;"
-            sql = "Update TblCliente SET
-                    Rut = @Rut,
-                    Nombre = @Nombre,
-                    Direccion = @Dir,
-                    Cupo = @Cupo,
+            sql = "Update TblCliente SET Rut = @Rut,Nombre = @Nombre, Direccion = @Dir,Cupo = @Cupo
                     WHERE Id = @Id;"
 
             ' CheckNullValues(table)

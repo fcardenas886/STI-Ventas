@@ -40,6 +40,7 @@ Partial Class FrmMainMDI
         Me.ConsultasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsultasToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.TransaccionesDeInventarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -75,7 +76,7 @@ Partial Class FrmMainMDI
         '
         'ConfigurarToolStripMenuItem
         '
-        Me.ConfigurarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolStripUnitOfMeasure, Me.GrupoDeProveedoresToolStripMenuItem, Me.MonedasToolStripMenuItem, Me.FormaDePagoToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.CategoriasDeProductosToolStripMenuItem, Me.ProductosToolStripMenuItem})
+        Me.ConfigurarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolStripUnitOfMeasure, Me.GrupoDeProveedoresToolStripMenuItem, Me.MonedasToolStripMenuItem, Me.FormaDePagoToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.CategoriasDeProductosToolStripMenuItem, Me.ProductosToolStripMenuItem, Me.ClientesToolStripMenuItem})
         Me.ConfigurarToolStripMenuItem.Name = "ConfigurarToolStripMenuItem"
         Me.ConfigurarToolStripMenuItem.Size = New System.Drawing.Size(76, 20)
         Me.ConfigurarToolStripMenuItem.Text = "Configurar"
@@ -152,7 +153,7 @@ Partial Class FrmMainMDI
         '
         Me.ConsultasToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TransaccionesDeInventarioToolStripMenuItem})
         Me.ConsultasToolStripMenuItem1.Name = "ConsultasToolStripMenuItem1"
-        Me.ConsultasToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.ConsultasToolStripMenuItem1.Size = New System.Drawing.Size(126, 22)
         Me.ConsultasToolStripMenuItem1.Text = "Consultas"
         '
         'TransaccionesDeInventarioToolStripMenuItem
@@ -160,6 +161,12 @@ Partial Class FrmMainMDI
         Me.TransaccionesDeInventarioToolStripMenuItem.Name = "TransaccionesDeInventarioToolStripMenuItem"
         Me.TransaccionesDeInventarioToolStripMenuItem.Size = New System.Drawing.Size(219, 22)
         Me.TransaccionesDeInventarioToolStripMenuItem.Text = "Transacciones de inventario"
+        '
+        'ClientesToolStripMenuItem
+        '
+        Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
+        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
+        Me.ClientesToolStripMenuItem.Text = "Clientes"
         '
         'FrmMainMDI
         '
@@ -203,4 +210,5 @@ Partial Class FrmMainMDI
     Friend WithEvents ConsultasToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConsultasToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents TransaccionesDeInventarioToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ClientesToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -84,6 +84,15 @@ Public Class FrmMainMDI
         child.Show()
     End Sub
 
+    Private Sub ClientesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClientesToolStripMenuItem.Click
+
+        Dim child As Form = New FrmCliente With {
+           .MdiParent = Me
+       }
+        child.Show()
+
+    End Sub
+
 #End Region
 
 #Region "Class methods"
@@ -95,6 +104,8 @@ Public Class FrmMainMDI
     Protected Sub InitControls()
         Me.Text = GetPOSName()
     End Sub
+
+
 
 #End Region
 End Class

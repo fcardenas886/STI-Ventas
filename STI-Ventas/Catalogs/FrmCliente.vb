@@ -150,12 +150,14 @@ Public Class FrmCliente
 
     Public Overrides Function GetCurrentTable() As IDBTable
         Dim dbTable As New ClienteModel With {
-            .Id = 0,
             .Rut = txtRut.Text,
             .Nombre = txtNombre.Text,
             .Direccion = txtDireccion.Text,
             .Cupo = Convert.ToInt32(txtCupo.Text)
         }
+        If Not String.IsNullOrEmpty(txtId.Text) Then
+            dbTable.Id = CType(txtId.Text, Integer)
+        End If
 
         Return dbTable
     End Function
