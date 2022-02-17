@@ -680,13 +680,13 @@ Partial Class FrmOrdenCompra
         'NuevoToolStripMenuItem1
         '
         Me.NuevoToolStripMenuItem1.Name = "NuevoToolStripMenuItem1"
-        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(124, 22)
         Me.NuevoToolStripMenuItem1.Text = "Nuevo"
         '
         'EliminarToolStripMenuItem
         '
         Me.EliminarToolStripMenuItem.Name = "EliminarToolStripMenuItem"
-        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.EliminarToolStripMenuItem.Text = "Eliminar"
         '
         'AccionesToolStripMenuItem
@@ -699,13 +699,13 @@ Partial Class FrmOrdenCompra
         'ConfirmarToolStripMenuItem
         '
         Me.ConfirmarToolStripMenuItem.Name = "ConfirmarToolStripMenuItem"
-        Me.ConfirmarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ConfirmarToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
         Me.ConfirmarToolStripMenuItem.Text = "Confirmar"
         '
         'CancelarToolStripMenuItem
         '
         Me.CancelarToolStripMenuItem.Name = "CancelarToolStripMenuItem"
-        Me.CancelarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CancelarToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
         Me.CancelarToolStripMenuItem.Text = "Cancelar"
         '
         'ErrorProviderSTI

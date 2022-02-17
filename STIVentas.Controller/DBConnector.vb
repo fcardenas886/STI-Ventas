@@ -237,7 +237,7 @@ Public Class DBConnector
         If Configuration.ConfigurationManager.ConnectionStrings("POS") IsNot Nothing Then
             connectionString = Configuration.ConfigurationManager.ConnectionStrings("POS").ConnectionString
         Else
-            connectionString = "server=a2plcpnl0435.prod.iad2.secureserver.net;user=stiadmin;database=stiventas;port=3306;password=fc6543as;Convert Zero Datetime=True"
+            connectionString = "server=a2plcpnl0435.prod.iad2.secureserver.net;user=stiadmin;database=stiventas;port=3306;password=fc6543as;Convert Zero Datetime=True;Treat Tiny As Boolean=false;"
         End If
 
         Return connectionString

@@ -316,12 +316,79 @@ Public Class FrmComprasListPage
         Return dbTable
     End Function
 
+    ''' <summary>
+    ''' Activa botones
+    ''' </summary>
+    ''' <param name="rowIndex">Fila seleccionada</param>
+    ''' <remarks>14.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
+    Protected Overrides Sub OnRowEnter(rowIndex As Integer)
+        Dim enabled As Boolean = False
+        Dim estatus As EstadoOrdenCompra
+
+        If rowIndex >= 0 Then
+            estatus = dgvListPage.Rows().Item(rowIndex).Cells.Item("Estado").Value
+            enabled = estatus = EstadoOrdenCompra.Borrador
+        End If
+
+        EliminarToolStripMenuItem.Enabled = enabled
+        ConfirmarToolStripMenuItem.Enabled = enabled
+        ConfirmarToolStripMenuItem.Visible = True
+    End Sub
+
+    Protected Sub ConfirmPurchaseOrder()
+        Dim frmConfirm As FrmConfirmarOrdenCompra
+        Dim ordenCompra As CompraHeaderModel
+        Try
+            ordenCompra = GetCurrentPurchaseOrder()
+
+            If ValidateConfirmPurchaseOrder(ordenCompra) Or True Then
+                frmConfirm = New FrmConfirmarOrdenCompra(ordenCompra)
+
+                If frmConfirm.ShowDialog(Me) = DialogResult.OK Then
+                    If frmConfirm.IsPurchConfirmed Then
+                        LoadRecords()
+                    End If
+                End If
+            End If
+
+        Catch ex As Exception
+            HandleException(ex)
+        End Try
+    End Sub
+
+    Protected Function ValidateConfirmPurchaseOrder(ordenCompra As CompraHeaderModel) As Boolean
+        Dim ret As Boolean = True
+        Dim strMsg As String = String.Empty
+
+        If ordenCompra Is Nothing Or ordenCompra.Id = 0 Then
+            strMsg = "No se puede recuperar la orden de compra." & Environment.NewLine
+        Else
+            If ordenCompra.Estado <> EstadoOrdenCompra.Borrador Then
+                strMsg = "La orden de compra tiene un estatus no valido." & Environment.NewLine
+            End If
+        End If
+
+        If Not String.IsNullOrEmpty(strMsg) Then
+            ret = CheckFailed(strMsg)
+        End If
+
+        Return ret
+    End Function
+
 #End Region
 
 #Region "Events"
 
     Private Sub chkEnableStatusFilter_CheckedChanged(sender As Object, e As EventArgs) Handles chkEnableStatusFilter.CheckedChanged
         HandleStatusFilter()
+    End Sub
+
+    Private Sub ConfirmarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConfirmarToolStripMenuItem.Click
+        ConfirmPurchaseOrder()
+    End Sub
+
+    Private Sub ConfirmarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ConfirmarToolStripMenuItem1.Click
+        ConfirmPurchaseOrder()
     End Sub
 
 #End Region

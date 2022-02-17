@@ -81,11 +81,11 @@ Public Class FrmTransaccionInventarioListPage
 
             If isFromFilterButton Then
                 If chkEnableStatusFilter.Checked Then
-                    dbFilter = New DBFilterFields("Estatus", DBFilterType.Equal, cboEstatus.SelectedValue)
+                    dbFilter = New DBFilterFields("Estatus", DBFilterType.Equal, [Enum].Parse(GetType(EstadoInventario), cboEstatus.SelectedValue))
                     dbSelect.FilterFields.Add(dbFilter)
                 End If
                 If chkEnableTipoTransaccion.Checked Then
-                    dbSelect.FilterFields.Add(New DBFilterFields("TipoTransaccion", DBFilterType.Equal, cboTipoTransaccion.SelectedValue))
+                    dbSelect.FilterFields.Add(New DBFilterFields("TipoTransaccion", DBFilterType.Equal, [Enum].Parse(GetType(TipoTransaccionInventario), cboTipoTransaccion.SelectedValue)))
                 End If
                 If Not String.IsNullOrEmpty(txtIdArticulo.Text) Then
                     dbSelect.FilterFields.Add(New DBFilterFields("IdArticulo", DBFilterType.Contains, String.Format("%{0}%", txtIdArticulo.Text)))

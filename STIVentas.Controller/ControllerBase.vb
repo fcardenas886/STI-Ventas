@@ -166,7 +166,14 @@ Public Class ControllerBase : Implements IDBOperations
                     Try
                         Dim propertyInfo As PropertyInfo = obj.[GetType]().GetProperty(prop.Name)
                         propertyName = prop.Name
-                        propertyInfo.SetValue(obj, Convert.ChangeType(row(prop.Name), propertyInfo.PropertyType), Nothing)
+
+                        If propertyInfo.PropertyType IsNot Nothing And propertyInfo.PropertyType.IsEnum Then
+                            Dim iValue As Integer = row(prop.Name)
+                            propertyInfo.SetValue(obj, iValue, Nothing)
+                        Else
+                            propertyInfo.SetValue(obj, Convert.ChangeType(row(prop.Name), propertyInfo.PropertyType), Nothing)
+                        End If
+
                     Catch
                         HandleCustomRowForQueryToList(obj, row, propertyName)
                     End Try

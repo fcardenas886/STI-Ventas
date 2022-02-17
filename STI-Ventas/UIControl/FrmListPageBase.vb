@@ -161,6 +161,15 @@ Public Class FrmListPageBase
 
     End Sub
 
+    ''' <summary>
+    ''' Se deben indicar validaciones por registro seleccionado.
+    ''' </summary>
+    ''' <param name="rowIndex">Fila seleccionada</param>
+    ''' <remarks>14.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
+    Protected Overridable Sub OnRowEnter(rowIndex As Integer)
+
+    End Sub
+
 #End Region
 
 #Region "Events"
@@ -195,6 +204,10 @@ Public Class FrmListPageBase
 
     Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
         Close()
+    End Sub
+
+    Private Sub dgvListPage_RowEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvListPage.RowEnter
+        OnRowEnter(e.RowIndex)
     End Sub
 #End Region
 

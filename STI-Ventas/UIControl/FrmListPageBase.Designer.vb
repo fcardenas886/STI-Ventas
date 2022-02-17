@@ -99,19 +99,19 @@ Partial Class FrmListPageBase
         'NuevoToolStripMenuItem1
         '
         Me.NuevoToolStripMenuItem1.Name = "NuevoToolStripMenuItem1"
-        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(124, 22)
+        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
         Me.NuevoToolStripMenuItem1.Text = "Nuevo"
         '
         'EditarToolStripMenuItem
         '
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.EditarToolStripMenuItem.Text = "Editar"
         '
         'EliminarToolStripMenuItem
         '
         Me.EliminarToolStripMenuItem.Name = "EliminarToolStripMenuItem"
-        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.EliminarToolStripMenuItem.Text = "Eliminar"
         '
         'AccionesToolStripMenuItem
@@ -124,7 +124,7 @@ Partial Class FrmListPageBase
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(101, 22)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SalirToolStripMenuItem.Text = "Salir"
         '
         'PanelContainer
@@ -191,17 +191,17 @@ Partial Class FrmListPageBase
 
     End Sub
     Friend WithEvents GroupBoxDetails As GroupBox
-    Friend WithEvents NuevoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents NuevoToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents EditarToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents EliminarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents dgvListPage As DataGridView
     Protected Friend WithEvents AccionesToolStripMenuItem As ToolStripMenuItem
     Protected Friend WithEvents GroupBoxFilters As GroupBox
     Protected Friend WithEvents MenuStripMainActions As MenuStrip
-    Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GroupBoxButtonActions As GroupBox
     Friend WithEvents btnCerrar As Button
     Friend WithEvents btnFiltrar As Button
     Protected Friend WithEvents PanelContainer As Panel
+    Protected Friend WithEvents NuevoToolStripMenuItem As ToolStripMenuItem
+    Protected Friend WithEvents NuevoToolStripMenuItem1 As ToolStripMenuItem
+    Protected Friend WithEvents EditarToolStripMenuItem As ToolStripMenuItem
+    Protected Friend WithEvents EliminarToolStripMenuItem As ToolStripMenuItem
+    Protected Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
 End Class

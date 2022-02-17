@@ -24,8 +24,21 @@ Partial Class FrmBuscaProducto
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBoxDetails = New System.Windows.Forms.GroupBox()
         Me.dgvListPage = New System.Windows.Forms.DataGridView()
+        Me.IdProducto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdArticulo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Unidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdCategoria = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.UnidadPorCaja = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PrecioVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PrecioCompra = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Marca = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PanelContainer = New System.Windows.Forms.Panel()
         Me.GroupBoxFilters = New System.Windows.Forms.GroupBox()
         Me.txtItemName = New System.Windows.Forms.TextBox()
@@ -35,9 +48,6 @@ Partial Class FrmBuscaProducto
         Me.GroupBoxButtonActions = New System.Windows.Forms.GroupBox()
         Me.btnSeleccionarRegistro = New System.Windows.Forms.Button()
         Me.btnFiltrar = New System.Windows.Forms.Button()
-        Me.IdProducto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Unidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBoxDetails.SuspendLayout()
         CType(Me.dgvListPage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelContainer.SuspendLayout()
@@ -51,7 +61,7 @@ Partial Class FrmBuscaProducto
         Me.GroupBoxDetails.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBoxDetails.Location = New System.Drawing.Point(0, 72)
         Me.GroupBoxDetails.Name = "GroupBoxDetails"
-        Me.GroupBoxDetails.Size = New System.Drawing.Size(800, 378)
+        Me.GroupBoxDetails.Size = New System.Drawing.Size(1082, 378)
         Me.GroupBoxDetails.TabIndex = 3
         Me.GroupBoxDetails.TabStop = False
         Me.GroupBoxDetails.Text = "Detalles"
@@ -61,13 +71,79 @@ Partial Class FrmBuscaProducto
         Me.dgvListPage.AllowUserToAddRows = False
         Me.dgvListPage.AllowUserToDeleteRows = False
         Me.dgvListPage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvListPage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdProducto, Me.Nombre, Me.Unidad})
+        Me.dgvListPage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdProducto, Me.IdArticulo, Me.Nombre, Me.Descripcion, Me.Unidad, Me.IdCategoria, Me.UnidadPorCaja, Me.PrecioVenta, Me.PrecioCompra, Me.Marca})
         Me.dgvListPage.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvListPage.Location = New System.Drawing.Point(3, 16)
         Me.dgvListPage.Name = "dgvListPage"
         Me.dgvListPage.ReadOnly = True
-        Me.dgvListPage.Size = New System.Drawing.Size(794, 359)
+        Me.dgvListPage.Size = New System.Drawing.Size(1076, 359)
         Me.dgvListPage.TabIndex = 0
+        '
+        'IdProducto
+        '
+        Me.IdProducto.HeaderText = "Id"
+        Me.IdProducto.Name = "IdProducto"
+        Me.IdProducto.ReadOnly = True
+        '
+        'IdArticulo
+        '
+        Me.IdArticulo.HeaderText = "Id Artículo"
+        Me.IdArticulo.Name = "IdArticulo"
+        Me.IdArticulo.ReadOnly = True
+        '
+        'Nombre
+        '
+        Me.Nombre.HeaderText = "Nombre"
+        Me.Nombre.Name = "Nombre"
+        Me.Nombre.ReadOnly = True
+        '
+        'Descripcion
+        '
+        Me.Descripcion.HeaderText = "Descripción"
+        Me.Descripcion.Name = "Descripcion"
+        Me.Descripcion.ReadOnly = True
+        '
+        'Unidad
+        '
+        Me.Unidad.HeaderText = "Unidad"
+        Me.Unidad.Name = "Unidad"
+        Me.Unidad.ReadOnly = True
+        '
+        'IdCategoria
+        '
+        Me.IdCategoria.HeaderText = "Categoría"
+        Me.IdCategoria.Name = "IdCategoria"
+        Me.IdCategoria.ReadOnly = True
+        '
+        'UnidadPorCaja
+        '
+        DataGridViewCellStyle1.Format = "N2"
+        Me.UnidadPorCaja.DefaultCellStyle = DataGridViewCellStyle1
+        Me.UnidadPorCaja.HeaderText = "Unidad Por Caja"
+        Me.UnidadPorCaja.Name = "UnidadPorCaja"
+        Me.UnidadPorCaja.ReadOnly = True
+        '
+        'PrecioVenta
+        '
+        DataGridViewCellStyle2.Format = "N2"
+        Me.PrecioVenta.DefaultCellStyle = DataGridViewCellStyle2
+        Me.PrecioVenta.HeaderText = "Precio Venta"
+        Me.PrecioVenta.Name = "PrecioVenta"
+        Me.PrecioVenta.ReadOnly = True
+        '
+        'PrecioCompra
+        '
+        DataGridViewCellStyle3.Format = "N2"
+        Me.PrecioCompra.DefaultCellStyle = DataGridViewCellStyle3
+        Me.PrecioCompra.HeaderText = "Precio Compra"
+        Me.PrecioCompra.Name = "PrecioCompra"
+        Me.PrecioCompra.ReadOnly = True
+        '
+        'Marca
+        '
+        Me.Marca.HeaderText = "Marca"
+        Me.Marca.Name = "Marca"
+        Me.Marca.ReadOnly = True
         '
         'PanelContainer
         '
@@ -76,7 +152,7 @@ Partial Class FrmBuscaProducto
         Me.PanelContainer.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelContainer.Location = New System.Drawing.Point(0, 0)
         Me.PanelContainer.Name = "PanelContainer"
-        Me.PanelContainer.Size = New System.Drawing.Size(800, 72)
+        Me.PanelContainer.Size = New System.Drawing.Size(1082, 72)
         Me.PanelContainer.TabIndex = 2
         '
         'GroupBoxFilters
@@ -88,7 +164,7 @@ Partial Class FrmBuscaProducto
         Me.GroupBoxFilters.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBoxFilters.Location = New System.Drawing.Point(0, 0)
         Me.GroupBoxFilters.Name = "GroupBoxFilters"
-        Me.GroupBoxFilters.Size = New System.Drawing.Size(600, 72)
+        Me.GroupBoxFilters.Size = New System.Drawing.Size(882, 72)
         Me.GroupBoxFilters.TabIndex = 0
         Me.GroupBoxFilters.TabStop = False
         Me.GroupBoxFilters.Text = "Filtros"
@@ -132,7 +208,7 @@ Partial Class FrmBuscaProducto
         Me.GroupBoxButtonActions.Controls.Add(Me.btnSeleccionarRegistro)
         Me.GroupBoxButtonActions.Controls.Add(Me.btnFiltrar)
         Me.GroupBoxButtonActions.Dock = System.Windows.Forms.DockStyle.Right
-        Me.GroupBoxButtonActions.Location = New System.Drawing.Point(600, 0)
+        Me.GroupBoxButtonActions.Location = New System.Drawing.Point(882, 0)
         Me.GroupBoxButtonActions.Name = "GroupBoxButtonActions"
         Me.GroupBoxButtonActions.Size = New System.Drawing.Size(200, 72)
         Me.GroupBoxButtonActions.TabIndex = 0
@@ -149,7 +225,7 @@ Partial Class FrmBuscaProducto
         Me.btnSeleccionarRegistro.Name = "btnSeleccionarRegistro"
         Me.btnSeleccionarRegistro.Size = New System.Drawing.Size(194, 23)
         Me.btnSeleccionarRegistro.TabIndex = 1
-        Me.btnSeleccionarRegistro.Text = "Seleccionar"
+        Me.btnSeleccionarRegistro.Text = "&Seleccionar"
         Me.btnSeleccionarRegistro.UseVisualStyleBackColor = True
         '
         'btnFiltrar
@@ -164,31 +240,13 @@ Partial Class FrmBuscaProducto
         Me.btnFiltrar.Text = "Filtrar"
         Me.btnFiltrar.UseVisualStyleBackColor = True
         '
-        'IdProducto
-        '
-        Me.IdProducto.HeaderText = "Id"
-        Me.IdProducto.Name = "IdProducto"
-        Me.IdProducto.ReadOnly = True
-        '
-        'Nombre
-        '
-        Me.Nombre.HeaderText = "Nombre"
-        Me.Nombre.Name = "Nombre"
-        Me.Nombre.ReadOnly = True
-        '
-        'Unidad
-        '
-        Me.Unidad.HeaderText = "Unidad"
-        Me.Unidad.Name = "Unidad"
-        Me.Unidad.ReadOnly = True
-        '
         'FrmBuscaProducto
         '
         Me.AcceptButton = Me.btnFiltrar
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnSeleccionarRegistro
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(1082, 450)
         Me.Controls.Add(Me.GroupBoxDetails)
         Me.Controls.Add(Me.PanelContainer)
         Me.Name = "FrmBuscaProducto"
@@ -215,6 +273,13 @@ Partial Class FrmBuscaProducto
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents IdProducto As DataGridViewTextBoxColumn
+    Friend WithEvents IdArticulo As DataGridViewTextBoxColumn
     Friend WithEvents Nombre As DataGridViewTextBoxColumn
+    Friend WithEvents Descripcion As DataGridViewTextBoxColumn
     Friend WithEvents Unidad As DataGridViewTextBoxColumn
+    Friend WithEvents IdCategoria As DataGridViewTextBoxColumn
+    Friend WithEvents UnidadPorCaja As DataGridViewTextBoxColumn
+    Friend WithEvents PrecioVenta As DataGridViewTextBoxColumn
+    Friend WithEvents PrecioCompra As DataGridViewTextBoxColumn
+    Friend WithEvents Marca As DataGridViewTextBoxColumn
 End Class

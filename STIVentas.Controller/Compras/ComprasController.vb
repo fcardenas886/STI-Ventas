@@ -266,5 +266,28 @@ Public Class ComprasController : Inherits ControllerBase : Implements IDBOperati
 
         Return totals
     End Function
+
+    Protected Overrides Sub HandleCustomRowForQueryToList(ByRef objectToReturn As Object, ByVal dataRow As DataRow, propertyName As String)
+        Dim model As CompraHeaderModel
+
+        Try
+            model = objectToReturn
+
+            If model Is Nothing Then
+                Return
+            End If
+
+            Select Case propertyName.ToUpper()
+                Case "ESTADO"
+                    Dim iValue As Integer = CType(dataRow("Estado"), Integer)
+                    model.Estado = iValue
+            End Select
+
+            objectToReturn = model
+        Catch
+            Return
+        End Try
+    End Sub
+
 #End Region
 End Class

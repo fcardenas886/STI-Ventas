@@ -113,6 +113,8 @@ Public Class FrmOrdenCompra
         Try
             AllowInitFromVendor = False
             Cursor = Cursors.WaitCursor
+            cboEstatus.DataSource = [Enum].GetValues(GetType(EstadoOrdenCompra))
+
             FillProveedorComboBox(Me, cboProveedor)
             FillCurrencyComboBox(Me, cboMoneda)
             FillFormaPagoComboBox(Me, cboFormaPago)
@@ -196,7 +198,7 @@ Public Class FrmOrdenCompra
         txtContacto.Text = ordenCompra.Contacto
         txtEmail.Text = ordenCompra.Correo
         txtVendorName.Text = ordenCompra.Nombre
-        cboEstatus.SelectedValue = ordenCompra.Estado
+        cboEstatus.SelectedIndex = ordenCompra.Estado
 
         If dateTimeFechaEntrega.MinDate < ordenCompra.FechaEntrega Then
             dateTimeFechaEntrega.Value = ordenCompra.FechaEntrega
@@ -491,7 +493,7 @@ Public Class FrmOrdenCompra
         If fromButton Then
             OpenSearchFormAndFillItem()
         Else
-
+            CheckExistItemId()
         End If
 
     End Sub
@@ -512,17 +514,24 @@ Public Class FrmOrdenCompra
         End Try
     End Sub
 
-    Protected Sub InitFieldsFromProduct(product As IDBTable)
+    Protected Sub InitFieldsFromProduct(product As ProductoModel)
 
 
         Try
-            product.RecordId = 1
+            txtCantidad.Text = 1.ToString("N2")
+            txtPrecioUnitario.Text = product.PrecioCompra.ToString()
+            txtDescuento.Text = 0.ToString("N2")
 
-            txtCantidad.Text = 1
-            txtPrecioUnitario.Text = 1.ToString()
-            txtDescuento.Text = 0.ToString()
+            txtItemId.Text = product.IdArticulo
+            txtItemName.Text = product.Nombre
 
             CalculateNetAmount()
+
+            If product.IdUnidad Is Nothing Then
+                cboUnidad.SelectedIndex = -1
+            Else
+                cboUnidad.SelectedValue = product.IdUnidad
+            End If
 
         Catch ex As Exception
             HandleException(ex)
@@ -541,6 +550,10 @@ Public Class FrmOrdenCompra
         Else
             If String.IsNullOrEmpty(model.Id) Then
                 strErrorMsg = AppendLastError(strErrorMsg, "No se ha especificado la orden de compra.")
+            End If
+
+            If model.Estado <> EstadoOrdenCompra.Borrador Then
+                strErrorMsg = AppendLastError(strErrorMsg, "Solo se pueden editar ordenes de compra en estado borrador.")
             End If
 
         End If
@@ -568,6 +581,10 @@ Public Class FrmOrdenCompra
             If String.IsNullOrEmpty(model.Id) Then
                 strErrorMsg = AppendLastError(strErrorMsg, "No se ha especificado la orden de compra.")
             End If
+            If model.Estado <> EstadoOrdenCompra.Borrador Then
+                strErrorMsg = AppendLastError(strErrorMsg, "Solo se pueden editar ordenes de compra en estado borrador.")
+            End If
+
         End If
         If modelLine Is Nothing Then
             strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar la línea de orden de compra actual.")
@@ -816,11 +833,11 @@ Public Class FrmOrdenCompra
             txtEmail.ReadOnly = Not allowEdit
             dateTimeFechaEntrega.Enabled = allowEdit
 
-            cboFormaPago.Enabled = Not allowEdit
-            cboProveedor.Enabled = Not allowEdit
-            cboMoneda.Enabled = Not allowEdit
+            cboFormaPago.Enabled = allowEdit
+            cboProveedor.Enabled = allowEdit
+            cboMoneda.Enabled = allowEdit
 
-            cboUnidad.Enabled = Not allowEdit
+            cboUnidad.Enabled = allowEdit
             txtItemId.ReadOnly = Not allowEdit
             txtItemName.ReadOnly = Not allowEdit
             txtCantidad.ReadOnly = Not allowEdit
@@ -839,6 +856,50 @@ Public Class FrmOrdenCompra
         Catch ex As Exception
             HandleException(ex)
         End Try
+    End Sub
+
+    Protected Sub CheckExistItemId()
+        Dim iSelected As ISelectedRecord
+        Dim frmBusqueda As FrmBuscaProducto
+        Dim controller As ProductosController
+        Dim records As List(Of ProductoModel)
+        Dim dbSelect As DBSelect
+        Dim model As ProductoModel
+
+        Try
+            If String.IsNullOrEmpty(txtItemId.Text) Then
+                OpenSearchFormAndFillItem()
+            Else
+                Cursor = Cursors.WaitCursor
+
+                controller = New ProductosController()
+                dbSelect = New DBSelect(controller.TableName())
+
+                dbSelect.FilterFields.Add(New DBFilterFields("IdArticulo", DBFilterType.Contains, String.Format("%{0}%", txtItemId.Text)))
+                records = controller.GetListWithFilters(Of ProductoModel)(dbSelect)
+
+                If records.Count < 1 Then
+                    OpenSearchFormAndFillItem()
+                ElseIf records.Count = 1 Then
+                    model = records.FirstOrDefault()
+                    InitFieldsFromProduct(model)
+                Else
+                    frmBusqueda = New FrmBuscaProducto()
+                    frmBusqueda.InitFromExistingValues(txtItemId.Text, records)
+                    frmBusqueda.ShowDialog(Me)
+
+                    iSelected = CType(frmBusqueda, ISelectedRecord)
+                    InitFieldsFromProduct(iSelected.SelectedRecord())
+
+                End If
+
+            End If
+
+        Catch ex As Exception
+            HandleException(ex)
+        End Try
+        Cursor = Cursors.Default
+
     End Sub
 
 #End Region
@@ -875,8 +936,11 @@ Public Class FrmOrdenCompra
         If RecordId > 0 Then
             txtOrdenCompraId.Text = RecordId.ToString()
             GetRecordsAndPopulateFields()
+            ClearLineFields()
+            EnableFieldsBasedOnEstatus()
+
             IsNewPurchaseOrder = False
-            txtOrdenCompra.ReadOnly = False
+            txtOrdenCompra.ReadOnly = True
         Else
             OnNewRecordSelected()
         End If
@@ -886,8 +950,6 @@ Public Class FrmOrdenCompra
         AddHandler txtOrdenCompra.Enter, AddressOf TextBox_Enter
         AddHandler txtVendorName.Enter, AddressOf TextBox_Enter
         AddHandler txtEmail.Enter, AddressOf TextBox_Enter
-
-        cboEstatus.DataSource = [Enum].GetValues(GetType(EstadoOrdenCompra))
 
         '' Campos de líneas
         AddHandler txtCantidad.Enter, AddressOf TextBox_Enter
@@ -949,6 +1011,12 @@ Public Class FrmOrdenCompra
 
     Private Sub ConfirmarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConfirmarToolStripMenuItem.Click
         ConfirmPurchaseOrder()
+    End Sub
+
+    Private Sub txtItemId_KeyUp(sender As Object, e As KeyEventArgs) Handles txtItemId.KeyUp
+        If e.KeyData = Keys.Enter Then
+            BuscaProductoRelacionado()
+        End If
     End Sub
 
 #End Region

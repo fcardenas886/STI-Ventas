@@ -33,7 +33,10 @@ Partial Class FrmComprasListPage
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cboMoneda = New System.Windows.Forms.ComboBox()
+        Me.ConfirmarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConfirmarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBoxFilters.SuspendLayout()
+        Me.PanelContainer.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBoxFilters
@@ -147,6 +150,18 @@ Partial Class FrmComprasListPage
         Me.cboMoneda.Size = New System.Drawing.Size(155, 21)
         Me.cboMoneda.TabIndex = 19
         '
+        'ConfirmarToolStripMenuItem
+        '
+        Me.ConfirmarToolStripMenuItem.Name = "ConfirmarToolStripMenuItem"
+        Me.ConfirmarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ConfirmarToolStripMenuItem.Text = "Confirmar"
+        '
+        'ConfirmarToolStripMenuItem1
+        '
+        Me.ConfirmarToolStripMenuItem1.Name = "ConfirmarToolStripMenuItem1"
+        Me.ConfirmarToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.ConfirmarToolStripMenuItem1.Text = "Confirmar"
+        '
         'FrmComprasListPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -156,6 +171,7 @@ Partial Class FrmComprasListPage
         Me.Text = "Ordenes de compra"
         Me.GroupBoxFilters.ResumeLayout(False)
         Me.GroupBoxFilters.PerformLayout()
+        Me.PanelContainer.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -172,4 +188,6 @@ Partial Class FrmComprasListPage
     Friend WithEvents Label7 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents cboMoneda As ComboBox
+    Friend WithEvents ConfirmarToolStripMenuItem As ToolStripMenuItem
+    Protected Friend WithEvents ConfirmarToolStripMenuItem1 As ToolStripMenuItem
 End Class
