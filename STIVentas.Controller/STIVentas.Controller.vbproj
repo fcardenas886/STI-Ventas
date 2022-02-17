@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Catalogs\FormaPagoController.vb" />
+    <Compile Include="ClienteController.vb" />
     <Compile Include="Compras\ComprasDetalleController.vb" />
     <Compile Include="Compras\ComprasController.vb" />
     <Compile Include="ControllerBase.vb" />
