@@ -26,11 +26,11 @@ Public Class FrmComprasListPage
     ''' <remarks>05.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Friend Overrides Function DeleteRecord() As Boolean
         Dim deleted As Boolean = False
-        Dim controller As ComprasController
+        Dim controller As VentasController
 
         Try
             Cursor = Cursors.WaitCursor
-            controller = New ComprasController()
+            controller = New VentasController()
             deleted = controller.Delete(GetCurrentPurchaseOrder())
 
             If Not deleted Then
@@ -65,7 +65,7 @@ Public Class FrmComprasListPage
     ''' </summary>
     ''' <remarks>05.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Overrides Sub LoadRecords()
-        Dim controller As ComprasController
+        Dim controller As VentasController
         Dim records As List(Of CompraHeaderModel)
         Dim dbSelect As DBSelect
         Dim dbFilter As DBFilterFields
@@ -95,7 +95,7 @@ Public Class FrmComprasListPage
 
             End If
 
-            controller = New ComprasController()
+            controller = New VentasController()
             dbSelect = New DBSelect(controller.TableName())
 
             If isFromFilterButton Then
@@ -279,7 +279,7 @@ Public Class FrmComprasListPage
 
     Public Function GetCurrentPurchaseOrder() As CompraHeaderModel
         Dim dbTable As New CompraHeaderModel
-        Dim controller As ComprasController
+        Dim controller As VentasController
         Dim records As List(Of CompraHeaderModel)
         Dim dbSelect As DBSelect
         Dim strId As String
@@ -289,7 +289,7 @@ Public Class FrmComprasListPage
             Cursor = Cursors.WaitCursor
 
             strId = GetCurrentRecordId().ToString()
-            controller = New ComprasController()
+            controller = New VentasController()
             dbSelect = New DBSelect(controller.TableName())
             dbSelect.FilterFields.Add(New DBFilterFields("Id", DBFilterType.Equal, strId))
 

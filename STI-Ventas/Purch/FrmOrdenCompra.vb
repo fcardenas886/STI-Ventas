@@ -146,7 +146,7 @@ Public Class FrmOrdenCompra
     End Function
 
     Protected Sub GetRecordsAndPopulateFields()
-        Dim controller As ComprasController
+        Dim controller As VentasController
         Dim records As List(Of CompraHeaderModel)
         Dim ordenCompra As CompraHeaderModel
         Dim dbSelect As DBSelect
@@ -155,7 +155,7 @@ Public Class FrmOrdenCompra
         Try
             Cursor = Cursors.WaitCursor
 
-            controller = New ComprasController()
+            controller = New VentasController()
             dbSelect = New DBSelect(controller.TableName())
             dbSelect.FilterFields.Add(New DBFilterFields("Id", DBFilterType.Equal, txtOrdenCompraId.Text))
 
@@ -235,7 +235,7 @@ Public Class FrmOrdenCompra
     End Function
 
     Protected Sub GetIdFromPurchaseNum(numOC As String)
-        Dim controller As ComprasController
+        Dim controller As VentasController
         Dim records As List(Of CompraHeaderModel)
         Dim ret As CompraHeaderModel = Nothing
         Dim dbSelect As DBSelect
@@ -243,7 +243,7 @@ Public Class FrmOrdenCompra
         Try
             Cursor = Cursors.WaitCursor
 
-            controller = New ComprasController()
+            controller = New VentasController()
             dbSelect = New DBSelect(controller.TableName())
             dbSelect.SelectFields.Add(New DBSelectionField("Id"))
             dbSelect.FilterFields.Add(New DBFilterFields("NumeroCompra", DBFilterType.Equal, numOC))
@@ -272,11 +272,11 @@ Public Class FrmOrdenCompra
     ''' <remarks>06.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Function UpsertRecord() As Boolean
         Dim ret As Boolean = False
-        Dim controller As ComprasController
+        Dim controller As VentasController
 
         Try
             Cursor = Cursors.WaitCursor
-            controller = New ComprasController()
+            controller = New VentasController()
 
             If IsNewPurchaseOrder Then
                 ret = controller.Insert(GetCurrentPurchaseOrder())
@@ -306,11 +306,11 @@ Public Class FrmOrdenCompra
 
     Protected Function DeleteRecord() As Boolean
         Dim deleted As Boolean = False
-        Dim controller As ComprasController
+        Dim controller As VentasController
 
         Try
             Cursor = Cursors.WaitCursor
-            controller = New ComprasController()
+            controller = New VentasController()
             deleted = controller.Delete(GetCurrentPurchaseOrder())
 
             If Not deleted Then

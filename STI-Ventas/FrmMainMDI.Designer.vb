@@ -34,13 +34,16 @@ Partial Class FrmMainMDI
         Me.ProveedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CategoriasDeProductosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProductosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ComprasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TodasLasOrdenesDeCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NuevaCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsultasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsultasToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.TransaccionesDeInventarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PuntoDeVentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -67,7 +70,7 @@ Partial Class FrmMainMDI
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigurarToolStripMenuItem, Me.ComprasToolStripMenuItem, Me.ConsultasToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigurarToolStripMenuItem, Me.ComprasToolStripMenuItem, Me.ConsultasToolStripMenuItem, Me.ToolStripMenuItem1, Me.VentasToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
@@ -123,6 +126,12 @@ Partial Class FrmMainMDI
         Me.ProductosToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
         Me.ProductosToolStripMenuItem.Text = "Productos"
         '
+        'ClientesToolStripMenuItem
+        '
+        Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
+        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
+        Me.ClientesToolStripMenuItem.Text = "Clientes"
+        '
         'ComprasToolStripMenuItem
         '
         Me.ComprasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TodasLasOrdenesDeCompraToolStripMenuItem, Me.NuevaCompraToolStripMenuItem})
@@ -162,11 +171,23 @@ Partial Class FrmMainMDI
         Me.TransaccionesDeInventarioToolStripMenuItem.Size = New System.Drawing.Size(219, 22)
         Me.TransaccionesDeInventarioToolStripMenuItem.Text = "Transacciones de inventario"
         '
-        'ClientesToolStripMenuItem
+        'ToolStripMenuItem1
         '
-        Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
-        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
-        Me.ClientesToolStripMenuItem.Text = "Clientes"
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(12, 20)
+        '
+        'VentasToolStripMenuItem
+        '
+        Me.VentasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PuntoDeVentasToolStripMenuItem})
+        Me.VentasToolStripMenuItem.Name = "VentasToolStripMenuItem"
+        Me.VentasToolStripMenuItem.Size = New System.Drawing.Size(53, 20)
+        Me.VentasToolStripMenuItem.Text = "Ventas"
+        '
+        'PuntoDeVentasToolStripMenuItem
+        '
+        Me.PuntoDeVentasToolStripMenuItem.Name = "PuntoDeVentasToolStripMenuItem"
+        Me.PuntoDeVentasToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PuntoDeVentasToolStripMenuItem.Text = "Punto de Ventas"
         '
         'FrmMainMDI
         '
@@ -211,4 +232,7 @@ Partial Class FrmMainMDI
     Friend WithEvents ConsultasToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents TransaccionesDeInventarioToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ClientesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents VentasToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PuntoDeVentasToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -5,6 +5,40 @@
 ''' </summary>
 ''' <remarks>31.01.2021 jorge.nin92@gmail.com: Se crea la clase</remarks>
 Public Class FrmMainMDI
+
+#Region "Properties"
+    Public Shared Property ID_USUARIO As Integer
+#End Region
+
+#Region "Constructor"
+    ''' <summary>
+    ''' Se agrega constructor para dar un usuario por default
+    ''' </summary>
+    ''' <remarks>18.02.2022 jorge.nin92@gmail.com: Se crea constructor</remarks>
+    Public Sub New()
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        ID_USUARIO = 1
+    End Sub
+
+    ''' <summary>
+    ''' Se agregan constructor para aceptar el usuario que inicia sesión
+    ''' </summary>
+    ''' <param name="userId">Id de usuario</param>
+    ''' <remarks>18.02.2022 jorge.nin92@gmail.com: Se crea contructor</remarks>
+    Public Sub New(userId As Integer)
+
+        ' Esta llamada es exigida por el diseñador.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        ID_USUARIO = userId
+    End Sub
+#End Region
+
 #Region "Events"
     Private Sub FrmMainMDI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitControls()
@@ -87,6 +121,15 @@ Public Class FrmMainMDI
     Private Sub ClientesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClientesToolStripMenuItem.Click
 
         Dim child As Form = New FrmCliente With {
+           .MdiParent = Me
+       }
+        child.Show()
+
+    End Sub
+
+    Private Sub PuntoDeVentasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PuntoDeVentasToolStripMenuItem.Click
+
+        Dim child As Form = New FrmVentaPOS With {
            .MdiParent = Me
        }
         child.Show()
