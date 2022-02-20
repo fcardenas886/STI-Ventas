@@ -6,6 +6,7 @@
 Public Class UsuarioModel : Implements IDBTable
 
 	Private RecordId As Long
+	Public Property Username As String
 	Public Property Nombre As String
 	Public Property AliasName As String
 	Public Property Password As String
@@ -30,9 +31,10 @@ Public Class UsuarioModel : Implements IDBTable
 		RecordId = 0
 	End Sub
 
-	Sub New(ByVal Id_ As Integer, ByVal Nombre_ As String, ByVal Alias_ As String, ByVal Password_ As String, ByVal Status_ As EstadoUsuario,
+	Sub New(ByVal Id_ As Integer, userName_ As String, ByVal Nombre_ As String, ByVal Alias_ As String, ByVal Password_ As String, ByVal Status_ As EstadoUsuario,
 					ByVal Email_ As String, ByVal FechaCreacion_ As TimeSpan)
 		Me.Id = Id_
+		Username = userName_
 		Me.Nombre = Nombre_
 		Me.AliasName = Alias_
 		Me.Password = Password_

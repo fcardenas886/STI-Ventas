@@ -21,7 +21,7 @@ Public Class FrmMainMDI
         InitializeComponent()
 
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
-        ID_USUARIO = 1
+        ID_USUARIO = 3
     End Sub
 
     ''' <summary>
@@ -130,6 +130,15 @@ Public Class FrmMainMDI
     Private Sub PuntoDeVentasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PuntoDeVentasToolStripMenuItem.Click
 
         Dim child As Form = New FrmVentaPOS With {
+           .MdiParent = Me
+       }
+        child.Show()
+
+    End Sub
+
+    Private Sub UsuariosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UsuariosToolStripMenuItem.Click
+
+        Dim child As Form = New FrmUsuario With {
            .MdiParent = Me
        }
         child.Show()

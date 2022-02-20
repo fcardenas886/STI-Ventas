@@ -84,6 +84,9 @@
     <Compile Include="ModulePOS.vb" />
     <Compile Include="MonedaController.vb" />
     <Compile Include="ProveedorController.vb" />
+    <Compile Include="Security\AES.vb" />
+    <Compile Include="Security\DBSettings.vb" />
+    <Compile Include="Setup\UsuarioController.vb" />
     <Compile Include="UnidadController.vb" />
     <Compile Include="UnidadModel.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
