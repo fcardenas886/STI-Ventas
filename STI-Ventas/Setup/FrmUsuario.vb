@@ -152,6 +152,7 @@ Public Class FrmUsuario
             .Password = txtPassword.Text
         }
 
+        dbTable.Password = IIf(String.IsNullOrEmpty(txtPassword.Text), txtPassword.Text, New AES().Encrypt(txtPassword.Text, DBSettings.appPwdUnique, 256))
         dbTable.Status = IIf(chkEnabled.Checked, EstadoUsuario.Activo, EstadoUsuario.Inactivo)
 
         Return dbTable
@@ -169,7 +170,7 @@ Public Class FrmUsuario
 
             txtUsername.Text = dtGridView.Item(0, e.RowIndex).Value
 
-            UsuarioModel = GetProveedorPorId(txtUsername.Text)
+            UsuarioModel = GetUsuarioPorId(txtUsername.Text)
 
             If UsuarioModel IsNot Nothing And Not String.IsNullOrEmpty(UsuarioModel.Username) Then
 
@@ -225,6 +226,13 @@ Public Class FrmUsuario
             dtGridView.Rows.Clear()
 
             For Each model As UsuarioModel In records
+                Try
+                    model.Password = IIf(String.IsNullOrEmpty(model.Password), model.Password, AES.Decrypt256(model.Password))
+                Catch ex As Exception
+                    model.Password = model.Password
+                End Try
+
+
                 dtGridView.Rows().Add(model.Username, model.Nombre, model.AliasName,
                                          model.Email, model.Password, model.Status = EstadoUsuario.Activo)
             Next
@@ -255,7 +263,7 @@ Public Class FrmUsuario
     ''' <param name="username"></param>
     ''' <returns></returns>
     ''' <remarks>20.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
-    Protected Function GetProveedorPorId(username As String) As UsuarioModel
+    Protected Function GetUsuarioPorId(username As String) As UsuarioModel
         'Dim controller As UsuarioController
         'Dim records As List(Of UsuarioModel)
         Dim ret As UsuarioModel = Nothing

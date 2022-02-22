@@ -136,6 +136,10 @@ Public Class FrmProductos
 
         AddHandler txtMarca.Enter, AddressOf TextBox_Enter
 
+        txtPrecioCompra.Maximum = Decimal.MaxValue
+        txtPrecioVenta.Maximum = Decimal.MaxValue
+        txtUnidadPorCaja.Maximum = Decimal.MaxValue
+
         FillUnidadMedidaComboBox(Me, cboUnidad)
         FillCategoriaComboBox(Me, cboCategoria)
     End Sub

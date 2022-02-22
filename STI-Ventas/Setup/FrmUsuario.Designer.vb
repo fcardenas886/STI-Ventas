@@ -138,7 +138,7 @@ Partial Class FrmUsuario
         'txtPassword
         '
         Me.txtPassword.Location = New System.Drawing.Point(475, 52)
-        Me.txtPassword.MaxLength = 255
+        Me.txtPassword.MaxLength = 120
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPassword.Size = New System.Drawing.Size(224, 20)
@@ -147,7 +147,7 @@ Partial Class FrmUsuario
         'txtConfirmPassword
         '
         Me.txtConfirmPassword.Location = New System.Drawing.Point(475, 78)
-        Me.txtConfirmPassword.MaxLength = 255
+        Me.txtConfirmPassword.MaxLength = 120
         Me.txtConfirmPassword.Name = "txtConfirmPassword"
         Me.txtConfirmPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtConfirmPassword.Size = New System.Drawing.Size(224, 20)

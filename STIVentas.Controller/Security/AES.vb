@@ -6,6 +6,9 @@ Imports System.Security.Cryptography
 ''' </summary>
 ''' <remarks>20.02.2022 jorge.nin92@gmail.com: Se crea clase</remarks>
 Public Class AES
+
+    Private Shared ReadOnly AesInstance As AES = New AES()
+
     Private Function Encrypt(ByVal clearData As Byte(), ByVal Key As Byte(), ByVal IV As Byte()) As Byte()
         Dim ms As New MemoryStream()
         Dim alg As Rijndael = Rijndael.Create()
@@ -69,5 +72,21 @@ Public Class AES
         Catch ex As Exception
             Return String.Concat(Bits)
         End Try
+    End Function
+
+    Public Shared Function Encrypt256(data As String) As String
+        Dim encryptedText As String
+
+        encryptedText = AesInstance.Encrypt(data, DBSettings.appPwdUnique, 256)
+
+        Return encryptedText
+    End Function
+
+    Public Shared Function Decrypt256(data As String) As String
+        Dim encryptedText As String
+
+        encryptedText = AesInstance.Decrypt(data, DBSettings.appPwdUnique, 256)
+
+        Return encryptedText
     End Function
 End Class
