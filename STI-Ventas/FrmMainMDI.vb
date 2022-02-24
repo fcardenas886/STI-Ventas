@@ -130,7 +130,8 @@ Public Class FrmMainMDI
     Private Sub PuntoDeVentasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PuntoDeVentasToolStripMenuItem.Click
 
         Dim child As Form = New FrmVentaPOS With {
-           .MdiParent = Me
+           .MdiParent = Me,
+           .WindowState = FormWindowState.Maximized
        }
         child.Show()
 
@@ -143,6 +144,13 @@ Public Class FrmMainMDI
        }
         child.Show()
 
+    End Sub
+
+    Private Sub ValoresDefaultToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ValoresDefaultToolStripMenuItem.Click
+        Dim child As Form = New FrmConfiguracionGeneral With {
+           .MdiParent = Me
+       }
+        child.Show()
     End Sub
 
 #End Region

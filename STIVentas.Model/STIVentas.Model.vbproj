@@ -70,6 +70,7 @@
     <Compile Include="CobroVentasModel.vb" />
     <Compile Include="CompraDetallesModel.vb" />
     <Compile Include="CompraHeaderModel.vb" />
+    <Compile Include="ConfiguracionModel.vb" />
     <Compile Include="Enums\EnumValue.vb" />
     <Compile Include="Enums\EstadoUsuario.vb" />
     <Compile Include="Enums\EstadoOrdenVenta.vb" />
@@ -87,6 +88,7 @@
     <Compile Include="OrdenVentaModel.vb" />
     <Compile Include="ProductoModel.vb" />
     <Compile Include="ProveedorModel.vb" />
+    <Compile Include="STIConfigModel.vb" />
     <Compile Include="TablaBaseModel.vb" />
     <Compile Include="Totals\OrdenVentaTotales.vb" />
     <Compile Include="Totals\OrdenCompraTotales.vb" />

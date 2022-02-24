@@ -266,5 +266,56 @@ Module FormHelperModule
             caller.Cursor = Cursors.Default
         End Try
     End Sub
+
+    Public Sub FillClienteComboBox(caller As Form, ByRef cboCliente As ComboBox)
+        Dim controller As ClienteController
+        Dim dbTable As List(Of TablaBaseModel)
+        Dim dbSelect As DBSelect
+
+        Try
+            caller.Cursor = Cursors.WaitCursor
+            cboCliente.DataSource = Nothing
+
+            controller = New ClienteController()
+            dbSelect = New DBSelect(controller.TableName())
+            dbSelect.SelectFields.Add(New DBSelectionField("Id", "Id"))
+            dbSelect.SelectFields.Add(New DBSelectionField("CONCAT(RUT, ' - ', Nombre)", "Nombre"))
+
+            dbTable = controller.GetListWithFilters(Of TablaBaseModel)(dbSelect)
+
+            cboCliente.DataSource = dbTable
+            cboCliente.DisplayMember = "Nombre"
+            cboCliente.ValueMember = "Id"
+            cboCliente.SelectedIndex = -1
+
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            caller.Cursor = Cursors.Default
+        End Try
+    End Sub
+
+    Public Function ComboBoxContainTablaBaseIdValue(cboOrigin As ComboBox, id As String) As Boolean
+        'Dim items As IEnumerator(Of TablaBaseModel)
+        Dim modelBase As TablaBaseModel
+
+        If cboOrigin.Items.Count > 0 Then
+            Try
+                For Each item As Object In cboOrigin.Items
+                    modelBase = CType(item, TablaBaseModel)
+
+                    If modelBase IsNot Nothing And modelBase.Id = id Then
+                        Return True
+                    End If
+                Next
+            Catch
+                Return False
+            End Try
+
+        End If
+
+        Return False
+    End Function
+
 #End Region
 End Module

@@ -147,6 +147,75 @@ Public Class ClienteController : Inherits ControllerBase : Implements IDBOperati
 
 #End Region
 
+#Region "Helpers"
+
+    ''' <summary>
+    ''' Regresa el cliente mostrador configurado
+    ''' </summary>
+    ''' <returns>Cliente mostrador</returns>
+    Public Function GetClienteMostrador() As ClienteModel
+        Dim dbConnector As DBConnector
+        Dim sql As String
+        Dim dataTable As DataTable
+        Dim dbTable As New ClienteModel
+
+        Try
+            dbConnector = New DBConnector()
+            sql = "SELECT Id, Rut, Nombre FROM TblCliente LIMIT 1;"
+            '' ToDo: Indicar el cliente en la tabla de parametros
+            dataTable = dbConnector.ReadDataTable(sql)
+
+            If dataTable.Rows.Count > 0 Then
+                dbTable = New ClienteModel() With {
+                    .Id = dataTable.Rows().Item(0).Item(0),
+                    .Nombre = dataTable.Rows().Item(0).Item(2),
+                    .Rut = dataTable.Rows().Item(0).Item(1)
+                }
+            Else
+                Throw New Exception("Error recuperando el cliente mostrador.\n" + dbConnector.LastError)
+            End If
+
+            LastError = dbConnector.LastError
+
+        Catch ex As Exception
+            AppendError(ex)
+        End Try
+
+        Return dbTable
+    End Function
+
+    Public Function GetClienteById(id As Integer) As ClienteModel
+        Dim dbConnector As DBConnector
+        Dim sql As String
+        Dim dataTable As DataTable
+        Dim dbTable As New ClienteModel
+        Dim params As List(Of MySqlParameter)
+
+        Try
+            dbConnector = New DBConnector()
+            params = New List(Of MySqlParameter)
+            sql = "SELECT Id, Rut, Nombre FROM TblCliente WHERE Id = @Id LIMIT 1;"
+
+            params.Add(BuildParameter("@Id", id, DbType.Int16))
+            dataTable = dbConnector.ReadDataTable(sql, params)
+
+            If dataTable.Rows.Count > 0 Then
+                dbTable = New ClienteModel() With {
+                    .Id = dataTable.Rows().Item(0).Item(0),
+                    .Nombre = dataTable.Rows().Item(0).Item(2),
+                    .Rut = dataTable.Rows().Item(0).Item(1)
+                }
+            End If
+
+            LastError = dbConnector.LastError
+
+        Catch ex As Exception
+            AppendError(ex)
+        End Try
+
+        Return dbTable
+    End Function
+#End Region
 End Class
 
 
