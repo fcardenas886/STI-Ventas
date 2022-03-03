@@ -86,6 +86,7 @@
     <Compile Include="ProveedorController.vb" />
     <Compile Include="Security\AES.vb" />
     <Compile Include="Security\DBSettings.vb" />
+    <Compile Include="Setup\LoginController.vb" />
     <Compile Include="Setup\UsuarioController.vb" />
     <Compile Include="UnidadController.vb" />
     <Compile Include="UnidadModel.vb" />

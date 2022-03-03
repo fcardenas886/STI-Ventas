@@ -82,6 +82,7 @@
     <Compile Include="Helpers\DataModelHelper.vb" />
     <Compile Include="IDBOperations.vb" />
     <Compile Include="IDBTable.vb" />
+    <Compile Include="LoginModel.vb" />
     <Compile Include="MonedaModel.vb" />
     <Compile Include="OrdenVentaDetalleModel.vb" />
     <Compile Include="OrdenVentaModel.vb" />
