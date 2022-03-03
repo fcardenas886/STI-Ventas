@@ -35,6 +35,7 @@ Partial Class FrmMainMDI
         Me.CategoriasDeProductosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProductosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UsuariosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ComprasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TodasLasOrdenesDeCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NuevaCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -45,7 +46,7 @@ Partial Class FrmMainMDI
         Me.VentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PuntoDeVentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.UsuariosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ValoresDefaultToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -81,7 +82,7 @@ Partial Class FrmMainMDI
         '
         'ConfigurarToolStripMenuItem
         '
-        Me.ConfigurarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolStripUnitOfMeasure, Me.GrupoDeProveedoresToolStripMenuItem, Me.MonedasToolStripMenuItem, Me.FormaDePagoToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.CategoriasDeProductosToolStripMenuItem, Me.ProductosToolStripMenuItem, Me.ClientesToolStripMenuItem, Me.UsuariosToolStripMenuItem})
+        Me.ConfigurarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolStripUnitOfMeasure, Me.GrupoDeProveedoresToolStripMenuItem, Me.MonedasToolStripMenuItem, Me.FormaDePagoToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.CategoriasDeProductosToolStripMenuItem, Me.ProductosToolStripMenuItem, Me.ClientesToolStripMenuItem, Me.UsuariosToolStripMenuItem, Me.ValoresDefaultToolStripMenuItem})
         Me.ConfigurarToolStripMenuItem.Name = "ConfigurarToolStripMenuItem"
         Me.ConfigurarToolStripMenuItem.Size = New System.Drawing.Size(76, 20)
         Me.ConfigurarToolStripMenuItem.Text = "Configurar"
@@ -133,6 +134,12 @@ Partial Class FrmMainMDI
         Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
         Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
         Me.ClientesToolStripMenuItem.Text = "Clientes"
+        '
+        'UsuariosToolStripMenuItem
+        '
+        Me.UsuariosToolStripMenuItem.Name = "UsuariosToolStripMenuItem"
+        Me.UsuariosToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
+        Me.UsuariosToolStripMenuItem.Text = "Usuarios"
         '
         'ComprasToolStripMenuItem
         '
@@ -196,11 +203,11 @@ Partial Class FrmMainMDI
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
         Me.ToolStripMenuItem2.Size = New System.Drawing.Size(12, 20)
         '
-        'UsuariosToolStripMenuItem
+        'ValoresDefaultToolStripMenuItem
         '
-        Me.UsuariosToolStripMenuItem.Name = "UsuariosToolStripMenuItem"
-        Me.UsuariosToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
-        Me.UsuariosToolStripMenuItem.Text = "Usuarios"
+        Me.ValoresDefaultToolStripMenuItem.Name = "ValoresDefaultToolStripMenuItem"
+        Me.ValoresDefaultToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
+        Me.ValoresDefaultToolStripMenuItem.Text = "Valores default"
         '
         'FrmMainMDI
         '
@@ -250,4 +257,5 @@ Partial Class FrmMainMDI
     Friend WithEvents PuntoDeVentasToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem2 As ToolStripMenuItem
     Friend WithEvents UsuariosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ValoresDefaultToolStripMenuItem As ToolStripMenuItem
 End Class
