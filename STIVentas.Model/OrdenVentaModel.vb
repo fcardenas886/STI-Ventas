@@ -56,4 +56,32 @@ Public Class OrdenVentaModel : Implements IDBTable
 		Me.IdUsuario = IdUsuario_
 	End Sub
 
+#Region "DB Helpers"
+	Public Sub InitFromClienteView(clienteModel As ClienteViewModel)
+		Cliente = clienteModel.Rut
+		Nombre = clienteModel.Nombre
+		Moneda = clienteModel.Moneda
+		FormaPago = clienteModel.FormaPago
+	End Sub
+
+	Public Sub InitValue()
+		RecordId = 0
+		Estado = EstadoOrdenVenta.Borrador
+		Total = 0
+		Fecha = Date.Today
+		FechaCreacion = Date.Now
+	End Sub
+
+	Public Function GetReference() As String
+		Dim reference As String
+
+		If Id.ToString() = NumeroVenta OrElse String.IsNullOrEmpty(NumeroVenta) Then
+			reference = "OV" & Id.ToString("D8")
+		Else
+			reference = NumeroVenta
+		End If
+
+		Return reference
+	End Function
+#End Region
 End Class

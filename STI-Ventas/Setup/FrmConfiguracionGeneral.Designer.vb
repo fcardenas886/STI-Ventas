@@ -23,18 +23,20 @@ Partial Class FrmConfiguracionGeneral
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.PanelContainer = New System.Windows.Forms.Panel()
-        Me.GroupBoxActions = New System.Windows.Forms.GroupBox()
         Me.PanelMainFill = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cboMoneda = New System.Windows.Forms.ComboBox()
         Me.cboIdCliente = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.GroupBoxActions = New System.Windows.Forms.GroupBox()
         Me.btnGuardarOC = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cboFormaPagoVentas = New System.Windows.Forms.ComboBox()
         Me.PanelContainer.SuspendLayout()
-        Me.GroupBoxActions.SuspendLayout()
         Me.PanelMainFill.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBoxActions.SuspendLayout()
         Me.SuspendLayout()
         '
         'PanelContainer
@@ -48,17 +50,6 @@ Partial Class FrmConfiguracionGeneral
         Me.PanelContainer.Size = New System.Drawing.Size(800, 450)
         Me.PanelContainer.TabIndex = 0
         '
-        'GroupBoxActions
-        '
-        Me.GroupBoxActions.Controls.Add(Me.btnGuardarOC)
-        Me.GroupBoxActions.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBoxActions.Location = New System.Drawing.Point(0, 350)
-        Me.GroupBoxActions.Name = "GroupBoxActions"
-        Me.GroupBoxActions.Size = New System.Drawing.Size(800, 100)
-        Me.GroupBoxActions.TabIndex = 0
-        Me.GroupBoxActions.TabStop = False
-        Me.GroupBoxActions.Text = "Acciones"
-        '
         'PanelMainFill
         '
         Me.PanelMainFill.Controls.Add(Me.GroupBox1)
@@ -70,13 +61,15 @@ Partial Class FrmConfiguracionGeneral
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Controls.Add(Me.cboFormaPagoVentas)
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.cboMoneda)
         Me.GroupBox1.Controls.Add(Me.cboIdCliente)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(367, 95)
+        Me.GroupBox1.Size = New System.Drawing.Size(413, 116)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Ventas"
@@ -84,7 +77,7 @@ Partial Class FrmConfiguracionGeneral
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(54, 48)
+        Me.Label5.Location = New System.Drawing.Point(75, 51)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(46, 13)
         Me.Label5.TabIndex = 36
@@ -94,7 +87,7 @@ Partial Class FrmConfiguracionGeneral
         '
         Me.cboMoneda.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboMoneda.FormattingEnabled = True
-        Me.cboMoneda.Location = New System.Drawing.Point(106, 45)
+        Me.cboMoneda.Location = New System.Drawing.Point(128, 48)
         Me.cboMoneda.Name = "cboMoneda"
         Me.cboMoneda.Size = New System.Drawing.Size(155, 21)
         Me.cboMoneda.TabIndex = 35
@@ -103,7 +96,7 @@ Partial Class FrmConfiguracionGeneral
         '
         Me.cboIdCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboIdCliente.FormattingEnabled = True
-        Me.cboIdCliente.Location = New System.Drawing.Point(106, 19)
+        Me.cboIdCliente.Location = New System.Drawing.Point(128, 22)
         Me.cboIdCliente.Name = "cboIdCliente"
         Me.cboIdCliente.Size = New System.Drawing.Size(252, 21)
         Me.cboIdCliente.TabIndex = 1
@@ -111,11 +104,22 @@ Partial Class FrmConfiguracionGeneral
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(13, 22)
+        Me.Label4.Location = New System.Drawing.Point(34, 25)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(88, 13)
         Me.Label4.TabIndex = 33
         Me.Label4.Text = "Cliente mostrador"
+        '
+        'GroupBoxActions
+        '
+        Me.GroupBoxActions.Controls.Add(Me.btnGuardarOC)
+        Me.GroupBoxActions.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.GroupBoxActions.Location = New System.Drawing.Point(0, 350)
+        Me.GroupBoxActions.Name = "GroupBoxActions"
+        Me.GroupBoxActions.Size = New System.Drawing.Size(800, 100)
+        Me.GroupBoxActions.TabIndex = 0
+        Me.GroupBoxActions.TabStop = False
+        Me.GroupBoxActions.Text = "Acciones"
         '
         'btnGuardarOC
         '
@@ -129,6 +133,24 @@ Partial Class FrmConfiguracionGeneral
         Me.btnGuardarOC.Text = "Guardar"
         Me.btnGuardarOC.UseVisualStyleBackColor = True
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(9, 75)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(113, 13)
+        Me.Label1.TabIndex = 38
+        Me.Label1.Text = "Forma de pago ventas"
+        '
+        'cboFormaPagoVentas
+        '
+        Me.cboFormaPagoVentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboFormaPagoVentas.FormattingEnabled = True
+        Me.cboFormaPagoVentas.Location = New System.Drawing.Point(128, 75)
+        Me.cboFormaPagoVentas.Name = "cboFormaPagoVentas"
+        Me.cboFormaPagoVentas.Size = New System.Drawing.Size(155, 21)
+        Me.cboFormaPagoVentas.TabIndex = 37
+        '
         'FrmConfiguracionGeneral
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -138,10 +160,10 @@ Partial Class FrmConfiguracionGeneral
         Me.Name = "FrmConfiguracionGeneral"
         Me.Text = "Configuración"
         Me.PanelContainer.ResumeLayout(False)
-        Me.GroupBoxActions.ResumeLayout(False)
         Me.PanelMainFill.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBoxActions.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -155,4 +177,6 @@ Partial Class FrmConfiguracionGeneral
     Friend WithEvents cboIdCliente As ComboBox
     Friend WithEvents Label4 As Label
     Friend WithEvents btnGuardarOC As Button
+    Friend WithEvents Label1 As Label
+    Friend WithEvents cboFormaPagoVentas As ComboBox
 End Class

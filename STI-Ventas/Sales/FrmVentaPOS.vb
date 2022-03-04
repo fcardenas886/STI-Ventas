@@ -11,10 +11,10 @@ Public Class FrmVentaPOS
     Public Property NumeroVenta As String
     Private IsNewSalesOrder As Boolean
     Private AllowInitFromCustomer As Boolean
-    Private SalesLineRecordId As Long
-    Private ItemRecordId As Long
+    Public ClienteActual As ClienteViewModel
+    Public MonedaDefault As String
     Private NumeroLinea As Integer
-    Public ClienteActual As ClienteModel
+    Public Shared OrdenVentaActual As OrdenVentaModel
 
 #End Region
 
@@ -27,6 +27,10 @@ Public Class FrmVentaPOS
         RecordId = recId
         NumeroVenta = String.Empty
         IsNewSalesOrder = True
+        NumeroLinea = 1
+        IsNewSalesOrder = True
+        txtBuscaProducto.PlaceHolder = "Presiona Enter para buscar o guardar"
+        LabelNombreProducto.Text = "Ingrese un producto. Seleccione el cuadro de búsqueda"
     End Sub
 
     Public Sub New()
@@ -36,6 +40,10 @@ Public Class FrmVentaPOS
 
         RecordId = 0
         NumeroVenta = String.Empty
+        NumeroLinea = 1
+        IsNewSalesOrder = True
+        txtBuscaProducto.PlaceHolder = "Presiona Enter para buscar o guardar"
+        LabelNombreProducto.Text = "Ingrese un producto. Seleccione el cuadro de búsqueda"
     End Sub
 
 #End Region
@@ -49,7 +57,7 @@ Public Class FrmVentaPOS
         Dim controller As ClienteController
 
         Try
-            If ClienteActual Is Nothing Then
+            If ClienteActual Is Nothing OrElse ClienteActual.Id < 1 Then
 
                 Cursor = Cursors.WaitCursor
 
@@ -86,7 +94,7 @@ Public Class FrmVentaPOS
         Try
             AllowInitFromCustomer = False
             Cursor = Cursors.WaitCursor
-
+            CheckClienteActual()
         Finally
             Cursor = Cursors.Default
             AllowInitFromCustomer = True
@@ -94,9 +102,16 @@ Public Class FrmVentaPOS
     End Sub
 
     Public Function GetCurrentSalesOrder() As OrdenVentaModel
-        Dim dbTable As New OrdenVentaModel With {
-            .Id = 0
-        }
+        Dim dbTable As New OrdenVentaModel
+
+        If OrdenVentaActual IsNot Nothing Then
+            dbTable = OrdenVentaActual
+        Else
+            dbTable.InitValue()
+            dbTable.InitFromClienteView(ClienteActual)
+            dbTable.IdUsuario = FrmMainMDI.ID_USUARIO
+
+        End If
 
         Return dbTable
     End Function
@@ -153,25 +168,27 @@ Public Class FrmVentaPOS
     End Sub
 
     ''' <summary>
-    ''' Inserta/Actualiza la OC actual
+    ''' Inserta/Actualiza la OV actual
     ''' </summary>
     ''' <returns>True si guardo</returns>
     ''' <remarks>22.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Function UpsertRecord() As Boolean
         Dim ret As Boolean = False
         Dim controller As VentasController
+        Dim ventaNueva As OrdenVentaModel
 
         Try
             Cursor = Cursors.WaitCursor
             controller = New VentasController()
 
             If IsNewSalesOrder Then
-                ret = controller.Insert(GetCurrentSalesOrder())
+                ventaNueva = GetCurrentSalesOrder()
+                ret = controller.Insert(ventaNueva)
 
-                'If ret And String.IsNullOrEmpty(txtOrdenVentaId.Text) Then
-                '    GetIdFromSalesNum(txtOrdenVenta.Text)
-                'End If
-                'dgvLineas.Rows.Clear()
+                If ret Then
+                    OrdenVentaActual = ventaNueva
+                    OrdenVentaActual.Id = controller.LastId
+                End If
                 ClearLineFields()
             Else
                 ret = controller.Update(GetCurrentSalesOrder())
@@ -218,12 +235,16 @@ Public Class FrmVentaPOS
         ClearFields()
         IsNewSalesOrder = True
         dgvLineas.Rows.Clear()
-        SalesLineRecordId = 0
-        ItemRecordId = 0
         NumeroVenta = String.Empty
+        NumeroLinea = 1
 
         ClearLineFields()
         EnableFieldsBasedOnEstatus()
+        txtBuscaProducto.PlaceHolder = "Presiona Enter para buscar o guardar"
+        LabelNombreProducto.Text = "Ingrese un producto. Seleccione el cuadro de búsqueda"
+        lblTotal.Text = "0.00"
+
+        SetDetailsFields()
     End Sub
 
     Protected Function DeleteInternal() As Boolean
@@ -350,13 +371,29 @@ Public Class FrmVentaPOS
 
     Protected Sub InitFieldsFromProduct(product As ProductoModel)
         Dim total As Decimal
+        Dim salesOrder As OrdenVentaModel
 
         Try
             If product IsNot Nothing And product.Id > 0 Then
-                total = txtCantidadBusqueda.Value * product.PrecioVenta
-                dgvLineas.Rows().Add(product.IdArticulo, product.Nombre, txtCantidadBusqueda.Value, product.PrecioVenta, 0,
-                                     total, product.Id, product.IdUnidad, product.Id, dgvLineas.Rows.Count + 1)
-                CalcAndSetTotals()
+                salesOrder = GetCurrentSalesOrder()
+                If salesOrder.Id < 1 Then
+                    SaveSalesOrder()
+                End If
+
+                salesOrder = GetCurrentSalesOrder()
+
+                If salesOrder.Id > 0 Then
+                    If UpsertRecordSalesLine(product) Then
+                        total = txtCantidadBusqueda.Value * product.PrecioVenta
+                        'dgvLineas.Rows().Add(product.IdArticulo, product.Nombre, txtCantidadBusqueda.Value, product.PrecioVenta, 0,
+                        '                     total, product.Id, product.IdUnidad, product.Id, NumeroLinea)
+                        CalcAndSetTotals()
+
+                        NumeroLinea += 1
+                    End If
+                Else
+                    HandleException("No se ha podido guardar la orden de venta.")
+                End If
             End If
 
         Catch ex As Exception
@@ -370,6 +407,14 @@ Public Class FrmVentaPOS
         Dim strErrorMsg As String = String.Empty
 
         model = GetCurrentSalesOrder()
+
+        If ClienteActual Is Nothing Then
+            CheckClienteActual()
+
+            If ClienteActual Is Nothing Then
+                strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar el cliente mostrador")
+            End If
+        End If
 
         If model Is Nothing Then
             strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar la orden de venta actual")
@@ -392,14 +437,14 @@ Public Class FrmVentaPOS
         Return ret
     End Function
 
-    Protected Function ValidateWriteSalesOrderLine() As Boolean
+    Protected Function ValidateWriteSalesOrderLine(salesLine As OrdenVentaDetalleModel) As Boolean
         Dim ret As Boolean = True
         Dim model As OrdenVentaModel
         Dim modelLine As OrdenVentaDetalleModel
         Dim strErrorMsg As String = String.Empty
 
         model = GetCurrentSalesOrder()
-        modelLine = GetCurrentSalesOrderLine()
+        modelLine = salesLine
 
         If model Is Nothing Then
             strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar la orden de venta actual.")
@@ -444,64 +489,60 @@ Public Class FrmVentaPOS
 
             dbTable.IdProducto = dgvLineas.CurrentRow.Cells.Item(6).Value
             dbTable.Unidad = dgvLineas.CurrentRow.Cells.Item(7).Value
-            dbTable.Id = dgvLineas.CurrentRow.Cells.Item(8).Value
+            dbTable.NumeroLinea = dgvLineas.CurrentRow.Cells.Item(8).Value
+            dbTable.Id = dgvLineas.CurrentRow.Cells.Item(9).Value
         End If
 
         Return dbTable
     End Function
 
     Protected Sub GetRecordsAndPopulateLineFields()
-        'Dim controller As VentasDetalleController
-        'Dim records As List(Of OrdenVentaDetalleModel)
-        'Dim dbSelect As DBSelect
-        'Dim isWaitCursor As Boolean
+        Dim controller As VentaDetallesController
+        Dim records As List(Of OrdenVentaDetalleModel)
+        Dim dbSelect As DBSelect
+        Dim isWaitCursor As Boolean
+        Dim salesId As Long
 
-        'Try
-        '    isWaitCursor = True
-        '    If Cursor IsNot Cursors.WaitCursor Then
-        '        isWaitCursor = False
-        '        Cursor = Cursors.WaitCursor
-        '    End If
+        Try
+            salesId = GetCurrentSalesOrder().Id
+            If salesId < 1 Then
+                Return
+            End If
 
-        '    controller = New VentasDetalleController()
-        '    dbSelect = New DBSelect(controller.TableName())
-        '    dbSelect.FilterFields.Add(New DBFilterFields("IdVenta", DBFilterType.Equal, txtOrdenVentaId.Text))
+            isWaitCursor = True
+            If Cursor IsNot Cursors.WaitCursor Then
+                isWaitCursor = False
+                Cursor = Cursors.WaitCursor
+            End If
 
-        '    records = controller.GetListWithFilters(Of OrdenVentaDetalleModel)(dbSelect)
+            controller = New VentaDetallesController()
+            dbSelect = New DBSelect(controller.TableName())
+            dbSelect.FilterFields.Add(New DBFilterFields("IdVenta", DBFilterType.Equal, salesId))
 
-        '    dgvLineas.Rows.Clear()
+            records = controller.GetListWithFilters(Of OrdenVentaDetalleModel)(dbSelect)
 
-        '    For Each model As OrdenVentaDetalleModel In records
-        '        dgvLineas.Rows().Add(model.Id, model.NumeroLinea, model.IdProducto, model.NombreProducto,
-        '                                model.Cantidad, model.PrecioUnitario, model.Descuento,
-        '                                model.MontoNeto)
-        '    Next
+            dgvLineas.Rows.Clear()
 
-        '    If records.Count < 1 And Not String.IsNullOrEmpty(controller.LastError) Then
-        '        HandleException(controller.LastError)
-        '    End If
-        'Catch ex As Exception
-        '    HandleException(ex)
-        'Finally
-        '    If Not isWaitCursor Then
-        '        Cursor = Cursors.Default
-        '    End If
-        'End Try
+            For Each model As OrdenVentaDetalleModel In records
+                dgvLineas.Rows().Add(model.IdArticulo, model.Nombre,
+                                        model.Cantidad, model.PrecioUnitario, model.Descuento,
+                                        model.Monto, model.IdProducto, model.Unidad, model.NumeroLinea, model.Id)
+                'dgvLineas.Rows().Add(model.Id, model.NumeroLinea, model.IdProducto, model.Nombre,
+                '                        model.Cantidad, model.PrecioUnitario, model.Descuento,
+                '                        model.Monto)
+            Next
 
-    End Sub
-
-    Protected Sub SetValuesFromSalesOrderLine()
-
-        If dgvLineas.CurrentRow IsNot Nothing Then
-            SalesLineRecordId = CType(dgvLineas.CurrentRow.Cells(0).Value, Long)
-            NumeroLinea = CType(dgvLineas.CurrentRow.Cells(1).Value, Integer)
-            'txtBuscaProducto.Text = dgvLineas.CurrentRow.Cells(2).Value
-            'txtItemName.Text = dgvLineas.CurrentRow.Cells(3).Value
-            'txtDetailsCantidad.Text = dgvLineas.CurrentRow.Cells(4).Value
-            'txtPrecioUnitario.Text = dgvLineas.CurrentRow.Cells(5).Value
-            'txtDetailsDescuento.Text = dgvLineas.CurrentRow.Cells(6).Value
-            'txtMontoLinea.Text = dgvLineas.CurrentRow.Cells(7).Value
-        End If
+            If records.Count < 1 And Not String.IsNullOrEmpty(controller.LastError) Then
+                HandleException(controller.LastError)
+            End If
+            CalcAndSetTotals()
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            If Not isWaitCursor Then
+                Cursor = Cursors.Default
+            End If
+        End Try
 
     End Sub
 
@@ -509,35 +550,45 @@ Public Class FrmVentaPOS
     ''' Inserta/Actualiza la línea de OV actual
     ''' </summary>
     ''' <returns>True si guardo</returns>
+    ''' <param name="product">El producto del que se inicializa</param>
     ''' <remarks>22.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
-    Protected Function UpsertRecordSalesLine() As Boolean
+    Protected Function UpsertRecordSalesLine(Optional product As ProductoModel = Nothing) As Boolean
         Dim ret As Boolean = False
-        'Dim controller As VentasDetalleController
-        'Dim lineaVenta As OrdenVentaDetalleModel
+        Dim controller As VentaDetallesController
+        Dim lineaVenta As OrdenVentaDetalleModel
 
-        'Try
-        '    Cursor = Cursors.WaitCursor
-        '    controller = New VentasDetalleController()
-        '    lineaVenta = GetCurrentSalesOrderLine()
+        Try
+            Cursor = Cursors.WaitCursor
 
-        '    If SalesLineRecordId = 0 Then
-        '        lineaVenta.NumeroLinea = dgvLineas.Rows().Count + 1
-        '        ret = controller.Insert(lineaVenta)
-        '    Else
-        '        ret = controller.Update(lineaVenta)
-        '    End If
-        '    If Not ret Then
-        '        HandleException(controller.LastError)
-        '    Else
-        '        GetRecordsAndPopulateLineFields()
-        '        ClearLineFields()
-        '        SalesLineRecordId = 0
-        '    End If
-        'Catch ex As Exception
-        '    HandleException(ex)
-        'Finally
-        '    Cursor = Cursors.Default
-        'End Try
+            If product IsNot Nothing Then
+                lineaVenta = GetSalesOrderFromProduct(product)
+            Else
+                lineaVenta = GetCurrentSalesOrderLine()
+            End If
+
+            If Not ValidateWriteSalesOrderLine(lineaVenta) Then
+                Return ret
+            End If
+
+            controller = New VentaDetallesController()
+
+            If lineaVenta.Id = 0 Then
+                lineaVenta.NumeroLinea = NumeroLinea
+                ret = controller.Insert(lineaVenta)
+            Else
+                ret = controller.Update(lineaVenta)
+            End If
+            If Not ret Then
+                HandleException(controller.LastError)
+            Else
+                GetRecordsAndPopulateLineFields()
+                ClearLineFields()
+            End If
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            Cursor = Cursors.Default
+        End Try
 
         Return ret
     End Function
@@ -576,6 +627,10 @@ Public Class FrmVentaPOS
             Else
                 ClearLineFields()
                 GetRecordsAndPopulateLineFields()
+
+                If dgvLineas.Rows.Count < 1 Then
+                    SetDetailsFields()
+                End If
             End If
 
         Catch ex As Exception
@@ -724,6 +779,16 @@ Public Class FrmVentaPOS
                 txtDetailsCantidad.Text = salesLine.Cantidad.ToString("N2")
                 txtDetailsDescuento.Text = salesLine.Descuento.ToString("N2")
                 txtDetailsTotalLinea.Text = salesLine.Monto.ToString("N2")
+
+                LabelNombreProducto.Text = salesLine.Nombre
+            Else
+                txtDetailsCodigoBarras.Text = salesLine.IdArticulo
+                txtDetailsDescripcion.Text = salesLine.Nombre
+                txtDetailsPrecio.Text = salesLine.PrecioUnitario.ToString("N2")
+                txtDetailsCantidad.Text = salesLine.Cantidad.ToString("N2")
+                txtDetailsDescuento.Text = salesLine.Descuento.ToString("N2")
+                txtDetailsTotalLinea.Text = salesLine.Monto.ToString("N2")
+                LabelNombreProducto.Text = "Ingrese un producto. Seleccione el cuadro de búsqueda"
             End If
 
         Catch ex As Exception
@@ -743,17 +808,105 @@ Public Class FrmVentaPOS
             Next
             lblTotal.Text = total.ToString("N2")
 
+            If OrdenVentaActual IsNot Nothing Then
+                OrdenVentaActual.Total = total
+            End If
+
         Catch ex As Exception
             HandleException(ex)
         End Try
     End Sub
 
+    Protected Sub SaveSalesOrder()
+
+        Try
+
+            If ValidateWriteSalesOrder() Then
+                UpsertRecord()
+            End If
+
+        Catch ex As Exception
+            HandleException(ex)
+        End Try
+    End Sub
+
+    Protected Function GetSalesOrderFromProduct(product As ProductoModel) As OrdenVentaDetalleModel
+
+        Dim ret As New OrdenVentaDetalleModel
+
+        ret.InitFromProduct(product)
+        ret.IdVenta = GetCurrentSalesOrder().Id
+        ret.Monto = txtCantidadBusqueda.Value * product.PrecioVenta
+        ret.NumeroLinea = NumeroLinea
+        ret.Descuento = 0
+        ret.Cantidad = txtCantidadBusqueda.Value
+
+        Return ret
+    End Function
+
+    Protected Sub Cerrar()
+        Close()
+    End Sub
+
+    Protected Function ValidateTicket() As Boolean
+        Dim ret As Boolean = True
+        Dim ordenVenta As New OrdenVentaModel
+        Dim strErrorMsg As String = String.Empty
+
+        Try
+            If ordenVenta Is Nothing Then
+                strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar la orden de venta actual.")
+            Else
+                If String.IsNullOrEmpty(ordenVenta.Id) Then
+                    strErrorMsg = AppendLastError(strErrorMsg, "No se ha especificado la orden de venta.")
+                End If
+                If ordenVenta.Estado <> EstadoOrdenVenta.Borrador Then
+                    strErrorMsg = AppendLastError(strErrorMsg, "Solo se pueden editar ordenes de venta en estado borrador.")
+                End If
+
+            End If
+            If dgvLineas.Rows.Count < 1 Then
+                strErrorMsg = AppendLastError(strErrorMsg, "No se han especificado líneas.")
+            End If
+
+            If Not String.IsNullOrEmpty(strErrorMsg) Then
+                ret = CheckFailed(strErrorMsg)
+            End If
+
+        Catch ex As Exception
+            HandleException(ex)
+        End Try
+
+        Return ret
+    End Function
+
+    Protected Sub PreviewTicket()
+
+        If ValidateTicket() Then
+            MsgBox("Ticket")
+        End If
+
+    End Sub
+
+    Protected Sub CobrarOV()
+        Dim cobro As FrmCobroVenta
+
+        If ValidateTicket() Then
+            cobro = New FrmCobroVenta(GetCurrentSalesOrder())
+            cobro.ShowDialog(Me)
+
+            If cobro.Cobrado Then
+                OrdenVentaActual = Nothing
+                OnNewRecordSelected()
+            End If
+        End If
+
+    End Sub
 #End Region
 
 #Region "Events"
     Private Sub btnCobrarOV_Click(sender As Object, e As EventArgs) Handles btnCobrarOV.Click
-        Dim cobro As New FrmCobroVenta()
-        cobro.ShowDialog(Me)
+        CobrarOV()
     End Sub
 
     Private Sub btnBuscarProducto_Click(sender As Object, e As EventArgs) Handles btnBuscarProducto.Click
@@ -768,6 +921,26 @@ Public Class FrmVentaPOS
 
     Private Sub dgvLineas_SelectionChanged(sender As Object, e As EventArgs) Handles dgvLineas.SelectionChanged
         SetDetailsFields()
+    End Sub
+
+    Private Sub FrmVentaPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadComboBoxData()
+    End Sub
+
+    Private Sub btnGuardarLinea_Click(sender As Object, e As EventArgs) Handles btnGuardarLinea.Click
+        SaveSalesOrder()
+    End Sub
+
+    Private Sub btnAnularProducto_Click(sender As Object, e As EventArgs) Handles btnAnularProducto.Click
+        DeleteSalesLineRecord()
+    End Sub
+
+    Private Sub btnCerrar_Click(sender As Object, e As EventArgs) Handles btnCerrar.Click
+        Cerrar()
+    End Sub
+
+    Private Sub btnTicketPreventa_Click(sender As Object, e As EventArgs) Handles btnTicketPreventa.Click
+        PreviewTicket()
     End Sub
 #End Region
 End Class

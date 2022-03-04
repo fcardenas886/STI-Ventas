@@ -39,6 +39,10 @@ Public Class VentasController : Inherits ControllerBase : Implements IDBOperatio
             params.Add(BuildParameter("@IdUsuario", table.IdUsuario, DbType.Int16))
 
             ret = dbConnector.InsertUpdate(sql, params)
+
+            LastId = dbConnector.LastId
+            table.Id = LastId
+
             LastError = dbConnector.LastError
         Catch ex As Exception
             AppendError(ex)
@@ -160,51 +164,39 @@ Public Class VentasController : Inherits ControllerBase : Implements IDBOperatio
 #End Region
 
 #Region "Class methods: POS"
-    Public Function CobrarOrdenVenta(table As OrdenVentaModel) As Boolean
+    Public Function CobrarOrdenVenta(table As OrdenVentaCobroViewModel) As Boolean
         Dim ret As Boolean = False
-        Dim records As List(Of OrdenVentaDetalleModel)
-        Dim transacciones As List(Of TransaccionInventarioModel)
-        Dim inventTrans As TransaccionInventarioModel
         Dim iCounter As Integer
-        Dim controller As TransaccionInventarioController
-        Dim sqlUpdate As String
+        Dim dbConnector As DBConnector
+        Dim params As List(Of MySqlParameter)
+        Dim paramResult As MySqlParameter
 
         Try
 
-            records = GetPurchaseOrderLines(table.Id)
+            params = New List(Of MySqlParameter)
+            dbConnector = New DBConnector()
 
-            If records.Count < 1 And Not String.IsNullOrEmpty(LastError) Then
-                Throw New Exception(String.Format("Error recuperando las líneas. " & LastError))
-            End If
+            params.Add(BuildParameter("@P_IdVenta", table.Id, DbType.String))
+            params.Add(BuildParameter("@P_Referencia", table.GetReference(), DbType.String))
+            params.Add(BuildParameter("@P_Moneda", table.Moneda, DbType.String))
+            params.Add(BuildParameter("@P_FormaPago", table.FormaPago, DbType.String))
+            params.Add(BuildParameter("@P_Monto", table.Total, DbType.Decimal))
+            params.Add(BuildParameter("@P_Vuelto", table.Vuelto, DbType.Decimal))
 
-            transacciones = New List(Of TransaccionInventarioModel)
-            iCounter = 1
+            params.Add(BuildParameter("@P_Credito", table.Credito, DbType.Decimal))
+            params.Add(BuildParameter("@P_Propina", table.Propina, DbType.Decimal))
+            'params.Add(BuildParameter("@Fecha", table.Fecha, DbType.Date))
+            params.Add(BuildParameter("@P_IdUsuario", table.IdUsuario, DbType.Int32))
 
-            For Each salesLine As OrdenVentaDetalleModel In records
-                inventTrans = New TransaccionInventarioModel With {
-                    .IdArticulo = salesLine.IdProducto,
-                    .Cantidad = salesLine.Cantidad,
-                    .Costo = salesLine.Monto,
-                    .Estatus = EstadoInventario.Comprado,
-                    .FechaMovimiento = DateTime.Now,
-                    .IdTransaccion = String.Format("{0}-{1}", table.NumeroVenta, iCounter),
-                    .Moneda = table.Moneda,
-                    .NumeroReferencia = table.NumeroVenta,
-                    .Referencia = OrdenCompraReferencia(),
-                    .TipoTransaccion = TipoTransaccionInventario.Compras,
-                    .Unidad = salesLine.Unidad
-                }
+            paramResult = BuildParameter("@P_IsOk", table.ResultadoSP, DbType.Decimal)
 
-                iCounter += 1
-                transacciones.Add(inventTrans)
-            Next
+            iCounter = dbConnector.ExecuteStoreProcedure("SP_CobrarOrdenVenta", params, paramResult)
 
-            sqlUpdate = $"UPDATE TblVenta SET Estado = 2 WHERE Id = {table.Id};"
+            table.ResultadoSP = iCounter
 
-            controller = New TransaccionInventarioController()
-            ret = controller.InsertTransaction(transacciones, sqlUpdate)
+            ret = iCounter > 0
 
-            LastError = controller.LastError
+            LastError = dbConnector.LastError
         Catch ex As Exception
             AppendError(ex)
         End Try
@@ -212,7 +204,7 @@ Public Class VentasController : Inherits ControllerBase : Implements IDBOperatio
         Return ret
     End Function
 
-    Public Function GetPurchaseOrderLines(idNumeroVenta As Long)
+    Public Function GetSalesOrderLines(idNumeroVenta As Long)
         Dim controller As ComprasDetalleController
         Dim records As List(Of OrdenVentaDetalleModel) = Nothing
         Dim dbSelect As DBSelect
@@ -220,7 +212,7 @@ Public Class VentasController : Inherits ControllerBase : Implements IDBOperatio
         Try
             controller = New ComprasDetalleController()
             dbSelect = New DBSelect(controller.TableName())
-            dbSelect.FilterFields.Add(New DBFilterFields("IdCompra", DBFilterType.Equal, idNumeroVenta))
+            dbSelect.FilterFields.Add(New DBFilterFields("IdVenta", DBFilterType.Equal, idNumeroVenta))
 
             records = controller.GetListWithFilters(Of OrdenVentaDetalleModel)(dbSelect)
 
@@ -235,8 +227,8 @@ Public Class VentasController : Inherits ControllerBase : Implements IDBOperatio
         Return records
     End Function
 
-    Public Function GetTotals(idCompra As Integer) As OrdenCompraTotales
-        Dim totals As OrdenCompraTotales = Nothing
+    Public Function GetTotals(idVenta As Integer) As OrdenVentaTotales
+        Dim totals As OrdenVentaTotales = Nothing
         Dim dbConnector As DBConnector
         Dim sql As String
         Dim dataTable As DataTable
@@ -245,15 +237,15 @@ Public Class VentasController : Inherits ControllerBase : Implements IDBOperatio
         Try
             params = New List(Of MySqlParameter)
             dbConnector = New DBConnector()
-            sql = "select count(Id) NumeroLineas, sum(Cantidad) Cantidad, sum(MontoNeto) Total, sum(Descuento) Descuento from stiventas.TblCompraDetalles FORCE INDEX(IdHeader) WHERE IdCompra = @Id;"
+            sql = "SELECT count(Id) NumeroLineas, sum(Cantidad) Cantidad, sum(Monto) Total, sum(Descuento) Descuento FROM TblVentaDetalle WHERE IdVenta = @Id;"
 
-            params.Add(BuildParameter("@Id", idCompra, DbType.Int32))
+            params.Add(BuildParameter("@Id", idVenta, DbType.Int32))
             dataTable = dbConnector.ReadDataTable(sql, params)
-            totals = New OrdenCompraTotales()
+            totals = New OrdenVentaTotales()
 
             For Each dataRow As DataRow In dataTable.Rows
                 totals =
-                        New OrdenCompraTotales With {
+                        New OrdenVentaTotales With {
                             .NumeroLineas = dataRow(0),
                             .Cantidad = dataRow(1),
                             .Total = dataRow(2),
@@ -263,7 +255,7 @@ Public Class VentasController : Inherits ControllerBase : Implements IDBOperatio
 
             Next
 
-            totals.IdCompra = idCompra
+            totals.IdVenta = idVenta
             LastError = dbConnector.LastError
 
         Catch ex As Exception

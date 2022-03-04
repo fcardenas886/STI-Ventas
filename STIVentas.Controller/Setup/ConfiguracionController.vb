@@ -22,10 +22,11 @@ Public Class ConfiguracionController : Inherits ControllerBase : Implements IDBO
             table = CType(iTable, ConfiguracionModel)
             params = New List(Of MySqlParameter)
             dbConnector = New DBConnector()
-            sql = "INSERT INTO TblConfiguracion(IdClienteMostrador, Moneda) VALUES(@IdClienteMostrador, @Moneda);"
+            sql = "INSERT INTO TblConfiguracion(IdClienteMostrador, Moneda, FormaPagoVentas) VALUES(@IdClienteMostrador, @Moneda, @FormaPagoVentas);"
 
             params.Add(BuildParameter("@IdClienteMostrador", table.IdClienteMostrador, DbType.Int32))
             params.Add(BuildParameter("@Moneda", table.Moneda, DbType.String))
+            params.Add(BuildParameter("@FormaPagoVentas", table.FormaPagoVentas, DbType.String))
 
             ret = dbConnector.InsertUpdate(sql, params)
             LastError = dbConnector.LastError
@@ -53,11 +54,12 @@ Public Class ConfiguracionController : Inherits ControllerBase : Implements IDBO
             table = CType(iTable, ConfiguracionModel)
             params = New List(Of MySqlParameter)
             dbConnector = New DBConnector()
-            sql = "UPDATE TblConfiguracion SET Moneda = @Moneda, IdClienteMostrador = @IdClienteMostrador WHERE Id = @Id;"
+            sql = "UPDATE TblConfiguracion SET Moneda = @Moneda, IdClienteMostrador = @IdClienteMostrador, FormaPagoVentas = @FormaPagoVentas WHERE Id = @Id;"
 
             params.Add(BuildParameter("@Moneda", table.Moneda, DbType.String))
             params.Add(BuildParameter("@IdClienteMostrador", table.IdClienteMostrador, DbType.Int32))
             params.Add(BuildParameter("@Id", table.Id, DbType.Int32))
+            params.Add(BuildParameter("@FormaPagoVentas", table.FormaPagoVentas, DbType.String))
 
             ret = dbConnector.InsertUpdate(sql, params)
             LastError = dbConnector.LastError
@@ -77,7 +79,7 @@ Public Class ConfiguracionController : Inherits ControllerBase : Implements IDBO
 
         Try
             dbConnector = New DBConnector()
-            sql = "SELECT Id, IdClienteMostrador, IFNULL(Moneda, '') FROM TblConfiguracion LIMIT 1;"
+            sql = "SELECT Id, IdClienteMostrador, IFNULL(Moneda, ''), IFNULL(FormaPagoVentas, '') FROM TblConfiguracion LIMIT 1;"
 
             dataTable = dbConnector.ReadDataTable(sql)
 
@@ -86,7 +88,8 @@ Public Class ConfiguracionController : Inherits ControllerBase : Implements IDBO
                         New ConfiguracionModel With {
                             .Id = dataRow(0),
                             .IdClienteMostrador = dataRow(1),
-                            .Moneda = dataRow(2)
+                            .Moneda = dataRow(2),
+                            .FormaPagoVentas = dataRow(3)
                             }
                         )
             Next
@@ -109,7 +112,7 @@ Public Class ConfiguracionController : Inherits ControllerBase : Implements IDBO
 
         Try
             dbConnector = New DBConnector()
-            sql = "SELECT Id, IdClienteMostrador, IFNULL(Moneda, '') FROM TblConfiguracion LIMIT 1;"
+            sql = "SELECT Id, IdClienteMostrador, IFNULL(Moneda, ''), IFNULL(FormaPagoVentas, '') FROM TblConfiguracion LIMIT 1;"
 
             dataTable = dbConnector.ReadDataTable(sql)
 
@@ -119,6 +122,7 @@ Public Class ConfiguracionController : Inherits ControllerBase : Implements IDBO
                 ret.Id = dataRow(0)
                 ret.IdClienteMostrador = dataRow(1)
                 ret.Moneda = dataRow(2)
+                ret.FormaPagoVentas = dataRow(3)
             End If
 
             LastError = dbConnector.LastError

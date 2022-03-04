@@ -239,7 +239,7 @@ Public Class ComprasController : Inherits ControllerBase : Implements IDBOperati
         Try
             params = New List(Of MySqlParameter)
             dbConnector = New DBConnector()
-            sql = "select count(Id) NumeroLineas, sum(Cantidad) Cantidad, sum(MontoNeto) Total, sum(Descuento) Descuento from stiventas.TblCompraDetalles FORCE INDEX(IdHeader) WHERE IdCompra = @Id;"
+            sql = "select count(Id) NumeroLineas, sum(Cantidad) Cantidad, sum(MontoNeto) Total, sum(Descuento) Descuento from TblCompraDetalles FORCE INDEX(IdHeader) WHERE IdCompra = @Id;"
 
             params.Add(BuildParameter("@Id", idCompra, DbType.Int32))
             dataTable = dbConnector.ReadDataTable(sql, params)

@@ -8,6 +8,7 @@ Public Class ConfiguracionModel : Implements IDBTable
 
 	Public Property IdClienteMostrador As Integer
 	Public Property Moneda As String
+	Public Property FormaPagoVentas As String
 
 	Public Property Id As Long Implements IDBTable.RecordId
 		Get
@@ -26,9 +27,10 @@ Public Class ConfiguracionModel : Implements IDBTable
 		RecordId = 0
 	End Sub
 
-	Sub New(ByVal Id_ As Integer, ByVal IdClienteMostrador_ As Integer, ByVal Moneda_ As String)
+	Sub New(ByVal Id_ As Integer, ByVal IdClienteMostrador_ As Integer, ByVal Moneda_ As String, formaPagoVenta As String)
 		Me.Id = Id_
 		Me.IdClienteMostrador = IdClienteMostrador_
 		Me.Moneda = Moneda_
+		FormaPagoVentas = formaPagoVenta
 	End Sub
 End Class

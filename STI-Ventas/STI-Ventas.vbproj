@@ -228,6 +228,9 @@
     <Compile Include="Purch\FrmOrdenCompra.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UIControl\TextBoxPlaceHolder.vb">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Catalogs\FrmCliente.resx">

@@ -175,7 +175,7 @@ Public Class FrmProductos
 
             dbModel = GetProductoPorId(txtArticuloId.Text)
 
-            If dbModel IsNot Nothing And Not String.IsNullOrEmpty(dbModel.IdArticulo) Then
+            If dbModel IsNot Nothing AndAlso Not String.IsNullOrEmpty(dbModel.IdArticulo) Then
 
                 txtDescripcion.Text = dbModel.Descripcion
                 txtName.Text = dbModel.Nombre
@@ -255,8 +255,8 @@ Public Class FrmProductos
             For Each model As ProductoModel In records
                 dtGridView.Rows().Add(model.IdArticulo, model.Nombre, model.Descripcion,
                                         model.IdUnidad, model.IdCategoria,
-                                        model.Marca, model.UnidadPorCaja, model.PrecioCompra,
-                                        model.PrecioVenta)
+                                        model.Marca, model.UnidadPorCaja, model.PrecioVenta,
+                                        model.PrecioCompra)
             Next
 
             If records.Count < 1 And Not String.IsNullOrEmpty(controller.LastError) Then

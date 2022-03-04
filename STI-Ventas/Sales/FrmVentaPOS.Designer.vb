@@ -69,7 +69,7 @@ Partial Class FrmVentaPOS
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.PanelBusqueda = New System.Windows.Forms.Panel()
         Me.txtCantidadBusqueda = New System.Windows.Forms.NumericUpDown()
-        Me.txtBuscaProducto = New System.Windows.Forms.TextBox()
+        Me.txtBuscaProducto = New STI_Ventas.TextBoxPlaceHolder()
         Me.btnBuscarProducto = New System.Windows.Forms.Button()
         Me.PanelHeaderItemsDetails = New System.Windows.Forms.Panel()
         Me.lblTotal = New System.Windows.Forms.Label()
@@ -541,9 +541,11 @@ Partial Class FrmVentaPOS
         Me.txtBuscaProducto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtBuscaProducto.Dock = System.Windows.Forms.DockStyle.Right
         Me.txtBuscaProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!)
+        Me.txtBuscaProducto.ForeColor = System.Drawing.Color.Black
         Me.txtBuscaProducto.Location = New System.Drawing.Point(270, 8)
         Me.txtBuscaProducto.MaxLength = 1000
         Me.txtBuscaProducto.Name = "txtBuscaProducto"
+        Me.txtBuscaProducto.PlaceHolder = "Presiona Enter para buscar o guardar"
         Me.txtBuscaProducto.Size = New System.Drawing.Size(423, 27)
         Me.txtBuscaProducto.TabIndex = 106
         '
@@ -638,7 +640,7 @@ Partial Class FrmVentaPOS
     Friend WithEvents PanelHeaderSearchAndTittle As Panel
     Friend WithEvents lblTitle As Label
     Friend WithEvents PanelBusqueda As Panel
-    Friend WithEvents txtBuscaProducto As TextBox
+    Friend WithEvents txtBuscaProducto As TextBoxPlaceHolder
     Friend WithEvents btnBuscarProducto As Button
     Friend WithEvents PanelMaindData As Panel
     Friend WithEvents PanelMainGrid As Panel

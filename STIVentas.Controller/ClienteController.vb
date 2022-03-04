@@ -153,23 +153,25 @@ Public Class ClienteController : Inherits ControllerBase : Implements IDBOperati
     ''' Regresa el cliente mostrador configurado
     ''' </summary>
     ''' <returns>Cliente mostrador</returns>
-    Public Function GetClienteMostrador() As ClienteModel
+    Public Function GetClienteMostrador() As ClienteViewModel
         Dim dbConnector As DBConnector
         Dim sql As String
         Dim dataTable As DataTable
-        Dim dbTable As New ClienteModel
+        Dim dbTable As New ClienteViewModel
 
         Try
             dbConnector = New DBConnector()
-            sql = "SELECT Id, Rut, Nombre FROM TblCliente LIMIT 1;"
-            '' ToDo: Indicar el cliente en la tabla de parametros
+            sql = "select TblConfiguracion.Moneda, TblCliente.Id, TblCliente.Nombre, TblCliente.Rut, TblConfiguracion.FormaPagoVentas from TblConfiguracion left join TblCliente on TblCliente.Id = TblConfiguracion.IdClienteMostrador;"
+
             dataTable = dbConnector.ReadDataTable(sql)
 
             If dataTable.Rows.Count > 0 Then
-                dbTable = New ClienteModel() With {
-                    .Id = dataTable.Rows().Item(0).Item(0),
+                dbTable = New ClienteViewModel() With {
+                    .Moneda = dataTable.Rows().Item(0).Item(0),
+                    .Id = dataTable.Rows().Item(0).Item(1),
                     .Nombre = dataTable.Rows().Item(0).Item(2),
-                    .Rut = dataTable.Rows().Item(0).Item(1)
+                    .Rut = dataTable.Rows().Item(0).Item(3),
+                    .FormaPago = dataTable.Rows().Item(0).Item(4)
                 }
             Else
                 Throw New Exception("Error recuperando el cliente mostrador.\n" + dbConnector.LastError)

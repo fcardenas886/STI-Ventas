@@ -111,6 +111,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="UsuarioModel.vb" />
+    <Compile Include="ViewModel\ClienteViewModel.vb" />
+    <Compile Include="ViewModel\OrdenVentaCobroViewModel.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

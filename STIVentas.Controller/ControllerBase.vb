@@ -10,6 +10,15 @@ Public Class ControllerBase : Implements IDBOperations
 
 #Region "Property"
     Private strLastError As String
+    Private RecordId As Long
+    Public Property LastId() As Long
+        Get
+            Return RecordId
+        End Get
+        Protected Set(value As Long)
+            RecordId = value
+        End Set
+    End Property
 
     Public Property LastError() As String
         Get

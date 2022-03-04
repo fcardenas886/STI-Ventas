@@ -30,6 +30,7 @@ Public Class FrmConfiguracionGeneral
 
             FillClienteComboBox(Me, cboIdCliente)
             FillCurrencyComboBox(Me, cboMoneda)
+            FillFormaPagoComboBox(Me, cboFormaPagoVentas)
 
             If Not IsLoaded Then
                 GetAndSetDefaultSettings()
@@ -81,6 +82,7 @@ Public Class FrmConfiguracionGeneral
                 End If
 
                 SetMonedaValue(CurrentConfiguration.Moneda)
+                SetFormaPagoVentasValue(CurrentConfiguration.FormaPagoVentas)
             End If
 
         Catch ex As Exception
@@ -120,6 +122,22 @@ Public Class FrmConfiguracionGeneral
         End If
     End Sub
 
+    Public Sub SetFormaPagoVentasValue(value As String)
+
+        If String.IsNullOrEmpty(value) Then
+            cboFormaPagoVentas.SelectedValue = -1
+        ElseIf ComboBoxContainTablaBaseIdValue(cboFormaPagoVentas, value) Then
+            cboFormaPagoVentas.SelectedValue = value
+        Else
+            FillCurrencyComboBox(Me, cboFormaPagoVentas)
+            If ComboBoxContainTablaBaseIdValue(cboFormaPagoVentas, value) Then
+                cboFormaPagoVentas.SelectedValue = value
+            Else
+                HandleException(String.Format("No se encontro la forma de pago {0} en la base de datos", value))
+            End If
+        End If
+    End Sub
+
     Protected Function GetCurrentConfiguration() As ConfiguracionModel
 
         Try
@@ -128,6 +146,7 @@ Public Class FrmConfiguracionGeneral
             End If
             CurrentConfiguration.IdClienteMostrador = CType(cboIdCliente.SelectedValue, Integer)
             CurrentConfiguration.Moneda = cboMoneda.SelectedValue
+            CurrentConfiguration.FormaPagoVentas = cboFormaPagoVentas.SelectedValue
         Catch ex As Exception
             HandleException(ex)
         Finally

@@ -48,4 +48,12 @@ Public Class OrdenVentaDetalleModel : Implements IDBTable
 		Me.IdVenta = IdVenta_
 		Cantidad = cantidad_
 	End Sub
+
+	Public Sub InitFromProduct(product As ProductoModel)
+		IdProducto = product.Id
+		IdArticulo = product.IdArticulo
+		Nombre = product.Nombre
+		PrecioUnitario = product.PrecioVenta
+		Unidad = product.IdUnidad
+	End Sub
 End Class

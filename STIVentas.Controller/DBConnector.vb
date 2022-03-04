@@ -8,6 +8,15 @@ Imports MySql.Data.MySqlClient
 Public Class DBConnector
 
     Private strLastError As String
+    Private RecordId As Long
+    Public Property LastId() As Long
+        Get
+            Return RecordId
+        End Get
+        Protected Set(value As Long)
+            RecordId = value
+        End Set
+    End Property
 
     Public Property LastError() As String
         Get
@@ -88,6 +97,10 @@ Public Class DBConnector
                 insertResult = command.ExecuteNonQuery()
                 success = insertResult > 0
 
+                If success Then
+                    LastId = command.LastInsertedId
+                End If
+
                 connection.Close()
             End Using
 
@@ -119,6 +132,10 @@ Public Class DBConnector
 
                 insertResult = command.ExecuteNonQuery()
                 success = insertResult > 0
+
+                If success Then
+                    LastId = command.LastInsertedId
+                End If
 
                 connection.Close()
             End Using
@@ -300,6 +317,10 @@ Public Class DBConnector
 
                     insertResult = command.ExecuteNonQuery()
 
+                    If success Then
+                        LastId = command.LastInsertedId
+                    End If
+
                     If Not String.IsNullOrEmpty(additionalSQL) Then
                         command = New MySqlCommand(additionalSQL, connection, transaction)
                         command.CommandType = CommandType.Text
@@ -327,6 +348,47 @@ Public Class DBConnector
         End Try
 
         Return success
+    End Function
+
+    Public Function ExecuteStoreProcedure(sql As String, Optional params As List(Of MySqlParameter) = Nothing, Optional outputParams As MySqlParameter = Nothing) As Integer
+        Dim command As MySqlCommand
+        Dim insertResult As Integer
+
+        Try
+            ResetLastError()
+
+            Using connection As New MySqlConnection(GetConnectionString())
+                connection.Open()
+
+                command = New MySqlCommand(sql, connection) With {
+                    .CommandType = CommandType.StoredProcedure
+                }
+
+                If params IsNot Nothing Then
+                    For Each param As MySqlParameter In params
+                        command.Parameters.Add(param)
+                    Next
+                End If
+                If outputParams IsNot Nothing Then
+                    outputParams.Direction = ParameterDirection.Output
+                    command.Parameters.Add(outputParams)
+                End If
+
+                insertResult = command.ExecuteNonQuery()
+
+                If outputParams IsNot Nothing AndAlso outputParams.Value IsNot Nothing Then
+                    insertResult = CType(outputParams.Value, Integer)
+                End If
+
+                connection.Close()
+            End Using
+
+        Catch ex As Exception
+            AppendError(ex)
+            insertResult = -1
+        End Try
+
+        Return insertResult
     End Function
 
 End Class

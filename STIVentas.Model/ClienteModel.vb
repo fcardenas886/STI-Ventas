@@ -7,7 +7,7 @@ Public Class ClienteModel : Implements IDBTable
     Public Property Nombre As String
     Public Property Direccion As String
     Public Property Cupo As Integer
-
+    Public Property Moneda As String ' Se agrega moneda para la OV
 
 
     Public Property Id As Long Implements IDBTable.RecordId
