@@ -5,12 +5,12 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0ACDD748-0944-42B8-9A20-AE845FE9AC30}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <StartupObject>STI_Ventas.My.MyApplication</StartupObject>
+    <OutputType>Exe</OutputType>
+    <StartupObject>Sub Main</StartupObject>
     <RootNamespace>STI_Ventas</RootNamespace>
     <AssemblyName>STI-Ventas</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
+    <MyType>Console</MyType>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <Deterministic>true</Deterministic>
     <PublishUrl>publish\</PublishUrl>
@@ -150,10 +150,10 @@
     <Compile Include="Sales\FrmVentaPOS.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Setup\FrmConfiguracionGeneral.Designer.vb">
-      <DependentUpon>FrmConfiguracionGeneral.vb</DependentUpon>
+    <Compile Include="Setup\FrmLogin.Designer.vb">
+      <DependentUpon>FrmLogin.vb</DependentUpon>
     </Compile>
-    <Compile Include="Setup\FrmConfiguracionGeneral.vb">
+    <Compile Include="Setup\FrmLogin.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Setup\FrmUsuario.Designer.vb">
@@ -162,6 +162,7 @@
     <Compile Include="Setup\FrmUsuario.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Setup\Main.vb" />
     <Compile Include="UIControl\FrmBuscaProducto.Designer.vb">
       <DependentUpon>FrmBuscaProducto.vb</DependentUpon>
     </Compile>
@@ -263,8 +264,8 @@
     <EmbeddedResource Include="Sales\FrmVentaPOS.resx">
       <DependentUpon>FrmVentaPOS.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Setup\FrmConfiguracionGeneral.resx">
-      <DependentUpon>FrmConfiguracionGeneral.vb</DependentUpon>
+    <EmbeddedResource Include="Setup\FrmLogin.resx">
+      <DependentUpon>FrmLogin.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Setup\FrmUsuario.resx">
       <DependentUpon>FrmUsuario.vb</DependentUpon>
