@@ -150,10 +150,10 @@
     <Compile Include="Sales\FrmVentaPOS.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Setup\FrmConfiguracionGeneral.Designer.vb">
-      <DependentUpon>FrmConfiguracionGeneral.vb</DependentUpon>
+    <Compile Include="Setup\FrmLogin.Designer.vb">
+      <DependentUpon>FrmLogin.vb</DependentUpon>
     </Compile>
-    <Compile Include="Setup\FrmConfiguracionGeneral.vb">
+    <Compile Include="Setup\FrmLogin.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Setup\FrmLogin.Designer.vb">
@@ -270,8 +270,8 @@
     <EmbeddedResource Include="Sales\FrmVentaPOS.resx">
       <DependentUpon>FrmVentaPOS.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Setup\FrmConfiguracionGeneral.resx">
-      <DependentUpon>FrmConfiguracionGeneral.vb</DependentUpon>
+    <EmbeddedResource Include="Setup\FrmLogin.resx">
+      <DependentUpon>FrmLogin.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Setup\FrmLogin.resx">
       <DependentUpon>FrmLogin.vb</DependentUpon>
