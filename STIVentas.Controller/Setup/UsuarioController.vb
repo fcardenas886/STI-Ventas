@@ -136,6 +136,37 @@ Public Class UsuarioController : Inherits ControllerBase : Implements IDBOperati
         Return ret
     End Function
 
+    Public Function GetUsuario(ByVal username As String, ByVal pass As String) As Integer
+        Dim ret As Integer
+        Dim dbConnector As DBConnector
+        Dim sql As String
+        Dim dataTable As DataTable
+        Dim params As List(Of MySqlParameter)
+
+        Try
+            dbConnector = New DBConnector()
+            params = New List(Of MySqlParameter)
+            sql = "SELECT Id, Username, IFNULL(Nombre, '') Nombre, IFNULL(Alias, '') Alias, Password, Status, Email FROM TblUsuario WHERE Username= @user and  Password= @pass;"
+
+            params.Add(BuildParameter("@user", username, DbType.String))
+            params.Add(BuildParameter("@pass", pass, DbType.String))
+            dataTable = dbConnector.ReadDataTable(sql)
+            ret = dataTable.Rows.Count
+            MsgBox(ret)
+            For Each dataRow As DataRow In dataTable.Rows
+
+
+            Next
+
+            LastError = dbConnector.LastError
+
+        Catch ex As Exception
+            AppendError(ex)
+        End Try
+
+        Return ret
+    End Function
+
     Public Overrides Function TableName() As String
         Return NombreTabla
     End Function
@@ -170,6 +201,7 @@ Public Class UsuarioController : Inherits ControllerBase : Implements IDBOperati
 
         Try
             dbConnector = New DBConnector()
+
             params = New List(Of MySqlParameter)
             sql = "SELECT Id FROM TblUsuario WHERE Username = @Username LIMIT 1;"
 
@@ -186,7 +218,56 @@ Public Class UsuarioController : Inherits ControllerBase : Implements IDBOperati
 
         Return ret
     End Function
+
+
 #End Region
 
+    Public Overloads Function GetListuser(ByVal u As String) As UsuarioModel
+        Dim ret As String
+        Dim dbConnector As DBConnector
+        Dim sql As String
+        Dim dataTable As DataTable
+        Dim dbTable As New UsuarioModel
+        Dim params As List(Of MySqlParameter)
+
+        Try
+            dbConnector = New DBConnector()
+            params = New List(Of MySqlParameter)
+            sql = "SELECT Id, Username, IFNULL(Nombre, '') Nombre, IFNULL(Alias, '') Alias, Password, Status, Email FROM TblUsuario WHERE Username=@usuario;"
+
+            params.Add(BuildParameter("@usuario", u, DbType.String))
+            dataTable = dbConnector.ReadDataTable(sql, params)
+
+            If dataTable.Rows.Count > 0 Then
+                dbTable = New UsuarioModel() With {
+                    .Id = dataTable.Rows().Item(0).Item(0),
+                    .Username = dataTable.Rows().Item(0).Item(1),
+                    .Nombre = dataTable.Rows().Item(0).Item(2),
+                    .AliasName = dataTable.Rows().Item(0).Item(3),
+                    .Password = dataTable.Rows().Item(0).Item(4)
+                }
+            End If
+
+
+            ' ret = New UsuarioModel(dataTable.Rows.Item(0), dataTable.Rows(1), dataTable.Rows(2), dataTable.Rows(3), dataTable.Rows(4), dataTable.Rows(5), dataTable.Rows(6))
+            '.Username = DataRow(1),
+            '                .Nombre = DataRow(2),
+            '                .AliasName = DataRow(3),
+            '                .Password = DataRow(4),
+            '                .Status = DataRow(5),
+            '                .Email = DataRow(6)
+
+            '            )
+
+
+            LastError = dbConnector.LastError
+
+        Catch ex As Exception
+            AppendError(ex)
+
+        End Try
+
+        Return dbTable
+    End Function
 
 End Class

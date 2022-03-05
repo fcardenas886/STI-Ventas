@@ -1,6 +1,7 @@
 ﻿Imports STIVentas.Controller
 Imports STIVentas.Model
 
+
 ''' <summary>
 ''' Se agrega el form
 ''' </summary>
@@ -11,7 +12,7 @@ Public Class FrmVentaPOS
     Public Property NumeroVenta As String
     Private IsNewSalesOrder As Boolean
     Private AllowInitFromCustomer As Boolean
-    Public ClienteActual As ClienteViewModel
+    Public Shared ClienteActual As ClienteViewModel
     Public MonedaDefault As String
     Private NumeroLinea As Integer
     Public Shared OrdenVentaActual As OrdenVentaModel
