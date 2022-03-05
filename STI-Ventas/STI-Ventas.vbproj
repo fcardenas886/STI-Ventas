@@ -5,14 +5,30 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0ACDD748-0944-42B8-9A20-AE845FE9AC30}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <StartupObject>STI_Ventas.My.MyApplication</StartupObject>
+    <OutputType>Exe</OutputType>
+    <StartupObject>Sub Main</StartupObject>
     <RootNamespace>STI_Ventas</RootNamespace>
     <AssemblyName>STI-Ventas</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MyType>Console</MyType>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -72,17 +88,130 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmMain.vb">
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Catalogs\FrmCliente.Designer.vb">
+      <DependentUpon>FrmCliente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmCliente.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMain.Designer.vb">
-      <DependentUpon>FrmMain.vb</DependentUpon>
+    <Compile Include="Catalogs\FrmFormaPago.Designer.vb">
+      <DependentUpon>FrmFormaPago.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmFormaPago.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Catalogs\FrmGrupoProveedor.Designer.vb">
+      <DependentUpon>FrmGrupoProveedor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmGrupoProveedor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\FrmProductos.Designer.vb">
+      <DependentUpon>FrmProductos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmProductos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helper\ISelectedRecord.vb" />
+    <Compile Include="Catalogs\FrmCategoriaProducto.Designer.vb">
+      <DependentUpon>FrmCategoriaProducto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmCategoriaProducto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventario\FrmTransaccionInventarioListPage.Designer.vb">
+      <DependentUpon>FrmTransaccionInventarioListPage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventario\FrmTransaccionInventarioListPage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Purch\FrmComprasListPage.Designer.vb">
+      <DependentUpon>FrmComprasListPage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Purch\FrmComprasListPage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Purch\FrmConfirmarOrdenCompra.Designer.vb">
+      <DependentUpon>FrmConfirmarOrdenCompra.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Purch\FrmConfirmarOrdenCompra.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales\FrmCobroVenta.Designer.vb">
+      <DependentUpon>FrmCobroVenta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\FrmCobroVenta.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales\FrmVentaPOS.Designer.vb">
+      <DependentUpon>FrmVentaPOS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\FrmVentaPOS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setup\FrmLogin.Designer.vb">
+      <DependentUpon>FrmLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\FrmLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setup\FrmUsuario.Designer.vb">
+      <DependentUpon>FrmUsuario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\FrmUsuario.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setup\Main.vb" />
+    <Compile Include="UIControl\FrmBuscaProducto.Designer.vb">
+      <DependentUpon>FrmBuscaProducto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrmBuscaProducto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIControl\FrmListPageBase.Designer.vb">
+      <DependentUpon>FrmListPageBase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIControl\FrmListPageBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\FrmMoneda.Designer.vb">
+      <DependentUpon>FrmMoneda.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmMoneda.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalogs\FrmProveedor.Designer.vb">
+      <DependentUpon>FrmProveedor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogs\FrmProveedor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBase.Designer.vb">
+      <DependentUpon>FrmBase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmUnitOfMeasure.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmUnitOfMeasure.Designer.vb">
+      <DependentUpon>FrmUnitOfMeasure.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMainMDI.Designer.vb">
+      <DependentUpon>FrmMainMDI.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMainMDI.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helper\FormHelperModule.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -94,13 +223,82 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Purch\FrmOrdenCompra.Designer.vb">
+      <DependentUpon>FrmOrdenCompra.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Purch\FrmOrdenCompra.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIControl\TextBoxPlaceHolder.vb">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Catalogs\FrmCliente.resx">
+      <DependentUpon>FrmCliente.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\FrmFormaPago.resx">
+      <DependentUpon>FrmFormaPago.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\FrmGrupoProveedor.resx">
+      <DependentUpon>FrmGrupoProveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\FrmCategoriaProducto.resx">
+      <DependentUpon>FrmCategoriaProducto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\FrmProductos.resx">
+      <DependentUpon>FrmProductos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventario\FrmTransaccionInventarioListPage.resx">
+      <DependentUpon>FrmTransaccionInventarioListPage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Purch\FrmComprasListPage.resx">
+      <DependentUpon>FrmComprasListPage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Purch\FrmConfirmarOrdenCompra.resx">
+      <DependentUpon>FrmConfirmarOrdenCompra.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales\FrmCobroVenta.resx">
+      <DependentUpon>FrmCobroVenta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales\FrmVentaPOS.resx">
+      <DependentUpon>FrmVentaPOS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setup\FrmLogin.resx">
+      <DependentUpon>FrmLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setup\FrmUsuario.resx">
+      <DependentUpon>FrmUsuario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrmBuscaProducto.resx">
+      <DependentUpon>FrmBuscaProducto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControl\FrmListPageBase.resx">
+      <DependentUpon>FrmListPageBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\FrmMoneda.resx">
+      <DependentUpon>FrmMoneda.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalogs\FrmProveedor.resx">
+      <DependentUpon>FrmProveedor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmBase.resx">
+      <DependentUpon>FrmBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmUnitOfMeasure.resx">
+      <DependentUpon>FrmUnitOfMeasure.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMainMDI.resx">
+      <DependentUpon>FrmMainMDI.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Purch\FrmOrdenCompra.resx">
+      <DependentUpon>FrmOrdenCompra.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +312,26 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\STIVentas.Controller\STIVentas.Controller.vbproj">
+      <Project>{6e15b31e-ad15-4205-80f3-44e2cbf7f79b}</Project>
+      <Name>STIVentas.Controller</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\STIVentas.Model\STIVentas.Model.vbproj">
+      <Project>{d6ba7bc0-87cb-4ff8-ba0e-ac6a0860d3b0}</Project>
+      <Name>STIVentas.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MDI.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

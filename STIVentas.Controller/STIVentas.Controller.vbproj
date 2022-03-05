@@ -10,8 +10,9 @@
     <AssemblyName>STIVentas.Controller</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,7 +45,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=8.0.28.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -64,11 +67,33 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalogs\FormaPagoController.vb" />
+    <Compile Include="ClienteController.vb" />
+    <Compile Include="Compras\ComprasDetalleController.vb" />
+    <Compile Include="Compras\ComprasController.vb" />
+    <Compile Include="ControllerBase.vb" />
+    <Compile Include="DBConnector.vb" />
+    <Compile Include="DBHelper\DBSelectionField.vb" />
+    <Compile Include="DBHelper\DBFilterFields.vb" />
+    <Compile Include="DBHelper\DBFilterType.vb" />
+    <Compile Include="DBHelper\DBSelect.vb" />
+    <Compile Include="GrupoProveedorController.vb" />
+    <Compile Include="Inventario\CategoriaController.vb" />
+    <Compile Include="Inventario\ProductosController.vb" />
+    <Compile Include="Inventario\TransaccionInventarioController.vb" />
+    <Compile Include="ModulePOS.vb" />
+    <Compile Include="MonedaController.vb" />
+    <Compile Include="ProveedorController.vb" />
+    <Compile Include="Security\AES.vb" />
+    <Compile Include="Security\DBSettings.vb" />
+    <Compile Include="Setup\UsuarioController.vb" />
+    <Compile Include="UnidadController.vb" />
     <Compile Include="UnidadModel.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -80,6 +105,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Ventas\VentaDetallesController.vb" />
+    <Compile Include="Ventas\VentasController.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -90,6 +117,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -99,6 +127,14 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\STIVentas.Model\STIVentas.Model.vbproj">
+      <Project>{d6ba7bc0-87cb-4ff8-ba0e-ac6a0860d3b0}</Project>
+      <Name>STIVentas.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
