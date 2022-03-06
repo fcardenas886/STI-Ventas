@@ -26,7 +26,7 @@ Public NotInheritable Class VentasHelper
             imprimeTicket.AddSubHeaderLine("Fecha: " + Date.Now.ToString("dd/MM/yy HH:mm:ss"))
 
             For Each ventaDetalle As OrdenVentaDetalleModel In lineasVenta
-                imprimeTicket.AddItem(ventaDetalle.Nombre.Replace("?", ""), ventaDetalle.Cantidad.ToString("n2"), ventaDetalle.PrecioUnitario.ToString("n2"), ventaDetalle.Monto.ToString("n2"))
+                imprimeTicket.AddItem(ventaDetalle.Nombre.Replace("?", ""), ventaDetalle.Cantidad.ToString("n0"), ventaDetalle.PrecioUnitario.ToString("n2"), ventaDetalle.Monto.ToString("n2"))
             Next
 
             imprimeTicket.AddTotal("Total      ....$", ordenVentaCobro.Total.ToString("n2"))

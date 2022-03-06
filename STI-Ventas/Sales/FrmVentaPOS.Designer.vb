@@ -43,16 +43,6 @@ Partial Class FrmVentaPOS
         Me.txtDetailsDescripcion = New System.Windows.Forms.TextBox()
         Me.txtDetailsCodigoBarras = New System.Windows.Forms.TextBox()
         Me.dgvLineas = New System.Windows.Forms.DataGridView()
-        Me.CodigoBarra = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Cantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Precio = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Descuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TotalLinea = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IdProducto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Unidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IdLineaVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LineaVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PanelMainDetails = New System.Windows.Forms.Panel()
         Me.btnGuardarLinea = New System.Windows.Forms.Button()
         Me.GroupBoxAcciones = New System.Windows.Forms.GroupBox()
@@ -75,6 +65,16 @@ Partial Class FrmVentaPOS
         Me.LabelNombreProducto = New System.Windows.Forms.Label()
         Me.ErrorProviderSTI = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.txtBuscaProducto = New STI_Ventas.TextBoxPlaceHolder()
+        Me.CodigoBarra = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Cantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Precio = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Descuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TotalLinea = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdProducto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Unidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdLineaVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LineaVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PanelContainer.SuspendLayout()
         Me.GroupBoxMainData.SuspendLayout()
         Me.PanelMaindData.SuspendLayout()
@@ -258,102 +258,6 @@ Partial Class FrmVentaPOS
         Me.dgvLineas.Size = New System.Drawing.Size(1143, 474)
         Me.dgvLineas.TabIndex = 0
         '
-        'CodigoBarra
-        '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        Me.CodigoBarra.DefaultCellStyle = DataGridViewCellStyle3
-        Me.CodigoBarra.DividerWidth = 2
-        Me.CodigoBarra.HeaderText = "Cod.Barra"
-        Me.CodigoBarra.MinimumWidth = 10
-        Me.CodigoBarra.Name = "CodigoBarra"
-        Me.CodigoBarra.ReadOnly = True
-        Me.CodigoBarra.Width = 210
-        '
-        'Descripcion
-        '
-        Me.Descripcion.DividerWidth = 2
-        Me.Descripcion.HeaderText = "Descripción"
-        Me.Descripcion.MinimumWidth = 10
-        Me.Descripcion.Name = "Descripcion"
-        Me.Descripcion.ReadOnly = True
-        Me.Descripcion.Width = 340
-        '
-        'Cantidad
-        '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        DataGridViewCellStyle4.Format = "N2"
-        DataGridViewCellStyle4.NullValue = "0"
-        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle4
-        Me.Cantidad.DividerWidth = 2
-        Me.Cantidad.HeaderText = "Cantidad"
-        Me.Cantidad.Name = "Cantidad"
-        Me.Cantidad.ReadOnly = True
-        Me.Cantidad.Width = 130
-        '
-        'Precio
-        '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        DataGridViewCellStyle5.Format = "N2"
-        DataGridViewCellStyle5.NullValue = "0"
-        Me.Precio.DefaultCellStyle = DataGridViewCellStyle5
-        Me.Precio.DividerWidth = 2
-        Me.Precio.HeaderText = "Precio"
-        Me.Precio.Name = "Precio"
-        Me.Precio.ReadOnly = True
-        Me.Precio.Width = 130
-        '
-        'Descuento
-        '
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        DataGridViewCellStyle6.Format = "N2"
-        DataGridViewCellStyle6.NullValue = "0"
-        Me.Descuento.DefaultCellStyle = DataGridViewCellStyle6
-        Me.Descuento.DividerWidth = 2
-        Me.Descuento.HeaderText = "Descuento"
-        Me.Descuento.Name = "Descuento"
-        Me.Descuento.ReadOnly = True
-        Me.Descuento.Width = 120
-        '
-        'TotalLinea
-        '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        DataGridViewCellStyle7.Format = "N2"
-        DataGridViewCellStyle7.NullValue = "0"
-        Me.TotalLinea.DefaultCellStyle = DataGridViewCellStyle7
-        Me.TotalLinea.DividerWidth = 2
-        Me.TotalLinea.HeaderText = "Total Línea"
-        Me.TotalLinea.Name = "TotalLinea"
-        Me.TotalLinea.ReadOnly = True
-        Me.TotalLinea.Width = 200
-        '
-        'IdProducto
-        '
-        Me.IdProducto.HeaderText = "IdProducto"
-        Me.IdProducto.Name = "IdProducto"
-        Me.IdProducto.ReadOnly = True
-        Me.IdProducto.Visible = False
-        '
-        'Unidad
-        '
-        Me.Unidad.HeaderText = "Unidad"
-        Me.Unidad.Name = "Unidad"
-        Me.Unidad.ReadOnly = True
-        Me.Unidad.Visible = False
-        '
-        'IdLineaVenta
-        '
-        Me.IdLineaVenta.HeaderText = "IdLineaVenta"
-        Me.IdLineaVenta.Name = "IdLineaVenta"
-        Me.IdLineaVenta.ReadOnly = True
-        Me.IdLineaVenta.Visible = False
-        '
-        'LineaVenta
-        '
-        Me.LineaVenta.HeaderText = "LineaVenta"
-        Me.LineaVenta.Name = "LineaVenta"
-        Me.LineaVenta.ReadOnly = True
-        Me.LineaVenta.Visible = False
-        '
         'PanelMainDetails
         '
         Me.PanelMainDetails.Controls.Add(Me.btnGuardarLinea)
@@ -522,7 +426,6 @@ Partial Class FrmVentaPOS
         'txtCantidadBusqueda
         '
         Me.txtCantidadBusqueda.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtCantidadBusqueda.DecimalPlaces = 2
         Me.txtCantidadBusqueda.Dock = System.Windows.Forms.DockStyle.Right
         Me.txtCantidadBusqueda.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!)
         Me.ErrorProviderSTI.SetIconPadding(Me.txtCantidadBusqueda, 2)
@@ -601,6 +504,102 @@ Partial Class FrmVentaPOS
         Me.txtBuscaProducto.PlaceHolder = "Presiona Enter para buscar o guardar"
         Me.txtBuscaProducto.Size = New System.Drawing.Size(423, 27)
         Me.txtBuscaProducto.TabIndex = 106
+        '
+        'CodigoBarra
+        '
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        Me.CodigoBarra.DefaultCellStyle = DataGridViewCellStyle3
+        Me.CodigoBarra.DividerWidth = 2
+        Me.CodigoBarra.HeaderText = "Cod.Barra"
+        Me.CodigoBarra.MinimumWidth = 10
+        Me.CodigoBarra.Name = "CodigoBarra"
+        Me.CodigoBarra.ReadOnly = True
+        Me.CodigoBarra.Width = 210
+        '
+        'Descripcion
+        '
+        Me.Descripcion.DividerWidth = 2
+        Me.Descripcion.HeaderText = "Descripción"
+        Me.Descripcion.MinimumWidth = 10
+        Me.Descripcion.Name = "Descripcion"
+        Me.Descripcion.ReadOnly = True
+        Me.Descripcion.Width = 340
+        '
+        'Cantidad
+        '
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        DataGridViewCellStyle4.Format = "N0"
+        DataGridViewCellStyle4.NullValue = "0"
+        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle4
+        Me.Cantidad.DividerWidth = 2
+        Me.Cantidad.HeaderText = "Cantidad"
+        Me.Cantidad.Name = "Cantidad"
+        Me.Cantidad.ReadOnly = True
+        Me.Cantidad.Width = 130
+        '
+        'Precio
+        '
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        DataGridViewCellStyle5.Format = "N2"
+        DataGridViewCellStyle5.NullValue = "0"
+        Me.Precio.DefaultCellStyle = DataGridViewCellStyle5
+        Me.Precio.DividerWidth = 2
+        Me.Precio.HeaderText = "Precio"
+        Me.Precio.Name = "Precio"
+        Me.Precio.ReadOnly = True
+        Me.Precio.Width = 130
+        '
+        'Descuento
+        '
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        DataGridViewCellStyle6.Format = "N2"
+        DataGridViewCellStyle6.NullValue = "0"
+        Me.Descuento.DefaultCellStyle = DataGridViewCellStyle6
+        Me.Descuento.DividerWidth = 2
+        Me.Descuento.HeaderText = "Descuento"
+        Me.Descuento.Name = "Descuento"
+        Me.Descuento.ReadOnly = True
+        Me.Descuento.Width = 120
+        '
+        'TotalLinea
+        '
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        DataGridViewCellStyle7.Format = "N2"
+        DataGridViewCellStyle7.NullValue = "0"
+        Me.TotalLinea.DefaultCellStyle = DataGridViewCellStyle7
+        Me.TotalLinea.DividerWidth = 2
+        Me.TotalLinea.HeaderText = "Total Línea"
+        Me.TotalLinea.Name = "TotalLinea"
+        Me.TotalLinea.ReadOnly = True
+        Me.TotalLinea.Width = 200
+        '
+        'IdProducto
+        '
+        Me.IdProducto.HeaderText = "IdProducto"
+        Me.IdProducto.Name = "IdProducto"
+        Me.IdProducto.ReadOnly = True
+        Me.IdProducto.Visible = False
+        '
+        'Unidad
+        '
+        Me.Unidad.HeaderText = "Unidad"
+        Me.Unidad.Name = "Unidad"
+        Me.Unidad.ReadOnly = True
+        Me.Unidad.Visible = False
+        '
+        'IdLineaVenta
+        '
+        Me.IdLineaVenta.HeaderText = "IdLineaVenta"
+        Me.IdLineaVenta.Name = "IdLineaVenta"
+        Me.IdLineaVenta.ReadOnly = True
+        Me.IdLineaVenta.Visible = False
+        '
+        'LineaVenta
+        '
+        Me.LineaVenta.HeaderText = "LineaVenta"
+        Me.LineaVenta.Name = "LineaVenta"
+        Me.LineaVenta.ReadOnly = True
+        Me.LineaVenta.Visible = False
         '
         'FrmVentaPOS
         '

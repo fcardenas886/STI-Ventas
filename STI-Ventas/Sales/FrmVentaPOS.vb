@@ -15,7 +15,7 @@ Public Class FrmVentaPOS
     Public Shared ClienteActual As ClienteViewModel
     Public MonedaDefault As String
     Private NumeroLinea As Integer
-    Public Shared OrdenVentaActual As OrdenVentaModel
+    Public OrdenVentaActual As OrdenVentaModel
 
 #End Region
 
@@ -45,6 +45,7 @@ Public Class FrmVentaPOS
         IsNewSalesOrder = True
         txtBuscaProducto.PlaceHolder = "Presiona Enter para buscar o guardar"
         LabelNombreProducto.Text = "Ingrese un producto. Seleccione el cuadro de búsqueda"
+        OrdenVentaActual = Nothing
     End Sub
 
 #End Region
@@ -788,7 +789,7 @@ Public Class FrmVentaPOS
                 txtDetailsCodigoBarras.Text = salesLine.IdArticulo
                 txtDetailsDescripcion.Text = salesLine.Nombre
                 txtDetailsPrecio.Text = salesLine.PrecioUnitario.ToString("N2")
-                txtDetailsCantidad.Text = salesLine.Cantidad.ToString("N2")
+                txtDetailsCantidad.Text = salesLine.Cantidad.ToString("N0")
                 txtDetailsDescuento.Text = salesLine.Descuento.ToString("N2")
                 txtDetailsTotalLinea.Text = salesLine.Monto.ToString("N2")
 
@@ -797,7 +798,7 @@ Public Class FrmVentaPOS
                 txtDetailsCodigoBarras.Text = salesLine.IdArticulo
                 txtDetailsDescripcion.Text = salesLine.Nombre
                 txtDetailsPrecio.Text = salesLine.PrecioUnitario.ToString("N2")
-                txtDetailsCantidad.Text = salesLine.Cantidad.ToString("N2")
+                txtDetailsCantidad.Text = salesLine.Cantidad.ToString("N0")
                 txtDetailsDescuento.Text = salesLine.Descuento.ToString("N2")
                 txtDetailsTotalLinea.Text = salesLine.Monto.ToString("N2")
                 LabelNombreProducto.Text = "Ingrese un producto. Seleccione el cuadro de búsqueda"

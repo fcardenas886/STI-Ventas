@@ -165,6 +165,7 @@ Public Class FrmCobroVenta
         ret.Total = txtMontoPagar.Value
         ret.Vuelto = CType(txtCambio.Text, Decimal)
         ret.Propina = txtPropina.Value
+        ret.Efectivo = txtEfectivo.Value
 
         Return ret
     End Function
