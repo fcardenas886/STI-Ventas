@@ -69,12 +69,12 @@ Partial Class FrmVentaPOS
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.PanelBusqueda = New System.Windows.Forms.Panel()
         Me.txtCantidadBusqueda = New System.Windows.Forms.NumericUpDown()
-        Me.txtBuscaProducto = New STI_Ventas.TextBoxPlaceHolder()
         Me.btnBuscarProducto = New System.Windows.Forms.Button()
         Me.PanelHeaderItemsDetails = New System.Windows.Forms.Panel()
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.LabelNombreProducto = New System.Windows.Forms.Label()
         Me.ErrorProviderSTI = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.txtBuscaProducto = New STI_Ventas.TextBoxPlaceHolder()
         Me.PanelContainer.SuspendLayout()
         Me.GroupBoxMainData.SuspendLayout()
         Me.PanelMaindData.SuspendLayout()
@@ -371,7 +371,7 @@ Partial Class FrmVentaPOS
         Me.btnGuardarLinea.Name = "btnGuardarLinea"
         Me.btnGuardarLinea.Size = New System.Drawing.Size(200, 47)
         Me.btnGuardarLinea.TabIndex = 103
-        Me.btnGuardarLinea.Text = "Guardar"
+        Me.btnGuardarLinea.Text = "&Guardar"
         Me.btnGuardarLinea.UseVisualStyleBackColor = True
         '
         'GroupBoxAcciones
@@ -415,7 +415,7 @@ Partial Class FrmVentaPOS
         Me.btnTicketPreventa.Name = "btnTicketPreventa"
         Me.btnTicketPreventa.Size = New System.Drawing.Size(148, 47)
         Me.btnTicketPreventa.TabIndex = 107
-        Me.btnTicketPreventa.Text = "Ticket preventa"
+        Me.btnTicketPreventa.Text = "&Ticket preventa"
         Me.btnTicketPreventa.UseVisualStyleBackColor = True
         '
         'btnPedido
@@ -448,7 +448,7 @@ Partial Class FrmVentaPOS
         Me.btnAnularProducto.Name = "btnAnularProducto"
         Me.btnAnularProducto.Size = New System.Drawing.Size(148, 47)
         Me.btnAnularProducto.TabIndex = 104
-        Me.btnAnularProducto.Text = "Anular producto"
+        Me.btnAnularProducto.Text = "Anular pro&ducto"
         Me.btnAnularProducto.UseVisualStyleBackColor = True
         '
         'btnCerrar
@@ -459,7 +459,7 @@ Partial Class FrmVentaPOS
         Me.btnCerrar.Name = "btnCerrar"
         Me.btnCerrar.Size = New System.Drawing.Size(148, 47)
         Me.btnCerrar.TabIndex = 103
-        Me.btnCerrar.Text = "Cerrar"
+        Me.btnCerrar.Text = "&Cerrar"
         Me.btnCerrar.UseVisualStyleBackColor = True
         '
         'btnCobrarOV
@@ -470,7 +470,7 @@ Partial Class FrmVentaPOS
         Me.btnCobrarOV.Name = "btnCobrarOV"
         Me.btnCobrarOV.Size = New System.Drawing.Size(148, 47)
         Me.btnCobrarOV.TabIndex = 102
-        Me.btnCobrarOV.Text = "Cobrar"
+        Me.btnCobrarOV.Text = "Cobra&r"
         Me.btnCobrarOV.UseVisualStyleBackColor = True
         '
         'GroupBoxHeader
@@ -536,19 +536,6 @@ Partial Class FrmVentaPOS
         Me.txtCantidadBusqueda.ThousandsSeparator = True
         Me.txtCantidadBusqueda.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
-        'txtBuscaProducto
-        '
-        Me.txtBuscaProducto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtBuscaProducto.Dock = System.Windows.Forms.DockStyle.Right
-        Me.txtBuscaProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!)
-        Me.txtBuscaProducto.ForeColor = System.Drawing.Color.Black
-        Me.txtBuscaProducto.Location = New System.Drawing.Point(270, 8)
-        Me.txtBuscaProducto.MaxLength = 1000
-        Me.txtBuscaProducto.Name = "txtBuscaProducto"
-        Me.txtBuscaProducto.PlaceHolder = "Presiona Enter para buscar o guardar"
-        Me.txtBuscaProducto.Size = New System.Drawing.Size(423, 27)
-        Me.txtBuscaProducto.TabIndex = 106
-        '
         'btnBuscarProducto
         '
         Me.btnBuscarProducto.Dock = System.Windows.Forms.DockStyle.Left
@@ -558,7 +545,7 @@ Partial Class FrmVentaPOS
         Me.btnBuscarProducto.Name = "btnBuscarProducto"
         Me.btnBuscarProducto.Size = New System.Drawing.Size(119, 31)
         Me.btnBuscarProducto.TabIndex = 103
-        Me.btnBuscarProducto.Text = "Buscar"
+        Me.btnBuscarProducto.Text = "&Buscar"
         Me.btnBuscarProducto.UseVisualStyleBackColor = True
         '
         'PanelHeaderItemsDetails
@@ -601,6 +588,19 @@ Partial Class FrmVentaPOS
         '
         Me.ErrorProviderSTI.BlinkRate = 300
         Me.ErrorProviderSTI.ContainerControl = Me
+        '
+        'txtBuscaProducto
+        '
+        Me.txtBuscaProducto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtBuscaProducto.Dock = System.Windows.Forms.DockStyle.Right
+        Me.txtBuscaProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!)
+        Me.txtBuscaProducto.ForeColor = System.Drawing.Color.Black
+        Me.txtBuscaProducto.Location = New System.Drawing.Point(270, 8)
+        Me.txtBuscaProducto.MaxLength = 1000
+        Me.txtBuscaProducto.Name = "txtBuscaProducto"
+        Me.txtBuscaProducto.PlaceHolder = "Presiona Enter para buscar o guardar"
+        Me.txtBuscaProducto.Size = New System.Drawing.Size(423, 27)
+        Me.txtBuscaProducto.TabIndex = 106
         '
         'FrmVentaPOS
         '

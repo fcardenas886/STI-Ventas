@@ -83,5 +83,19 @@ Public Class OrdenVentaModel : Implements IDBTable
 
 		Return reference
 	End Function
+
+	Public Function GetCliente() As String
+		Dim reference As String
+
+		If Not String.IsNullOrEmpty(Cliente) AndAlso Not String.IsNullOrEmpty(Nombre) Then
+			reference = Cliente & " " & Nombre
+		ElseIf Not String.IsNullOrEmpty(Nombre) Then
+			reference = Nombre
+		Else
+			reference = "PUBLICO EN GENERAL"
+		End If
+
+		Return reference
+	End Function
 #End Region
 End Class

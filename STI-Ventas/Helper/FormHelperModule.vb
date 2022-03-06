@@ -317,5 +317,33 @@ Module FormHelperModule
         Return False
     End Function
 
+    Public Sub FillClienteRutComboBox(caller As Form, ByRef cboCliente As ComboBox)
+        Dim controller As ClienteController
+        Dim dbTable As List(Of TablaBaseModel)
+        Dim dbSelect As DBSelect
+
+        Try
+            caller.Cursor = Cursors.WaitCursor
+            cboCliente.DataSource = Nothing
+
+            controller = New ClienteController()
+            dbSelect = New DBSelect(controller.TableName())
+            dbSelect.SelectFields.Add(New DBSelectionField("RUT", "Id"))
+            dbSelect.SelectFields.Add(New DBSelectionField("CONCAT(RUT, ' - ', Nombre)", "Nombre"))
+
+            dbTable = controller.GetListWithFilters(Of TablaBaseModel)(dbSelect)
+
+            cboCliente.DataSource = dbTable
+            cboCliente.DisplayMember = "Nombre"
+            cboCliente.ValueMember = "Id"
+            cboCliente.SelectedIndex = -1
+
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            caller.Cursor = Cursors.Default
+        End Try
+    End Sub
+
 #End Region
 End Module

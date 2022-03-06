@@ -190,6 +190,8 @@ Partial Class FrmCobroVenta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScroll = True
+        Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.CancelButton = Me.btnCancelar
         Me.ClientSize = New System.Drawing.Size(307, 324)
         Me.Controls.Add(Me.PanelContainer)

@@ -55,7 +55,4 @@ Public Class UsuarioModel : Implements IDBTable
         Me.Email = Email_
     End Sub
 
-    Public Shared Widening Operator CType(v As UsuarioModel) As UsuarioModel
-        Throw New NotImplementedException()
-    End Operator
 End Class
