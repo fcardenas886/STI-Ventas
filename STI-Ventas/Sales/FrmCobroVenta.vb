@@ -11,6 +11,7 @@ Public Class FrmCobroVenta
     Protected Totals As OrdenVentaTotales
     Protected IsLoaded As Boolean
     Private IsPaymentSucces As Boolean
+    Public Lineas As List(Of OrdenVentaDetalleModel)
 
     Public Property Cobrado() As Boolean
         Get
@@ -77,6 +78,9 @@ Public Class FrmCobroVenta
                 If isOK Then
                     Cobrado = True
                     Info("Operación completada")
+
+                    PrintTicket()
+
                     DialogResult = DialogResult.OK
                     Close()
                 End If
@@ -119,10 +123,10 @@ Public Class FrmCobroVenta
 
         Try
             controller = New VentasController()
-            Totals = controller.GetTotals(OrdenVenta.Id)
+            Totals = controller.GetTotals(CInt(OrdenVenta.Id))
 
             If Totals Is Nothing OrElse Totals.NumeroLineas < 1 OrElse Not String.IsNullOrEmpty(controller.LastError) Then
-                Totals = controller.GetTotals(OrdenVenta.Id)
+                Totals = controller.GetTotals(CInt(OrdenVenta.Id))
             End If
 
             If Totals Is Nothing OrElse Totals.NumeroLineas < 1 Then
@@ -194,6 +198,23 @@ Public Class FrmCobroVenta
         End Try
     End Sub
 
+    Protected Sub PrintTicket()
+        Dim totalView As OrdenVentaCobroViewModel
+
+        Try
+
+            totalView = GetOrdenVentaCobroModel()
+
+            If Not VentasHelper.PrintTicket(totalView, OrdenVenta, lineas) Then
+                HandleError("Error imprimiendo el ticket, intente nuevamente por favor.")
+            End If
+
+        Catch ex As Exception
+            HandleError(ex)
+        End Try
+
+    End Sub
+
 #End Region
 
 #Region "Events"
@@ -203,6 +224,7 @@ Public Class FrmCobroVenta
 
     Private Sub FrmCobroVenta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitTotals()
+        txtEfectivo.Select()
     End Sub
 
     Private Sub FrmCobroVenta_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Validating
@@ -222,9 +244,9 @@ Public Class FrmCobroVenta
 
     Private Sub txtEfectivo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtEfectivo.Validating
         If txtEfectivo.Value < txtMontoPagar.Value Then
-            CobroErrorProvider.SetError(sender, "El monto de cobro debe ser mayor o igual al monto a pagar")
+            CobroErrorProvider.SetError(CType(sender, Control), "El monto de cobro debe ser mayor o igual al monto a pagar")
         Else
-            CobroErrorProvider.SetError(sender, "")
+            CobroErrorProvider.SetError(CType(sender, Control), "")
         End If
     End Sub
 
@@ -257,6 +279,7 @@ Public Class FrmCobroVenta
             CobraVentaInterno()
         End If
     End Sub
+
 #End Region
 
 End Class

@@ -171,7 +171,7 @@ Public Class FrmProductos
 
         If e.RowIndex >= 0 Then
 
-            txtArticuloId.Text = dtGridView.Item(0, e.RowIndex).Value
+            txtArticuloId.Text = dtGridView.Item(0, e.RowIndex).Value.ToString()
 
             dbModel = GetProductoPorId(txtArticuloId.Text)
 
@@ -182,9 +182,9 @@ Public Class FrmProductos
                 txtArticuloId.Text = dbModel.IdArticulo
 
                 txtMarca.Text = dbModel.Marca
-                txtPrecioCompra.Text = dbModel.PrecioCompra
-                txtPrecioVenta.Text = dbModel.PrecioVenta
-                txtUnidadPorCaja.Text = dbModel.UnidadPorCaja
+                txtPrecioCompra.Text = CStr(dbModel.PrecioCompra)
+                txtPrecioVenta.Text = CStr(dbModel.PrecioVenta)
+                txtUnidadPorCaja.Text = CStr(dbModel.UnidadPorCaja)
 
                 If String.IsNullOrEmpty(dbModel.IdUnidad) Then
                     cboUnidad.SelectedValue = -1

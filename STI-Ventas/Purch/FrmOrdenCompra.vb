@@ -448,7 +448,7 @@ Public Class FrmOrdenCompra
         Return ret
     End Function
 
-    Protected Function ValidateNumerValue(texBox As TextBox) As Integer
+    Protected Function ValidateNumerValue(texBox As TextBox) As Boolean
         Dim ret As Boolean = True
 
         If Not ValidateNumberIsOk(texBox.Text) Then

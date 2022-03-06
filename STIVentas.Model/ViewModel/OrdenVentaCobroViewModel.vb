@@ -15,6 +15,7 @@ Public Class OrdenVentaCobroViewModel
 	Public Property Propina As Decimal
 	Public Property IdUsuario As Integer
 	Public Property ResultadoSP As Integer
+	Public Property Efectivo As Decimal
 
 	''' <summary>
 	''' Constructor sin params
@@ -52,6 +53,15 @@ Public Class OrdenVentaCobroViewModel
 		Dim reference As String = "OV" & Id.ToString("D8")
 
 		Return reference
+	End Function
+
+	Public Function GetEfectivo() As Decimal
+
+		If Efectivo = 0 Then
+			Return Total
+		End If
+
+		Return Efectivo
 	End Function
 #End Region
 End Class

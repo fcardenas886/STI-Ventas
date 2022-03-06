@@ -107,6 +107,11 @@ Public Class FrmVentaPOS
 
         If OrdenVentaActual IsNot Nothing Then
             dbTable = OrdenVentaActual
+
+            If String.IsNullOrEmpty(dbTable.NumeroVenta) AndAlso dbTable.Id <> 0 Then
+                dbTable.NumeroVenta = dbTable.Id.ToString()
+            End If
+
         Else
             dbTable.InitValue()
             dbTable.InitFromClienteView(ClienteActual)
@@ -246,6 +251,8 @@ Public Class FrmVentaPOS
         lblTotal.Text = "0.00"
 
         SetDetailsFields()
+
+        txtBuscaProducto.Select()
     End Sub
 
     Protected Function DeleteInternal() As Boolean
@@ -304,7 +311,7 @@ Public Class FrmVentaPOS
         Return ret
     End Function
 
-    Protected Function ValidateNumerValue(texBox As TextBox) As Integer
+    Protected Function ValidateNumerValue(texBox As TextBox) As Boolean
         Dim ret As Boolean = True
 
         If Not ValidateNumberIsOk(texBox.Text) Then
@@ -318,7 +325,7 @@ Public Class FrmVentaPOS
 
     Protected Sub CheckNumberIsOk(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Try
-            Dim textBox As TextBox = sender
+            Dim textBox As TextBox = CType(sender, TextBox)
 
             If Not ValidateNumerValue(textBox) Then
                 e.Cancel = True
@@ -363,7 +370,7 @@ Public Class FrmVentaPOS
             frmBusqueda.ShowDialog(Me)
 
             iSelected = CType(frmBusqueda, ISelectedRecord)
-            InitFieldsFromProduct(iSelected.SelectedRecord())
+            InitFieldsFromProduct(CType(iSelected.SelectedRecord(), ProductoModel))
 
         Catch ex As Exception
             HandleException(ex)
@@ -420,9 +427,9 @@ Public Class FrmVentaPOS
         If model Is Nothing Then
             strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar la orden de venta actual")
         Else
-            If String.IsNullOrEmpty(model.Id) Then
-                strErrorMsg = AppendLastError(strErrorMsg, "No se ha especificado la orden de venta.")
-            End If
+            'If model.Id = 0 Then
+            '    strErrorMsg = AppendLastError(strErrorMsg, "No se ha especificado la orden de venta.")
+            'End If
 
             If model.Estado <> EstadoOrdenVenta.Borrador Then
                 strErrorMsg = AppendLastError(strErrorMsg, "Solo se pueden editar ordenes de venta en estado borrador.")
@@ -450,7 +457,7 @@ Public Class FrmVentaPOS
         If model Is Nothing Then
             strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar la orden de venta actual.")
         Else
-            If String.IsNullOrEmpty(model.Id) Then
+            If model.Id = 0 Then
                 strErrorMsg = AppendLastError(strErrorMsg, "No se ha especificado la orden de venta.")
             End If
             If model.Estado <> EstadoOrdenVenta.Borrador Then
@@ -481,17 +488,17 @@ Public Class FrmVentaPOS
         Dim dbTable As New OrdenVentaDetalleModel()
 
         If dgvLineas.CurrentRow IsNot Nothing Then
-            dbTable.IdArticulo = dgvLineas.CurrentRow.Cells.Item(0).Value
-            dbTable.Nombre = dgvLineas.CurrentRow.Cells.Item(1).Value
-            dbTable.PrecioUnitario = dgvLineas.CurrentRow.Cells.Item(3).Value
-            dbTable.Cantidad = dgvLineas.CurrentRow.Cells.Item(2).Value
-            dbTable.Descuento = dgvLineas.CurrentRow.Cells.Item(4).Value
-            dbTable.Monto = dgvLineas.CurrentRow.Cells.Item(5).Value
+            dbTable.IdArticulo = CStr(dgvLineas.CurrentRow.Cells.Item(0).Value)
+            dbTable.Nombre = CStr(dgvLineas.CurrentRow.Cells.Item(1).Value)
+            dbTable.PrecioUnitario = CDec(dgvLineas.CurrentRow.Cells.Item(3).Value)
+            dbTable.Cantidad = CDec(dgvLineas.CurrentRow.Cells.Item(2).Value)
+            dbTable.Descuento = CDec(dgvLineas.CurrentRow.Cells.Item(4).Value)
+            dbTable.Monto = CDec(dgvLineas.CurrentRow.Cells.Item(5).Value)
 
-            dbTable.IdProducto = dgvLineas.CurrentRow.Cells.Item(6).Value
-            dbTable.Unidad = dgvLineas.CurrentRow.Cells.Item(7).Value
-            dbTable.NumeroLinea = dgvLineas.CurrentRow.Cells.Item(8).Value
-            dbTable.Id = dgvLineas.CurrentRow.Cells.Item(9).Value
+            dbTable.IdProducto = CInt(dgvLineas.CurrentRow.Cells.Item(6).Value)
+            dbTable.Unidad = CStr(dgvLineas.CurrentRow.Cells.Item(7).Value)
+            dbTable.NumeroLinea = CInt(dgvLineas.CurrentRow.Cells.Item(8).Value)
+            dbTable.Id = CLng(dgvLineas.CurrentRow.Cells.Item(9).Value)
         End If
 
         Return dbTable
@@ -616,6 +623,8 @@ Public Class FrmVentaPOS
 
             If model.Id = 0 Then
                 ClearLineFields()
+                txtBuscaProducto.Select()
+
                 Return True
             End If
 
@@ -633,6 +642,8 @@ Public Class FrmVentaPOS
                     SetDetailsFields()
                 End If
             End If
+
+            txtBuscaProducto.Select()
 
         Catch ex As Exception
             HandleException(ex)
@@ -757,7 +768,7 @@ Public Class FrmVentaPOS
                     frmBusqueda.ShowDialog(Me)
 
                     iSelected = CType(frmBusqueda, ISelectedRecord)
-                    InitFieldsFromProduct(iSelected.SelectedRecord())
+                    InitFieldsFromProduct(CType(iSelected.SelectedRecord(), ProductoModel))
 
                 End If
 
@@ -799,14 +810,11 @@ Public Class FrmVentaPOS
     End Sub
 
     Private Sub CalcAndSetTotals()
-        Dim total, auxValue As Decimal
+        Dim total As Decimal
 
         Try
-            total = 0
-            For Each row As DataGridViewRow In dgvLineas.Rows
-                auxValue = CType(row.Cells("TotalLinea").Value, Decimal)
-                total += auxValue
-            Next
+            total = GetTotals()
+
             lblTotal.Text = total.ToString("N2")
 
             If OrdenVentaActual IsNot Nothing Then
@@ -817,6 +825,23 @@ Public Class FrmVentaPOS
             HandleException(ex)
         End Try
     End Sub
+
+    Private Function GetTotals() As Decimal
+        Dim total, auxValue As Decimal
+
+        Try
+            total = 0
+            For Each row As DataGridViewRow In dgvLineas.Rows
+                auxValue = CType(row.Cells("TotalLinea").Value, Decimal)
+                total += auxValue
+            Next
+
+        Catch ex As Exception
+            HandleException(ex)
+        End Try
+
+        Return total
+    End Function
 
     Protected Sub SaveSalesOrder()
 
@@ -836,7 +861,7 @@ Public Class FrmVentaPOS
         Dim ret As New OrdenVentaDetalleModel
 
         ret.InitFromProduct(product)
-        ret.IdVenta = GetCurrentSalesOrder().Id
+        ret.IdVenta = CInt(GetCurrentSalesOrder().Id)
         ret.Monto = txtCantidadBusqueda.Value * product.PrecioVenta
         ret.NumeroLinea = NumeroLinea
         ret.Descuento = 0
@@ -851,14 +876,16 @@ Public Class FrmVentaPOS
 
     Protected Function ValidateTicket() As Boolean
         Dim ret As Boolean = True
-        Dim ordenVenta As New OrdenVentaModel
+        Dim ordenVenta As OrdenVentaModel
         Dim strErrorMsg As String = String.Empty
 
         Try
+            ordenVenta = GetCurrentSalesOrder()
+
             If ordenVenta Is Nothing Then
                 strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar la orden de venta actual.")
             Else
-                If String.IsNullOrEmpty(ordenVenta.Id) Then
+                If ordenVenta.Id = 0 Then
                     strErrorMsg = AppendLastError(strErrorMsg, "No se ha especificado la orden de venta.")
                 End If
                 If ordenVenta.Estado <> EstadoOrdenVenta.Borrador Then
@@ -884,7 +911,7 @@ Public Class FrmVentaPOS
     Protected Sub PreviewTicket()
 
         If ValidateTicket() Then
-            MsgBox("Ticket")
+            PrintTicket()
         End If
 
     End Sub
@@ -893,7 +920,10 @@ Public Class FrmVentaPOS
         Dim cobro As FrmCobroVenta
 
         If ValidateTicket() Then
-            cobro = New FrmCobroVenta(GetCurrentSalesOrder())
+            cobro = New FrmCobroVenta(GetCurrentSalesOrder()) With {
+                .Lineas = GetLinesFromGrid()
+            }
+
             cobro.ShowDialog(Me)
 
             If cobro.Cobrado Then
@@ -903,6 +933,71 @@ Public Class FrmVentaPOS
         End If
 
     End Sub
+
+    Private Function GetLinesFromGrid() As List(Of OrdenVentaDetalleModel)
+
+        Dim ret As New List(Of OrdenVentaDetalleModel)
+        Dim dbTable As OrdenVentaDetalleModel
+
+        For Each row As DataGridViewRow In dgvLineas.Rows
+            dbTable = New OrdenVentaDetalleModel()
+
+            dbTable.IdArticulo = CStr(row.Cells.Item(0).Value)
+            dbTable.Nombre = CStr(row.Cells.Item(1).Value)
+            dbTable.PrecioUnitario = CDec(row.Cells.Item(3).Value)
+            dbTable.Cantidad = CDec(row.Cells.Item(2).Value)
+            dbTable.Descuento = CDec(row.Cells.Item(4).Value)
+            dbTable.Monto = CDec(row.Cells.Item(5).Value)
+
+            dbTable.IdProducto = CInt(row.Cells.Item(6).Value)
+            dbTable.Unidad = CStr(row.Cells.Item(7).Value)
+            dbTable.NumeroLinea = CInt(row.Cells.Item(8).Value)
+            dbTable.Id = CLng(dgvLineas.CurrentRow.Cells.Item(9).Value)
+
+            ret.Add(dbTable)
+        Next
+
+        Return ret
+    End Function
+
+    Protected Sub PrintTicket()
+        Dim ordenVenta As OrdenVentaModel
+        Dim totals As OrdenVentaCobroViewModel
+        Dim lineas As List(Of OrdenVentaDetalleModel)
+
+        Try
+
+            ordenVenta = GetCurrentSalesOrder()
+            ordenVenta.Total = GetTotals()
+
+            lineas = GetLinesFromGrid()
+
+            totals = New OrdenVentaCobroViewModel()
+
+            totals.InitFromOrdenVentaModel(ordenVenta)
+            totals.Efectivo = ordenVenta.Total
+
+            If Not VentasHelper.PrintTicket(totals, ordenVenta, lineas) Then
+                HandleError("Error imprimiendo el ticket, intente nuevamente por favor.")
+            End If
+
+            ordenVenta = Nothing
+            totals = Nothing
+            lineas = Nothing
+
+        Catch ex As Exception
+            HandleError(ex)
+        End Try
+
+    End Sub
+
+    Private Sub HandleQtyOk()
+        If txtCantidadBusqueda.Value <> 0 And Not String.IsNullOrEmpty(txtBuscaProducto.Text) Then
+            BuscaProductoRelacionado()
+
+        End If
+    End Sub
+
 #End Region
 
 #Region "Events"
@@ -942,6 +1037,12 @@ Public Class FrmVentaPOS
 
     Private Sub btnTicketPreventa_Click(sender As Object, e As EventArgs) Handles btnTicketPreventa.Click
         PreviewTicket()
+    End Sub
+
+    Private Sub txtCantidadBusqueda_KeyUp(sender As Object, e As KeyEventArgs) Handles txtCantidadBusqueda.KeyUp
+        If e.KeyData = Keys.Enter Then
+            HandleQtyOk()
+        End If
     End Sub
 #End Region
 End Class

@@ -36,6 +36,7 @@ Partial Class FrmMainMDI
         Me.ProductosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UsuariosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ValoresDefaultToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ComprasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TodasLasOrdenesDeCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NuevaCompraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -46,7 +47,7 @@ Partial Class FrmMainMDI
         Me.VentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PuntoDeVentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ValoresDefaultToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TodasLasVentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -141,6 +142,12 @@ Partial Class FrmMainMDI
         Me.UsuariosToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
         Me.UsuariosToolStripMenuItem.Text = "Usuarios"
         '
+        'ValoresDefaultToolStripMenuItem
+        '
+        Me.ValoresDefaultToolStripMenuItem.Name = "ValoresDefaultToolStripMenuItem"
+        Me.ValoresDefaultToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
+        Me.ValoresDefaultToolStripMenuItem.Text = "Valores default"
+        '
         'ComprasToolStripMenuItem
         '
         Me.ComprasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TodasLasOrdenesDeCompraToolStripMenuItem, Me.NuevaCompraToolStripMenuItem})
@@ -187,7 +194,7 @@ Partial Class FrmMainMDI
         '
         'VentasToolStripMenuItem
         '
-        Me.VentasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PuntoDeVentasToolStripMenuItem})
+        Me.VentasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PuntoDeVentasToolStripMenuItem, Me.TodasLasVentasToolStripMenuItem})
         Me.VentasToolStripMenuItem.Name = "VentasToolStripMenuItem"
         Me.VentasToolStripMenuItem.Size = New System.Drawing.Size(53, 20)
         Me.VentasToolStripMenuItem.Text = "Ventas"
@@ -195,7 +202,7 @@ Partial Class FrmMainMDI
         'PuntoDeVentasToolStripMenuItem
         '
         Me.PuntoDeVentasToolStripMenuItem.Name = "PuntoDeVentasToolStripMenuItem"
-        Me.PuntoDeVentasToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
+        Me.PuntoDeVentasToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PuntoDeVentasToolStripMenuItem.Text = "Punto de Ventas"
         '
         'ToolStripMenuItem2
@@ -203,16 +210,17 @@ Partial Class FrmMainMDI
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
         Me.ToolStripMenuItem2.Size = New System.Drawing.Size(12, 20)
         '
-        'ValoresDefaultToolStripMenuItem
+        'TodasLasVentasToolStripMenuItem
         '
-        Me.ValoresDefaultToolStripMenuItem.Name = "ValoresDefaultToolStripMenuItem"
-        Me.ValoresDefaultToolStripMenuItem.Size = New System.Drawing.Size(203, 22)
-        Me.ValoresDefaultToolStripMenuItem.Text = "Valores default"
+        Me.TodasLasVentasToolStripMenuItem.Name = "TodasLasVentasToolStripMenuItem"
+        Me.TodasLasVentasToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.TodasLasVentasToolStripMenuItem.Text = "Todas las ventas"
         '
         'FrmMainMDI
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImage = Global.STI_Ventas.My.Resources.Resources.MDI
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(800, 450)
@@ -258,4 +266,5 @@ Partial Class FrmMainMDI
     Friend WithEvents ToolStripMenuItem2 As ToolStripMenuItem
     Friend WithEvents UsuariosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ValoresDefaultToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TodasLasVentasToolStripMenuItem As ToolStripMenuItem
 End Class
