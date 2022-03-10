@@ -161,6 +161,22 @@ Public Class FrmMainMDI
         child.Show()
     End Sub
 
+    Private Sub AjustesDeInventarioToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AjustesDeInventarioToolStripMenuItem.Click
+        Dim child As Form = New FrmAjusteInventario With {
+           .MdiParent = Me
+        }
+
+        child.Show()
+    End Sub
+
+    Private Sub TodosLosAjustesDeInventarioToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TodosLosAjustesDeInventarioToolStripMenuItem.Click
+        Dim child As Form = New FrmAjusteInventarioListPage With {
+           .MdiParent = Me
+        }
+
+        child.Show()
+    End Sub
+
 #End Region
 
 #Region "Class methods"

@@ -124,6 +124,18 @@
     <Compile Include="Catalogs\FrmCategoriaProducto.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Inventario\FrmAjusteInventario.Designer.vb">
+      <DependentUpon>FrmAjusteInventario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventario\FrmAjusteInventario.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventario\FrmAjusteInventarioListPage.Designer.vb">
+      <DependentUpon>FrmAjusteInventarioListPage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Inventario\FrmAjusteInventarioListPage.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inventario\FrmTransaccionInventarioListPage.Designer.vb">
       <DependentUpon>FrmTransaccionInventarioListPage.vb</DependentUpon>
     </Compile>
@@ -269,6 +281,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Catalogs\FrmProductos.resx">
       <DependentUpon>FrmProductos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventario\FrmAjusteInventario.resx">
+      <DependentUpon>FrmAjusteInventario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventario\FrmAjusteInventarioListPage.resx">
+      <DependentUpon>FrmAjusteInventarioListPage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventario\FrmTransaccionInventarioListPage.resx">
       <DependentUpon>FrmTransaccionInventarioListPage.vb</DependentUpon>

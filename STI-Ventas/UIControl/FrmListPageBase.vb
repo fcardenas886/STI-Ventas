@@ -209,6 +209,10 @@ Public Class FrmListPageBase
     Private Sub dgvListPage_RowEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvListPage.RowEnter
         OnRowEnter(e.RowIndex)
     End Sub
+
+    Private Sub BorrarFiltrosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BorrarFiltrosToolStripMenuItem.Click
+        ResetFilters()
+    End Sub
 #End Region
 
 

@@ -5,7 +5,7 @@ Imports STIVentas.Model
 ''' <summary>
 ''' Controller para transacciones de inventario
 ''' </summary>
-''' <remarks>08.02.2028 jorge.nin92@gmail.com: Se crea la clase</remarks>
+''' <remarks>08.02.2022 jorge.nin92@gmail.com: Se crea la clase</remarks>
 Public Class TransaccionInventarioController : Inherits ControllerBase : Implements IDBOperations
 
     Private Const NombreTabla As String = "TblTransaccionInventario"

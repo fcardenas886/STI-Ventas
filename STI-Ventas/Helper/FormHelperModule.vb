@@ -345,5 +345,35 @@ Module FormHelperModule
         End Try
     End Sub
 
+    Public Sub FillUsuarioComboBox(caller As Form, ByRef cboUsuario As ComboBox)
+        Dim controller As UsuarioController
+        Dim dbTable As List(Of TablaBaseModel)
+        Dim dbSelect As DBSelect
+
+        Try
+            caller.Cursor = Cursors.WaitCursor
+            cboUsuario.DataSource = Nothing
+
+            controller = New UsuarioController()
+            dbSelect = New DBSelect(controller.TableName())
+            dbSelect.SelectFields.Add(New DBSelectionField("Id", "Id"))
+            dbSelect.SelectFields.Add(New DBSelectionField("Username", "Nombre"))
+
+            dbSelect.FilterFields.Add(New DBFilterFields("Status", DBFilterType.Equal, EstadoUsuario.Activo))
+
+            dbTable = controller.GetListWithFilters(Of TablaBaseModel)(dbSelect)
+
+            cboUsuario.DataSource = dbTable
+            cboUsuario.DisplayMember = "Nombre"
+            cboUsuario.ValueMember = "Id"
+            cboUsuario.SelectedIndex = -1
+
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            caller.Cursor = Cursors.Default
+        End Try
+    End Sub
+
 #End Region
 End Module

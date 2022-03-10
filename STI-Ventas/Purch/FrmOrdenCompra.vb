@@ -128,11 +128,11 @@ Public Class FrmOrdenCompra
     Public Function GetCurrentPurchaseOrder() As CompraHeaderModel
         Dim dbTable As New CompraHeaderModel With {
             .NumeroCompra = txtOrdenCompra.Text,
-            .IdProveedor = cboProveedor.SelectedValue,
+            .IdProveedor = CStr(cboProveedor.SelectedValue),
             .Nombre = txtVendorName.Text,
-            .FormaPago = cboFormaPago.SelectedValue,
-            .Estado = cboEstatus.SelectedValue,
-            .Moneda = cboMoneda.SelectedValue,
+            .FormaPago = CStr(cboFormaPago.SelectedValue),
+            .Estado = CType(cboEstatus.SelectedValue, EstadoOrdenCompra),
+            .Moneda = CStr(cboMoneda.SelectedValue),
             .OrdenProveedor = txtOrdenProveedor.Text,
             .FechaEntrega = dateTimeFechaEntrega.Value,
             .Correo = txtEmail.Text,
@@ -146,7 +146,7 @@ Public Class FrmOrdenCompra
     End Function
 
     Protected Sub GetRecordsAndPopulateFields()
-        Dim controller As VentasController
+        Dim controller As ComprasController
         Dim records As List(Of CompraHeaderModel)
         Dim ordenCompra As CompraHeaderModel
         Dim dbSelect As DBSelect
@@ -155,7 +155,7 @@ Public Class FrmOrdenCompra
         Try
             Cursor = Cursors.WaitCursor
 
-            controller = New VentasController()
+            controller = New ComprasController()
             dbSelect = New DBSelect(controller.TableName())
             dbSelect.FilterFields.Add(New DBFilterFields("Id", DBFilterType.Equal, txtOrdenCompraId.Text))
 
@@ -192,7 +192,7 @@ Public Class FrmOrdenCompra
     End Sub
 
     Protected Sub SetValuesFromPurchaseOrder(ordenCompra As CompraHeaderModel)
-        txtOrdenCompraId.Text = ordenCompra.Id
+        txtOrdenCompraId.Text = CStr(ordenCompra.Id)
         txtOrdenCompra.Text = ordenCompra.NumeroCompra
         txtOrdenProveedor.Text = ordenCompra.OrdenProveedor
         txtContacto.Text = ordenCompra.Contacto
@@ -235,15 +235,15 @@ Public Class FrmOrdenCompra
     End Function
 
     Protected Sub GetIdFromPurchaseNum(numOC As String)
-        Dim controller As VentasController
+        Dim controller As ComprasController
         Dim records As List(Of CompraHeaderModel)
-        Dim ret As CompraHeaderModel = Nothing
+        Dim ret As CompraHeaderModel
         Dim dbSelect As DBSelect
 
         Try
             Cursor = Cursors.WaitCursor
 
-            controller = New VentasController()
+            controller = New ComprasController()
             dbSelect = New DBSelect(controller.TableName())
             dbSelect.SelectFields.Add(New DBSelectionField("Id"))
             dbSelect.FilterFields.Add(New DBFilterFields("NumeroCompra", DBFilterType.Equal, numOC))
@@ -272,11 +272,11 @@ Public Class FrmOrdenCompra
     ''' <remarks>06.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Function UpsertRecord() As Boolean
         Dim ret As Boolean = False
-        Dim controller As VentasController
+        Dim controller As ComprasController
 
         Try
             Cursor = Cursors.WaitCursor
-            controller = New VentasController()
+            controller = New ComprasController()
 
             If IsNewPurchaseOrder Then
                 ret = controller.Insert(GetCurrentPurchaseOrder())
@@ -306,11 +306,11 @@ Public Class FrmOrdenCompra
 
     Protected Function DeleteRecord() As Boolean
         Dim deleted As Boolean = False
-        Dim controller As VentasController
+        Dim controller As ComprasController
 
         Try
             Cursor = Cursors.WaitCursor
-            controller = New VentasController()
+            controller = New ComprasController()
             deleted = controller.Delete(GetCurrentPurchaseOrder())
 
             If Not deleted Then
@@ -370,7 +370,7 @@ Public Class FrmOrdenCompra
         Dim strMsg As String = String.Empty
 
         If ordenCompra.Estado <> EstadoOrdenCompra.Borrador Then
-            strMsg = "Solo se pueden eliminar ordenes de venta en borrador"
+            strMsg = "Solo se pueden eliminar ordenes de compra en borrador"
         End If
 
         If Not String.IsNullOrEmpty(strMsg) Then
@@ -462,7 +462,7 @@ Public Class FrmOrdenCompra
 
     Protected Sub CheckNumberIsOk(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Try
-            Dim textBox As TextBox = sender
+            Dim textBox As TextBox = CType(sender, TextBox)
 
             If Not ValidateNumerValue(textBox) Then
                 e.Cancel = True
@@ -507,7 +507,7 @@ Public Class FrmOrdenCompra
             frmBusqueda.ShowDialog(Me)
 
             iSelected = CType(frmBusqueda, ISelectedRecord)
-            InitFieldsFromProduct(iSelected.SelectedRecord())
+            InitFieldsFromProduct(CType(iSelected.SelectedRecord(), ProductoModel))
 
         Catch ex As Exception
             HandleException(ex)
@@ -609,9 +609,9 @@ Public Class FrmOrdenCompra
         '' ToDo: Cuando este productos eliminar línea
         ItemRecordId = 1
         Dim dbTable As New CompraDetallesModel With {
-            .IdProducto = ItemRecordId,
+            .IdProducto = CInt(ItemRecordId),
             .NombreProducto = txtItemName.Text,
-            .Unidad = cboUnidad.SelectedValue
+            .Unidad = CStr(cboUnidad.SelectedValue)
         }
         If Not String.IsNullOrEmpty(txtOrdenCompraId.Text) Then
             dbTable.IdCompra = CType(txtOrdenCompraId.Text, Integer)
@@ -677,12 +677,12 @@ Public Class FrmOrdenCompra
         If dgvLines.CurrentRow IsNot Nothing Then
             purchLineRecordId = CType(dgvLines.CurrentRow.Cells(0).Value, Long)
             NumeroLinea = CType(dgvLines.CurrentRow.Cells(1).Value, Integer)
-            txtItemId.Text = dgvLines.CurrentRow.Cells(2).Value
-            txtItemName.Text = dgvLines.CurrentRow.Cells(3).Value
-            txtCantidad.Text = dgvLines.CurrentRow.Cells(4).Value
-            txtPrecioUnitario.Text = dgvLines.CurrentRow.Cells(5).Value
-            txtDescuento.Text = dgvLines.CurrentRow.Cells(6).Value
-            txtMontoLinea.Text = dgvLines.CurrentRow.Cells(7).Value
+            txtItemId.Text = CStr(dgvLines.CurrentRow.Cells(2).Value)
+            txtItemName.Text = CStr(dgvLines.CurrentRow.Cells(3).Value)
+            txtCantidad.Text = CStr(dgvLines.CurrentRow.Cells(4).Value)
+            txtPrecioUnitario.Text = CStr(dgvLines.CurrentRow.Cells(5).Value)
+            txtDescuento.Text = CStr(dgvLines.CurrentRow.Cells(6).Value)
+            txtMontoLinea.Text = CStr(dgvLines.CurrentRow.Cells(7).Value)
         End If
 
     End Sub
@@ -824,7 +824,7 @@ Public Class FrmOrdenCompra
         Dim allowEdit As Boolean
 
         Try
-            allowEdit = cboEstatus.SelectedValue = EstadoOrdenCompra.Borrador
+            allowEdit = CType(cboEstatus.SelectedValue, EstadoOrdenCompra) = EstadoOrdenCompra.Borrador
 
             txtOrdenCompra.ReadOnly = Not allowEdit
             txtVendorName.ReadOnly = Not allowEdit
@@ -889,7 +889,7 @@ Public Class FrmOrdenCompra
                     frmBusqueda.ShowDialog(Me)
 
                     iSelected = CType(frmBusqueda, ISelectedRecord)
-                    InitFieldsFromProduct(iSelected.SelectedRecord())
+                    InitFieldsFromProduct(CType(iSelected.SelectedRecord(), ProductoModel))
 
                 End If
 

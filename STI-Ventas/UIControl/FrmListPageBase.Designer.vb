@@ -36,6 +36,7 @@ Partial Class FrmListPageBase
         Me.GroupBoxButtonActions = New System.Windows.Forms.GroupBox()
         Me.btnCerrar = New System.Windows.Forms.Button()
         Me.btnFiltrar = New System.Windows.Forms.Button()
+        Me.BorrarFiltrosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBoxDetails.SuspendLayout()
         CType(Me.dgvListPage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStripMainActions.SuspendLayout()
@@ -116,7 +117,7 @@ Partial Class FrmListPageBase
         '
         'AccionesToolStripMenuItem
         '
-        Me.AccionesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SalirToolStripMenuItem})
+        Me.AccionesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BorrarFiltrosToolStripMenuItem, Me.SalirToolStripMenuItem})
         Me.AccionesToolStripMenuItem.Name = "AccionesToolStripMenuItem"
         Me.AccionesToolStripMenuItem.Size = New System.Drawing.Size(73, 21)
         Me.AccionesToolStripMenuItem.Text = "Acciones"
@@ -168,6 +169,12 @@ Partial Class FrmListPageBase
         Me.btnFiltrar.Text = "Filtrar"
         Me.btnFiltrar.UseVisualStyleBackColor = True
         '
+        'BorrarFiltrosToolStripMenuItem
+        '
+        Me.BorrarFiltrosToolStripMenuItem.Name = "BorrarFiltrosToolStripMenuItem"
+        Me.BorrarFiltrosToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.BorrarFiltrosToolStripMenuItem.Text = "Borrar filtros"
+        '
         'FrmListPageBase
         '
         Me.AcceptButton = Me.btnFiltrar
@@ -204,4 +211,5 @@ Partial Class FrmListPageBase
     Protected Friend WithEvents EditarToolStripMenuItem As ToolStripMenuItem
     Protected Friend WithEvents EliminarToolStripMenuItem As ToolStripMenuItem
     Protected Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BorrarFiltrosToolStripMenuItem As ToolStripMenuItem
 End Class

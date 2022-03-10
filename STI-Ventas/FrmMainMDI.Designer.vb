@@ -46,8 +46,10 @@ Partial Class FrmMainMDI
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.VentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PuntoDeVentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.TodasLasVentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AjustesDeInventarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TodosLosAjustesDeInventarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -169,7 +171,7 @@ Partial Class FrmMainMDI
         '
         'ConsultasToolStripMenuItem
         '
-        Me.ConsultasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConsultasToolStripMenuItem1})
+        Me.ConsultasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConsultasToolStripMenuItem1, Me.AjustesDeInventarioToolStripMenuItem, Me.TodosLosAjustesDeInventarioToolStripMenuItem})
         Me.ConsultasToolStripMenuItem.Name = "ConsultasToolStripMenuItem"
         Me.ConsultasToolStripMenuItem.Size = New System.Drawing.Size(72, 20)
         Me.ConsultasToolStripMenuItem.Text = "Inventario"
@@ -178,7 +180,7 @@ Partial Class FrmMainMDI
         '
         Me.ConsultasToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TransaccionesDeInventarioToolStripMenuItem})
         Me.ConsultasToolStripMenuItem1.Name = "ConsultasToolStripMenuItem1"
-        Me.ConsultasToolStripMenuItem1.Size = New System.Drawing.Size(126, 22)
+        Me.ConsultasToolStripMenuItem1.Size = New System.Drawing.Size(236, 22)
         Me.ConsultasToolStripMenuItem1.Text = "Consultas"
         '
         'TransaccionesDeInventarioToolStripMenuItem
@@ -205,16 +207,28 @@ Partial Class FrmMainMDI
         Me.PuntoDeVentasToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PuntoDeVentasToolStripMenuItem.Text = "Punto de Ventas"
         '
-        'ToolStripMenuItem2
-        '
-        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(12, 20)
-        '
         'TodasLasVentasToolStripMenuItem
         '
         Me.TodasLasVentasToolStripMenuItem.Name = "TodasLasVentasToolStripMenuItem"
         Me.TodasLasVentasToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.TodasLasVentasToolStripMenuItem.Text = "Todas las ventas"
+        '
+        'ToolStripMenuItem2
+        '
+        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(12, 20)
+        '
+        'AjustesDeInventarioToolStripMenuItem
+        '
+        Me.AjustesDeInventarioToolStripMenuItem.Name = "AjustesDeInventarioToolStripMenuItem"
+        Me.AjustesDeInventarioToolStripMenuItem.Size = New System.Drawing.Size(236, 22)
+        Me.AjustesDeInventarioToolStripMenuItem.Text = "Ajustes de inventario"
+        '
+        'TodosLosAjustesDeInventarioToolStripMenuItem
+        '
+        Me.TodosLosAjustesDeInventarioToolStripMenuItem.Name = "TodosLosAjustesDeInventarioToolStripMenuItem"
+        Me.TodosLosAjustesDeInventarioToolStripMenuItem.Size = New System.Drawing.Size(236, 22)
+        Me.TodosLosAjustesDeInventarioToolStripMenuItem.Text = "Todos los Ajustes de inventario"
         '
         'FrmMainMDI
         '
@@ -267,4 +281,6 @@ Partial Class FrmMainMDI
     Friend WithEvents UsuariosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ValoresDefaultToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TodasLasVentasToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AjustesDeInventarioToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TodosLosAjustesDeInventarioToolStripMenuItem As ToolStripMenuItem
 End Class

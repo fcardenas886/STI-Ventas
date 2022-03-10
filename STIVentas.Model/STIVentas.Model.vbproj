@@ -65,6 +65,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AjusteInventarioModel.vb" />
+    <Compile Include="ViewModel\AjusteInventarioViewModel.vb" />
     <Compile Include="CategoriaModel.vb" />
     <Compile Include="ClienteModel.vb" />
     <Compile Include="CobroVentasModel.vb" />
@@ -91,6 +93,7 @@
     <Compile Include="ProveedorModel.vb" />
     <Compile Include="STIConfigModel.vb" />
     <Compile Include="TablaBaseModel.vb" />
+    <Compile Include="AjusteInventarioDetallesModel.vb" />
     <Compile Include="Totals\OrdenVentaTotales.vb" />
     <Compile Include="Totals\OrdenCompraTotales.vb" />
     <Compile Include="TransaccionInventarioModel.vb" />
@@ -112,6 +115,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="UsuarioModel.vb" />
+    <Compile Include="ViewModel\AjusteInventarioRegistroModel.vb" />
     <Compile Include="ViewModel\ClienteViewModel.vb" />
     <Compile Include="ViewModel\OrdenVentaCobroViewModel.vb" />
   </ItemGroup>

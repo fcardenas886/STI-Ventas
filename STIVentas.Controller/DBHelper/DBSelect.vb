@@ -72,4 +72,27 @@ Public Class DBSelect
 
         Return sql
     End Function
+
+    Friend Function GetSQLWhere() As String
+        Dim sql As String
+        Dim sBuilder As New StringBuilder
+        Dim iCounter As Integer
+
+        If FilterFields.Count > 0 Then
+            sBuilder.Append(" WHERE ")
+            iCounter = 0
+
+            For Each filterField As DBFilterFields In FilterFields
+                If iCounter > 0 Then
+                    sBuilder.Append(" AND ")
+                End If
+                sBuilder.Append(filterField.GetAsSQL())
+                iCounter += 1
+            Next
+        End If
+
+        sql = sBuilder.ToString()
+
+        Return sql
+    End Function
 End Class
