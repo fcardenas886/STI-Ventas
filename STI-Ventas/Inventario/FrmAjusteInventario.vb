@@ -16,6 +16,7 @@ Public Class FrmAjusteInventario
     Private NumeroLinea As Integer
     Protected AjusteInventarioActual As AjusteInventarioModel
     Protected LineaAjusteInventarioActual As AjusteInventarioDetallesModel
+    Protected CargandoDeExistente As Boolean
 
 #End Region
 
@@ -28,6 +29,7 @@ Public Class FrmAjusteInventario
         RecordId = recId
         Numero = String.Empty
         IsNewRecord = True
+        CargandoDeExistente = RecordId > 0
     End Sub
 
     Public Sub New()
@@ -485,6 +487,7 @@ Public Class FrmAjusteInventario
         Dim records As List(Of AjusteInventarioDetallesModel)
         Dim dbSelect As DBSelect
         Dim isWaitCursor As Boolean
+        Dim minLineNum As Integer
 
         Try
             isWaitCursor = True
@@ -500,14 +503,25 @@ Public Class FrmAjusteInventario
             records = controller.GetListWithFilters(Of AjusteInventarioDetallesModel)(dbSelect)
 
             dgvLines.Rows.Clear()
+            minLineNum = -1
 
             For Each model As AjusteInventarioDetallesModel In records
                 dgvLines.Rows().Add(model.Id, model.NumeroLinea, model.IdArticulo, model.Descripcion,
                                         model.Cantidad, model.Unidad, model.IdProducto)
+
+                If CargandoDeExistente Then
+                    If model.NumeroLinea > NumeroLinea Then
+                        NumeroLinea = model.NumeroLinea
+                    End If
+                End If
             Next
 
             If records.Count < 1 And Not String.IsNullOrEmpty(controller.LastError) Then
                 HandleException(controller.LastError)
+            Else
+                If CargandoDeExistente Then
+                    NumeroLinea += 1
+                End If
             End If
         Catch ex As Exception
             HandleException(ex)
@@ -745,9 +759,12 @@ Public Class FrmAjusteInventario
 
     Private Sub OnFormLoaded()
 
+        CargandoDeExistente = False
         LoadComboBoxData()
 
         If RecordId > 0 Then
+            CargandoDeExistente = True
+
             txtIdAjuste.Text = RecordId.ToString()
             GetRecordsAndPopulateFields()
             ClearLineFields()
@@ -755,6 +772,11 @@ Public Class FrmAjusteInventario
 
             IsNewRecord = False
             txtNumeroAjuste.ReadOnly = True
+            CargandoDeExistente = False
+
+            If NumeroLinea < 1 Then
+                NumeroLinea = 1
+            End If
         Else
             OnNewRecordSelected()
         End If
@@ -767,6 +789,8 @@ Public Class FrmAjusteInventario
         AddHandler txtItemName.Enter, AddressOf TextBox_Enter
 
         txtCantidad.Maximum = Decimal.MaxValue
+        'txtCantidad.Minimum = 10000
+        'txtCantidad.Value = 0
 
     End Sub
 

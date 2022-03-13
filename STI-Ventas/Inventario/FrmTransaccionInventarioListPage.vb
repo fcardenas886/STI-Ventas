@@ -39,7 +39,7 @@ Public Class FrmTransaccionInventarioListPage
     ''' <remarks>05.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Friend Overrides Function GetRecordIdentification() As String
         If dgvListPage.CurrentRow IsNot Nothing Then
-            Return dgvListPage.CurrentRow().Cells().Item(1).Value
+            Return CStr(dgvListPage.CurrentRow().Cells().Item(1).Value)
 
         End If
         Return String.Empty
@@ -67,10 +67,30 @@ Public Class FrmTransaccionInventarioListPage
                 dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Moneda", .HeaderText = "Moneda"})
                 dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Unidad", .HeaderText = "Unidad"})
 
-                dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "TipoTransaccion", .HeaderText = "Tipo Transaccion"})
+                'dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "TipoTransaccion", .HeaderText = "Tipo Transaccion"})
+
+                Dim cboTipoTrans As New DataGridViewComboBoxColumn With {
+                    .DataSource = GetTipoTransaccionInventarioValues(),
+                    .Name = "TipoTransaccion",
+                    .HeaderText = "Tipo Transaccion",
+                    .ValueType = GetType(TipoTransaccionInventario),
+                    .FlatStyle = FlatStyle.Flat
+                }
+
+                dgvListPage.Columns.Add(cboTipoTrans)
+
                 dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Referencia", .HeaderText = "Referencia"})
                 dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "NumeroReferencia", .HeaderText = "Número Referencia"})
-                dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Estado", .HeaderText = "Estado"})
+
+                Dim cboEstatusInvent As New DataGridViewComboBoxColumn With {
+                    .DataSource = GetEstadoInventarioValues(),
+                    .Name = "Estado",
+                    .HeaderText = "Estado",
+                    .ValueType = GetType(EstadoInventario),
+                    .FlatStyle = FlatStyle.Flat
+                }
+
+                dgvListPage.Columns.Add(cboEstatusInvent)
 
                 dgvListPage.Columns(0).Visible = False
 
@@ -81,11 +101,11 @@ Public Class FrmTransaccionInventarioListPage
 
             If isFromFilterButton Then
                 If chkEnableStatusFilter.Checked Then
-                    dbFilter = New DBFilterFields("Estatus", DBFilterType.Equal, [Enum].Parse(GetType(EstadoInventario), cboEstatus.SelectedValue))
+                    dbFilter = New DBFilterFields("Estatus", DBFilterType.Equal, [Enum].Parse(GetType(EstadoInventario), CStr(cboEstatus.SelectedValue)))
                     dbSelect.FilterFields.Add(dbFilter)
                 End If
                 If chkEnableTipoTransaccion.Checked Then
-                    dbSelect.FilterFields.Add(New DBFilterFields("TipoTransaccion", DBFilterType.Equal, [Enum].Parse(GetType(TipoTransaccionInventario), cboTipoTransaccion.SelectedValue)))
+                    dbSelect.FilterFields.Add(New DBFilterFields("TipoTransaccion", DBFilterType.Equal, [Enum].Parse(GetType(TipoTransaccionInventario), CStr(cboTipoTransaccion.SelectedValue))))
                 End If
                 If Not String.IsNullOrEmpty(txtIdArticulo.Text) Then
                     dbSelect.FilterFields.Add(New DBFilterFields("IdArticulo", DBFilterType.Contains, String.Format("%{0}%", txtIdArticulo.Text)))
@@ -143,6 +163,8 @@ Public Class FrmTransaccionInventarioListPage
     ''' </summary>
     ''' <remarks>05.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Overrides Sub OnFormLoaded()
+
+        AddHandler dgvListPage.DataError, AddressOf dataGridViewListPage_DataError
 
         MyBase.OnFormLoaded()
 
@@ -206,7 +228,7 @@ Public Class FrmTransaccionInventarioListPage
 
         Try
             If dgvListPage.CurrentRow IsNot Nothing Then
-                recordId = dgvListPage.CurrentRow().Cells().Item(0).Value
+                recordId = CInt(dgvListPage.CurrentRow().Cells().Item(0).Value)
 
             End If
         Catch ex As Exception
@@ -252,6 +274,14 @@ Public Class FrmTransaccionInventarioListPage
         End Try
     End Sub
 
+    Private Function GetTipoTransaccionInventarioValues() As Array
+        Return [Enum].GetValues(GetType(TipoTransaccionInventario))
+    End Function
+
+    Private Function GetEstadoInventarioValues() As Array
+        Return [Enum].GetValues(GetType(EstadoInventario))
+    End Function
+
 #End Region
 #Region "Events"
     Private Sub chkEnableTipoTransaccion_CheckedChanged(sender As Object, e As EventArgs) Handles chkEnableTipoTransaccion.CheckedChanged
@@ -262,6 +292,10 @@ Public Class FrmTransaccionInventarioListPage
         HandleStatusFilter()
     End Sub
 
+    Private Sub dataGridViewListPage_DataError(sender As Object, e As DataGridViewDataErrorEventArgs)
+        e.Cancel = True
+        e.ThrowException = False
+    End Sub
 #End Region
 
 End Class

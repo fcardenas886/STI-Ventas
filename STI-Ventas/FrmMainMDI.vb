@@ -8,6 +8,7 @@ Public Class FrmMainMDI
 
 #Region "Properties"
     Public Shared Property ID_USUARIO As Integer
+    Public Shared Property USERNAME As String
 #End Region
 
 #Region "Constructor"
@@ -29,13 +30,14 @@ Public Class FrmMainMDI
     ''' </summary>
     ''' <param name="userId">Id de usuario</param>
     ''' <remarks>18.02.2022 jorge.nin92@gmail.com: Se crea contructor</remarks>
-    Public Sub New(userId As Integer)
+    Public Sub New(userId As Integer, userStr As String)
 
         ' Esta llamada es exigida por el diseñador.
         InitializeComponent()
 
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
         ID_USUARIO = userId
+        USERNAME = userStr
     End Sub
 #End Region
 

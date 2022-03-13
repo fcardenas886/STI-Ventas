@@ -31,6 +31,11 @@ Public Class AjusteInventarioController : Inherits ControllerBase : Implements I
 
             ret = dbConnector.InsertUpdate(sql, params)
             LastError = dbConnector.LastError
+
+            If ret Then
+                table.Id = dbConnector.LastId
+            End If
+
         Catch ex As Exception
             AppendError(ex)
         End Try
@@ -147,7 +152,8 @@ Public Class AjusteInventarioController : Inherits ControllerBase : Implements I
 
         Try
             dbConnector = New DBConnector()
-            sql = "SELECT Id, Numero, CreadoPor, FechaRegistro, Descripcion, Registrado, RegistradoPor FROM TblAjusteInventario "
+            sql = "SELECT Id, Numero, CreadoUsername, FechaRegistro, Descripcion, Registrado, RegistradoUsername FROM AjusteInventarioView "
+
             sql += dbSelect.GetSQLWhere()
             ret = New List(Of AjusteInventarioViewModel)
             params = New List(Of MySqlParameter)
@@ -176,7 +182,7 @@ Public Class AjusteInventarioController : Inherits ControllerBase : Implements I
                     model.FechaRegistro = Convert.ToDateTime(dataRow(3))
                 End If
                 If dataRow(6) IsNot Nothing AndAlso Not (TypeOf dataRow(6) Is DBNull) Then
-                    model.RegistradoPor = Convert.ToInt32(dataRow(6))
+                    model.RegistradoPor = dataRow(6)
                 End If
 
                 ret.Add(model)

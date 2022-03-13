@@ -16,6 +16,7 @@ Public Class OrdenVentaCobroViewModel
 	Public Property IdUsuario As Integer
 	Public Property ResultadoSP As Integer
 	Public Property Efectivo As Decimal
+	Public Property UserName As String
 
 	''' <summary>
 	''' Constructor sin params

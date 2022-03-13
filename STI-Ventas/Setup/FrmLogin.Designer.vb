@@ -68,7 +68,7 @@ Partial Class FrmLogin
         Me.btnLogin.Name = "btnLogin"
         Me.btnLogin.Size = New System.Drawing.Size(75, 23)
         Me.btnLogin.TabIndex = 4
-        Me.btnLogin.Text = "Ingresar"
+        Me.btnLogin.Text = "&Ingresar"
         Me.btnLogin.UseVisualStyleBackColor = True
         '
         'FrmLogin
@@ -82,7 +82,7 @@ Partial Class FrmLogin
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Name = "FrmLogin"
-        Me.Text = "FrmLogin"
+        Me.Text = "Login"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

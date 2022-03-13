@@ -14,6 +14,7 @@ Public Class FrmOrdenCompra
     Private purchLineRecordId As Long
     Private ItemRecordId As Long
     Private NumeroLinea As Integer
+    Private NumeroLineaActual As Integer
 
 #End Region
 
@@ -335,6 +336,8 @@ Public Class FrmOrdenCompra
         purchLineRecordId = 0
         ItemRecordId = 0
         NumeroCompra = String.Empty
+        NumeroLinea = 0
+        NumeroLineaActual = 0
 
         ClearLineFields()
         EnableFieldsBasedOnEstatus()
@@ -521,6 +524,7 @@ Public Class FrmOrdenCompra
             txtCantidad.Text = 1.ToString("N2")
             txtPrecioUnitario.Text = product.PrecioCompra.ToString()
             txtDescuento.Text = 0.ToString("N2")
+            ItemRecordId = product.Id
 
             txtItemId.Text = product.IdArticulo
             txtItemName.Text = product.Nombre
@@ -578,7 +582,7 @@ Public Class FrmOrdenCompra
         If model Is Nothing Then
             strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar la orden de compra actual.")
         Else
-            If String.IsNullOrEmpty(model.Id) Then
+            If model.Id < 1 Then
                 strErrorMsg = AppendLastError(strErrorMsg, "No se ha especificado la orden de compra.")
             End If
             If model.Estado <> EstadoOrdenCompra.Borrador Then
@@ -589,7 +593,7 @@ Public Class FrmOrdenCompra
         If modelLine Is Nothing Then
             strErrorMsg = AppendLastError(strErrorMsg, "No se pudo recuperar la línea de orden de compra actual.")
         Else
-            If modelLine.IdProducto < 0 Then
+            If modelLine.IdProducto < 1 Then
                 strErrorMsg = AppendLastError(strErrorMsg, "No se ha especificado el producto para la nueva línea.")
             End If
             If modelLine.Cantidad = 0 Then
@@ -606,8 +610,7 @@ Public Class FrmOrdenCompra
     End Function
 
     Public Function GetCurrentPurchaseOrderLine() As CompraDetallesModel
-        '' ToDo: Cuando este productos eliminar línea
-        ItemRecordId = 1
+
         Dim dbTable As New CompraDetallesModel With {
             .IdProducto = CInt(ItemRecordId),
             .NombreProducto = txtItemName.Text,
@@ -627,6 +630,12 @@ Public Class FrmOrdenCompra
         End If
         If Not String.IsNullOrEmpty(txtDescuento.Text) Then
             Decimal.TryParse(txtDescuento.Text, dbTable.Descuento)
+        End If
+
+        dbTable.Id = purchLineRecordId
+
+        If purchLineRecordId > 0 Then
+            dbTable.NumeroLinea = NumeroLineaActual
         End If
 
         Return dbTable
@@ -676,13 +685,16 @@ Public Class FrmOrdenCompra
 
         If dgvLines.CurrentRow IsNot Nothing Then
             purchLineRecordId = CType(dgvLines.CurrentRow.Cells(0).Value, Long)
-            NumeroLinea = CType(dgvLines.CurrentRow.Cells(1).Value, Integer)
+            NumeroLineaActual = CType(dgvLines.CurrentRow.Cells(1).Value, Integer)
             txtItemId.Text = CStr(dgvLines.CurrentRow.Cells(2).Value)
             txtItemName.Text = CStr(dgvLines.CurrentRow.Cells(3).Value)
             txtCantidad.Text = CStr(dgvLines.CurrentRow.Cells(4).Value)
             txtPrecioUnitario.Text = CStr(dgvLines.CurrentRow.Cells(5).Value)
             txtDescuento.Text = CStr(dgvLines.CurrentRow.Cells(6).Value)
             txtMontoLinea.Text = CStr(dgvLines.CurrentRow.Cells(7).Value)
+
+            ItemRecordId = CInt(dgvLines.CurrentRow.Cells(2).Value)
+
         End If
 
     End Sub
@@ -703,8 +715,13 @@ Public Class FrmOrdenCompra
             lineaCompra = GetCurrentPurchaseOrderLine()
 
             If purchLineRecordId = 0 Then
-                lineaCompra.NumeroLinea = dgvLines.Rows().Count + 1
+                lineaCompra.NumeroLinea = NumeroLinea + 1
                 ret = controller.Insert(lineaCompra)
+
+                If ret Then
+                    NumeroLinea += 1
+                End If
+
             Else
                 ret = controller.Update(lineaCompra)
             End If
@@ -714,6 +731,7 @@ Public Class FrmOrdenCompra
                 GetRecordsAndPopulateLineFields()
                 ClearLineFields()
                 purchLineRecordId = 0
+                NumeroLineaActual = 0
             End If
         Catch ex As Exception
             HandleException(ex)
@@ -733,9 +751,9 @@ Public Class FrmOrdenCompra
         txtItemId.Clear()
         txtItemName.Clear()
 
-        txtDescuento.Text = 0
-        txtPrecioUnitario.Text = 0
-        txtCantidad.Text = 0
+        txtDescuento.Text = "0"
+        txtPrecioUnitario.Text = "0"
+        txtCantidad.Text = "0"
         txtMontoLinea.Text = "0.00"
 
         cboUnidad.SelectedIndex = -1
@@ -1017,6 +1035,10 @@ Public Class FrmOrdenCompra
         If e.KeyData = Keys.Enter Then
             BuscaProductoRelacionado()
         End If
+    End Sub
+
+    Private Sub btnEditLine_Click(sender As Object, e As EventArgs) Handles btnEditLine.Click
+        SetValuesFromPurchaseOrderLine()
     End Sub
 
 #End Region

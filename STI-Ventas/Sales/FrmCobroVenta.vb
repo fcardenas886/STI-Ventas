@@ -166,6 +166,7 @@ Public Class FrmCobroVenta
         ret.Vuelto = CType(txtCambio.Text, Decimal)
         ret.Propina = txtPropina.Value
         ret.Efectivo = txtEfectivo.Value
+        ret.UserName = FrmMainMDI.USERNAME
 
         Return ret
     End Function

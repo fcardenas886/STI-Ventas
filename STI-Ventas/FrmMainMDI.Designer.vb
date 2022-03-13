@@ -24,7 +24,7 @@ Partial Class FrmMainMDI
     Private Sub InitializeComponent()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
-        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusMDI = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ConfigurarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolStripUnitOfMeasure = New System.Windows.Forms.ToolStripMenuItem()
@@ -43,36 +43,38 @@ Partial Class FrmMainMDI
         Me.ConsultasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsultasToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.TransaccionesDeInventarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AjustesDeInventarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TodosLosAjustesDeInventarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.VentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PuntoDeVentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TodasLasVentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AjustesDeInventarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TodosLosAjustesDeInventarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripStatusUserName = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 428)
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.ToolStripStatusMDI, Me.ToolStripStatusLabel2, Me.ToolStripStatusUserName})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 424)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(800, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(800, 26)
         Me.StatusStrip1.TabIndex = 1
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ToolStripProgressBar1
         '
         Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
+        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 20)
         '
-        'ToolStripStatusLabel1
+        'ToolStripStatusMDI
         '
-        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(48, 17)
-        Me.ToolStripStatusLabel1.Text = "En línea"
+        Me.ToolStripStatusMDI.Name = "ToolStripStatusMDI"
+        Me.ToolStripStatusMDI.Size = New System.Drawing.Size(48, 21)
+        Me.ToolStripStatusMDI.Text = "En línea"
         '
         'MenuStrip1
         '
@@ -189,6 +191,18 @@ Partial Class FrmMainMDI
         Me.TransaccionesDeInventarioToolStripMenuItem.Size = New System.Drawing.Size(219, 22)
         Me.TransaccionesDeInventarioToolStripMenuItem.Text = "Transacciones de inventario"
         '
+        'AjustesDeInventarioToolStripMenuItem
+        '
+        Me.AjustesDeInventarioToolStripMenuItem.Name = "AjustesDeInventarioToolStripMenuItem"
+        Me.AjustesDeInventarioToolStripMenuItem.Size = New System.Drawing.Size(236, 22)
+        Me.AjustesDeInventarioToolStripMenuItem.Text = "Ajustes de inventario"
+        '
+        'TodosLosAjustesDeInventarioToolStripMenuItem
+        '
+        Me.TodosLosAjustesDeInventarioToolStripMenuItem.Name = "TodosLosAjustesDeInventarioToolStripMenuItem"
+        Me.TodosLosAjustesDeInventarioToolStripMenuItem.Size = New System.Drawing.Size(236, 22)
+        Me.TodosLosAjustesDeInventarioToolStripMenuItem.Text = "Todos los Ajustes de inventario"
+        '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
@@ -204,13 +218,13 @@ Partial Class FrmMainMDI
         'PuntoDeVentasToolStripMenuItem
         '
         Me.PuntoDeVentasToolStripMenuItem.Name = "PuntoDeVentasToolStripMenuItem"
-        Me.PuntoDeVentasToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PuntoDeVentasToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
         Me.PuntoDeVentasToolStripMenuItem.Text = "Punto de Ventas"
         '
         'TodasLasVentasToolStripMenuItem
         '
         Me.TodasLasVentasToolStripMenuItem.Name = "TodasLasVentasToolStripMenuItem"
-        Me.TodasLasVentasToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.TodasLasVentasToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
         Me.TodasLasVentasToolStripMenuItem.Text = "Todas las ventas"
         '
         'ToolStripMenuItem2
@@ -218,17 +232,20 @@ Partial Class FrmMainMDI
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
         Me.ToolStripMenuItem2.Size = New System.Drawing.Size(12, 20)
         '
-        'AjustesDeInventarioToolStripMenuItem
+        'ToolStripStatusUserName
         '
-        Me.AjustesDeInventarioToolStripMenuItem.Name = "AjustesDeInventarioToolStripMenuItem"
-        Me.AjustesDeInventarioToolStripMenuItem.Size = New System.Drawing.Size(236, 22)
-        Me.AjustesDeInventarioToolStripMenuItem.Text = "Ajustes de inventario"
+        Me.ToolStripStatusUserName.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.ToolStripStatusUserName.Name = "ToolStripStatusUserName"
+        Me.ToolStripStatusUserName.Size = New System.Drawing.Size(86, 21)
+        Me.ToolStripStatusUserName.Text = "Id usuario"
         '
-        'TodosLosAjustesDeInventarioToolStripMenuItem
+        'ToolStripStatusLabel2
         '
-        Me.TodosLosAjustesDeInventarioToolStripMenuItem.Name = "TodosLosAjustesDeInventarioToolStripMenuItem"
-        Me.TodosLosAjustesDeInventarioToolStripMenuItem.Size = New System.Drawing.Size(236, 22)
-        Me.TodosLosAjustesDeInventarioToolStripMenuItem.Text = "Todos los Ajustes de inventario"
+        Me.ToolStripStatusLabel2.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(67, 21)
+        Me.ToolStripStatusLabel2.Text = "Usuario:"
+        Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'FrmMainMDI
         '
@@ -257,7 +274,7 @@ Partial Class FrmMainMDI
 
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents ToolStripProgressBar1 As ToolStripProgressBar
-    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
+    Friend WithEvents ToolStripStatusMDI As ToolStripStatusLabel
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents ConfigurarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents toolStripUnitOfMeasure As ToolStripMenuItem
@@ -283,4 +300,6 @@ Partial Class FrmMainMDI
     Friend WithEvents TodasLasVentasToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AjustesDeInventarioToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TodosLosAjustesDeInventarioToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripStatusUserName As ToolStripStatusLabel
+    Private WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
 End Class

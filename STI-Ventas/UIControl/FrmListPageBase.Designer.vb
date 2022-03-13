@@ -31,12 +31,12 @@ Partial Class FrmListPageBase
         Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EliminarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AccionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BorrarFiltrosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PanelContainer = New System.Windows.Forms.Panel()
         Me.GroupBoxButtonActions = New System.Windows.Forms.GroupBox()
         Me.btnCerrar = New System.Windows.Forms.Button()
         Me.btnFiltrar = New System.Windows.Forms.Button()
-        Me.BorrarFiltrosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBoxDetails.SuspendLayout()
         CType(Me.dgvListPage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStripMainActions.SuspendLayout()
@@ -100,19 +100,19 @@ Partial Class FrmListPageBase
         'NuevoToolStripMenuItem1
         '
         Me.NuevoToolStripMenuItem1.Name = "NuevoToolStripMenuItem1"
-        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.NuevoToolStripMenuItem1.Size = New System.Drawing.Size(124, 22)
         Me.NuevoToolStripMenuItem1.Text = "Nuevo"
         '
         'EditarToolStripMenuItem
         '
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
-        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.EditarToolStripMenuItem.Text = "Editar"
         '
         'EliminarToolStripMenuItem
         '
         Me.EliminarToolStripMenuItem.Name = "EliminarToolStripMenuItem"
-        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EliminarToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.EliminarToolStripMenuItem.Text = "Eliminar"
         '
         'AccionesToolStripMenuItem
@@ -122,10 +122,16 @@ Partial Class FrmListPageBase
         Me.AccionesToolStripMenuItem.Size = New System.Drawing.Size(73, 21)
         Me.AccionesToolStripMenuItem.Text = "Acciones"
         '
+        'BorrarFiltrosToolStripMenuItem
+        '
+        Me.BorrarFiltrosToolStripMenuItem.Name = "BorrarFiltrosToolStripMenuItem"
+        Me.BorrarFiltrosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.BorrarFiltrosToolStripMenuItem.Text = "Borrar filtros"
+        '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.SalirToolStripMenuItem.Text = "Salir"
         '
         'PanelContainer
@@ -169,12 +175,6 @@ Partial Class FrmListPageBase
         Me.btnFiltrar.Text = "Filtrar"
         Me.btnFiltrar.UseVisualStyleBackColor = True
         '
-        'BorrarFiltrosToolStripMenuItem
-        '
-        Me.BorrarFiltrosToolStripMenuItem.Name = "BorrarFiltrosToolStripMenuItem"
-        Me.BorrarFiltrosToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.BorrarFiltrosToolStripMenuItem.Text = "Borrar filtros"
-        '
         'FrmListPageBase
         '
         Me.AcceptButton = Me.btnFiltrar
@@ -198,7 +198,6 @@ Partial Class FrmListPageBase
 
     End Sub
     Friend WithEvents GroupBoxDetails As GroupBox
-    Friend WithEvents dgvListPage As DataGridView
     Protected Friend WithEvents AccionesToolStripMenuItem As ToolStripMenuItem
     Protected Friend WithEvents GroupBoxFilters As GroupBox
     Protected Friend WithEvents MenuStripMainActions As MenuStrip
@@ -212,4 +211,5 @@ Partial Class FrmListPageBase
     Protected Friend WithEvents EliminarToolStripMenuItem As ToolStripMenuItem
     Protected Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BorrarFiltrosToolStripMenuItem As ToolStripMenuItem
+    Protected WithEvents dgvListPage As DataGridView
 End Class

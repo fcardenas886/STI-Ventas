@@ -26,11 +26,11 @@ Public Class FrmComprasListPage
     ''' <remarks>05.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Friend Overrides Function DeleteRecord() As Boolean
         Dim deleted As Boolean = False
-        Dim controller As VentasController
+        Dim controller As ComprasController
 
         Try
             Cursor = Cursors.WaitCursor
-            controller = New VentasController()
+            controller = New ComprasController()
             deleted = controller.Delete(GetCurrentPurchaseOrder())
 
             If Not deleted Then
@@ -53,8 +53,8 @@ Public Class FrmComprasListPage
     ''' <returns>Devuelve el identificador para el registrro</returns>
     ''' <remarks>05.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Friend Overrides Function GetRecordIdentification() As String
-        If dgvListPage.CurrentRow IsNot Nothing Then
-            Return dgvListPage.CurrentRow().Cells().Item(1).Value
+        If dgvListPage.CurrentRow IsNot Nothing AndAlso dgvListPage.CurrentRow().Cells().Item(1).Value IsNot Nothing Then
+            Return dgvListPage.CurrentRow().Cells().Item(1).Value.ToString()
 
         End If
         Return String.Empty
@@ -65,7 +65,7 @@ Public Class FrmComprasListPage
     ''' </summary>
     ''' <remarks>05.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Overrides Sub LoadRecords()
-        Dim controller As VentasController
+        Dim controller As ComprasController
         Dim records As List(Of CompraHeaderModel)
         Dim dbSelect As DBSelect
         Dim dbFilter As DBFilterFields
@@ -95,7 +95,7 @@ Public Class FrmComprasListPage
 
             End If
 
-            controller = New VentasController()
+            controller = New ComprasController()
             dbSelect = New DBSelect(controller.TableName())
 
             If isFromFilterButton Then
@@ -103,16 +103,16 @@ Public Class FrmComprasListPage
                     dbFilter = New DBFilterFields("Estado", DBFilterType.Equal, cboEstatus.SelectedValue)
                     dbSelect.FilterFields.Add(dbFilter)
                 End If
-                If Not String.IsNullOrEmpty(cboProveedor.SelectedValue) Then
+                If cboProveedor.SelectedValue IsNot Nothing AndAlso Not String.IsNullOrEmpty(cboProveedor.SelectedValue.ToString()) Then
                     dbSelect.FilterFields.Add(New DBFilterFields("IdProveedor", DBFilterType.Equal, cboProveedor.SelectedValue))
                 End If
                 If Not String.IsNullOrEmpty(txtOrdenCompra.Text) Then
                     dbSelect.FilterFields.Add(New DBFilterFields("NumeroCompra", DBFilterType.Contains, String.Format("%{0}%", txtOrdenCompra.Text)))
                 End If
-                If Not String.IsNullOrEmpty(cboMoneda.SelectedValue) Then
+                If cboMoneda.SelectedValue IsNot Nothing AndAlso Not String.IsNullOrEmpty(cboMoneda.SelectedValue.ToString()) Then
                     dbSelect.FilterFields.Add(New DBFilterFields("Moneda", DBFilterType.Equal, cboMoneda.SelectedValue))
                 End If
-                If Not String.IsNullOrEmpty(cboFormaPago.SelectedValue) Then
+                If cboFormaPago.SelectedValue IsNot Nothing AndAlso Not String.IsNullOrEmpty(cboFormaPago.SelectedValue.ToString()) Then
                     dbSelect.FilterFields.Add(New DBFilterFields("FormaPago", DBFilterType.Equal, cboFormaPago.SelectedValue))
                 End If
             End If
@@ -236,7 +236,7 @@ Public Class FrmComprasListPage
 
         Try
             If dgvListPage.CurrentRow IsNot Nothing Then
-                recordId = dgvListPage.CurrentRow().Cells().Item(0).Value
+                recordId = CInt(dgvListPage.CurrentRow().Cells().Item(0).Value)
 
             End If
         Catch ex As Exception
@@ -279,7 +279,7 @@ Public Class FrmComprasListPage
 
     Public Function GetCurrentPurchaseOrder() As CompraHeaderModel
         Dim dbTable As New CompraHeaderModel
-        Dim controller As VentasController
+        Dim controller As ComprasController
         Dim records As List(Of CompraHeaderModel)
         Dim dbSelect As DBSelect
         Dim strId As String
@@ -289,7 +289,7 @@ Public Class FrmComprasListPage
             Cursor = Cursors.WaitCursor
 
             strId = GetCurrentRecordId().ToString()
-            controller = New VentasController()
+            controller = New ComprasController()
             dbSelect = New DBSelect(controller.TableName())
             dbSelect.FilterFields.Add(New DBFilterFields("Id", DBFilterType.Equal, strId))
 
@@ -326,7 +326,7 @@ Public Class FrmComprasListPage
         Dim estatus As EstadoOrdenCompra
 
         If rowIndex >= 0 Then
-            estatus = dgvListPage.Rows().Item(rowIndex).Cells.Item("Estado").Value
+            estatus = CType(dgvListPage.Rows().Item(rowIndex).Cells.Item("Estado").Value, EstadoOrdenCompra)
             enabled = estatus = EstadoOrdenCompra.Borrador
         End If
 

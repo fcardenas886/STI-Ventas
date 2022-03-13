@@ -162,16 +162,26 @@ Public Class ControllerBase : Implements IDBOperations
 
     Protected Function ToList(Of T As {Class, New})(ByVal table As DataTable) As List(Of T)
         Dim list As List(Of T) = Nothing
+        Dim numOfRows, numOfProperties As Integer
 
         Try
             list = New List(Of T)()
+
+            numOfRows = table.Columns.Count
 
             For Each row In table.AsEnumerable()
                 Dim obj As New T()
                 Dim propertyName As String
 
+                numOfProperties = 0
+
                 For Each prop In obj.[GetType]().GetProperties()
                     propertyName = String.Empty
+
+                    'If numOfProperties >= numOfRows Then
+                    '    Continue For
+                    'End If
+
                     Try
                         Dim propertyInfo As PropertyInfo = obj.[GetType]().GetProperty(prop.Name)
                         propertyName = prop.Name
@@ -186,6 +196,9 @@ Public Class ControllerBase : Implements IDBOperations
                     Catch
                         HandleCustomRowForQueryToList(obj, row, propertyName)
                     End Try
+
+                    numOfProperties += 1
+
                 Next
 
                 list.Add(obj)

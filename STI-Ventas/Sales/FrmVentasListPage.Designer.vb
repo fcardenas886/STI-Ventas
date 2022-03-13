@@ -159,7 +159,7 @@ Partial Class FrmVentasListPage
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1185, 586)
         Me.Name = "FrmVentasListPage"
-        Me.Text = "FrmVentasListPage"
+        Me.Text = "Todas las Ventas"
         Me.GroupBoxFilters.ResumeLayout(False)
         Me.GroupBoxFilters.PerformLayout()
         Me.PanelContainer.ResumeLayout(False)

@@ -97,6 +97,9 @@ Public Class FrmVentaPOS
             AllowInitFromCustomer = False
             Cursor = Cursors.WaitCursor
             CheckClienteActual()
+
+            txtBuscaProducto.Select()
+
         Finally
             Cursor = Cursors.Default
             AllowInitFromCustomer = True
@@ -337,7 +340,7 @@ Public Class FrmVentaPOS
     End Sub
 
     Protected Sub CalculateNetAmount()
-        Dim netAmount, unitPrice, discount, qty As Decimal
+        Dim qty As Decimal
 
         Try
 
@@ -701,7 +704,7 @@ Public Class FrmVentaPOS
     End Function
 
     Private Sub EnableFieldsBasedOnEstatus()
-        Dim allowEdit As Boolean
+        'Dim allowEdit As Boolean
 
         Try
             'allowEdit = cboEstatus.SelectedValue = EstadoOrdenVenta.Borrador
@@ -977,6 +980,7 @@ Public Class FrmVentaPOS
 
             totals.InitFromOrdenVentaModel(ordenVenta)
             totals.Efectivo = ordenVenta.Total
+            totals.UserName = FrmMainMDI.USERNAME
 
             If Not VentasHelper.PrintTicket(totals, ordenVenta, lineas) Then
                 HandleError("Error imprimiendo el ticket, intente nuevamente por favor.")

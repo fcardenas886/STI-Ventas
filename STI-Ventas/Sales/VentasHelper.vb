@@ -10,10 +10,11 @@ Public NotInheritable Class VentasHelper
         Dim imprimeTicket As ImprimirTicket
 
         Try
-            imprimeTicket = New ImprimirTicket()
-            imprimeTicket.FontName = "Humnst777 Blk BT"
-            imprimeTicket.FontSize = 8
-            imprimeTicket.MaxChar = 40
+            imprimeTicket = New ImprimirTicket With {
+                .FontName = "Humnst777 Blk BT",
+                .FontSize = 8,
+                .MaxChar = 40
+            }
 
             imprimeTicket.AddHeaderLine("    STI - Ventas")
             imprimeTicket.AddHeaderLine("    Expedido en: Test dirección")
@@ -21,7 +22,7 @@ Public NotInheritable Class VentasHelper
 
             imprimeTicket.AddSubHeaderLine("Caja: Uno.  Ticket: " & ordenVenta.GetReference())
 
-            imprimeTicket.AddSubHeaderLine("Atendio: " & ordenVentaCobro.IdUsuario.ToString())
+            imprimeTicket.AddSubHeaderLine(String.Format("Atendio: {0} {1}", ordenVentaCobro.IdUsuario, ordenVentaCobro.UserName))
             imprimeTicket.AddSubHeaderLine("Cliente: " & ordenVenta.GetCliente())
             imprimeTicket.AddSubHeaderLine("Fecha: " + Date.Now.ToString("dd/MM/yy HH:mm:ss"))
 
