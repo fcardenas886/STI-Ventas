@@ -183,6 +183,12 @@
     <Compile Include="Setup\FrmConfiguracionGeneral.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Setup\FrmGestionPermisos.Designer.vb">
+      <DependentUpon>FrmGestionPermisos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\FrmGestionPermisos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Setup\FrmLogin.Designer.vb">
       <DependentUpon>FrmLogin.vb</DependentUpon>
     </Compile>
@@ -308,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Setup\FrmConfiguracionGeneral.resx">
       <DependentUpon>FrmConfiguracionGeneral.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setup\FrmGestionPermisos.resx">
+      <DependentUpon>FrmGestionPermisos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Setup\FrmLogin.resx">
       <DependentUpon>FrmLogin.vb</DependentUpon>

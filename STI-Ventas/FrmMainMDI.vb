@@ -179,6 +179,22 @@ Public Class FrmMainMDI
         child.Show()
     End Sub
 
+    Private Sub AdministraciónToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AdministraciónToolStripMenuItem.Click
+        Dim child As Form = New FrmGestionPermisos With {
+           .MdiParent = Me
+        }
+
+        child.Show()
+    End Sub
+
+    Private Sub UsuariosToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles UsuariosToolStripMenuItem1.Click
+        Dim child As Form = New FrmUsuario With {
+           .MdiParent = Me
+        }
+
+        child.Show()
+    End Sub
+
 #End Region
 
 #Region "Class methods"

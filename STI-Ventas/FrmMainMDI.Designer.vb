@@ -25,6 +25,8 @@ Partial Class FrmMainMDI
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
         Me.ToolStripStatusMDI = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusUserName = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ConfigurarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolStripUnitOfMeasure = New System.Windows.Forms.ToolStripMenuItem()
@@ -50,8 +52,8 @@ Partial Class FrmMainMDI
         Me.PuntoDeVentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TodasLasVentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripStatusUserName = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.UsuariosToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AdministraciónToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -75,6 +77,21 @@ Partial Class FrmMainMDI
         Me.ToolStripStatusMDI.Name = "ToolStripStatusMDI"
         Me.ToolStripStatusMDI.Size = New System.Drawing.Size(48, 21)
         Me.ToolStripStatusMDI.Text = "En línea"
+        '
+        'ToolStripStatusLabel2
+        '
+        Me.ToolStripStatusLabel2.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(67, 21)
+        Me.ToolStripStatusLabel2.Text = "Usuario:"
+        Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'ToolStripStatusUserName
+        '
+        Me.ToolStripStatusUserName.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.ToolStripStatusUserName.Name = "ToolStripStatusUserName"
+        Me.ToolStripStatusUserName.Size = New System.Drawing.Size(86, 21)
+        Me.ToolStripStatusUserName.Text = "Id usuario"
         '
         'MenuStrip1
         '
@@ -229,23 +246,22 @@ Partial Class FrmMainMDI
         '
         'ToolStripMenuItem2
         '
+        Me.ToolStripMenuItem2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UsuariosToolStripMenuItem1, Me.AdministraciónToolStripMenuItem})
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(12, 20)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(72, 20)
+        Me.ToolStripMenuItem2.Text = "Seguridad"
         '
-        'ToolStripStatusUserName
+        'UsuariosToolStripMenuItem1
         '
-        Me.ToolStripStatusUserName.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.ToolStripStatusUserName.Name = "ToolStripStatusUserName"
-        Me.ToolStripStatusUserName.Size = New System.Drawing.Size(86, 21)
-        Me.ToolStripStatusUserName.Text = "Id usuario"
+        Me.UsuariosToolStripMenuItem1.Name = "UsuariosToolStripMenuItem1"
+        Me.UsuariosToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.UsuariosToolStripMenuItem1.Text = "Usuarios"
         '
-        'ToolStripStatusLabel2
+        'AdministraciónToolStripMenuItem
         '
-        Me.ToolStripStatusLabel2.Font = New System.Drawing.Font("Segoe UI", 12.0!)
-        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(67, 21)
-        Me.ToolStripStatusLabel2.Text = "Usuario:"
-        Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.AdministraciónToolStripMenuItem.Name = "AdministraciónToolStripMenuItem"
+        Me.AdministraciónToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AdministraciónToolStripMenuItem.Text = "Administración"
         '
         'FrmMainMDI
         '
@@ -302,4 +318,6 @@ Partial Class FrmMainMDI
     Friend WithEvents TodosLosAjustesDeInventarioToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripStatusUserName As ToolStripStatusLabel
     Private WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
+    Friend WithEvents UsuariosToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents AdministraciónToolStripMenuItem As ToolStripMenuItem
 End Class
