@@ -24,6 +24,8 @@ Partial Class FrmCobroVenta
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.PanelContainer = New System.Windows.Forms.Panel()
+        Me.txtDetallesCredito = New System.Windows.Forms.TextBox()
+        Me.btnPagoCredito = New System.Windows.Forms.Button()
         Me.txtCambio = New System.Windows.Forms.TextBox()
         Me.btnCancelar = New System.Windows.Forms.Button()
         Me.txtMontoPagar = New System.Windows.Forms.NumericUpDown()
@@ -45,6 +47,8 @@ Partial Class FrmCobroVenta
         'PanelContainer
         '
         Me.PanelContainer.BackColor = System.Drawing.Color.White
+        Me.PanelContainer.Controls.Add(Me.txtDetallesCredito)
+        Me.PanelContainer.Controls.Add(Me.btnPagoCredito)
         Me.PanelContainer.Controls.Add(Me.txtCambio)
         Me.PanelContainer.Controls.Add(Me.btnCancelar)
         Me.PanelContainer.Controls.Add(Me.txtMontoPagar)
@@ -59,8 +63,35 @@ Partial Class FrmCobroVenta
         Me.PanelContainer.Location = New System.Drawing.Point(0, 0)
         Me.PanelContainer.Name = "PanelContainer"
         Me.PanelContainer.Padding = New System.Windows.Forms.Padding(5)
-        Me.PanelContainer.Size = New System.Drawing.Size(307, 324)
+        Me.PanelContainer.Size = New System.Drawing.Size(307, 458)
         Me.PanelContainer.TabIndex = 0
+        '
+        'txtDetallesCredito
+        '
+        Me.txtDetallesCredito.BackColor = System.Drawing.Color.White
+        Me.txtDetallesCredito.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
+        Me.txtDetallesCredito.Location = New System.Drawing.Point(5, 355)
+        Me.txtDetallesCredito.Multiline = True
+        Me.txtDetallesCredito.Name = "txtDetallesCredito"
+        Me.txtDetallesCredito.ReadOnly = True
+        Me.txtDetallesCredito.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtDetallesCredito.Size = New System.Drawing.Size(296, 95)
+        Me.txtDetallesCredito.TabIndex = 18
+        Me.txtDetallesCredito.TabStop = False
+        Me.txtDetallesCredito.Text = "Sin acceso a límite de crédito"
+        '
+        'btnPagoCredito
+        '
+        Me.btnPagoCredito.BackColor = System.Drawing.SystemColors.Control
+        Me.btnPagoCredito.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnPagoCredito.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.btnPagoCredito.ForeColor = System.Drawing.Color.Black
+        Me.btnPagoCredito.Location = New System.Drawing.Point(77, 255)
+        Me.btnPagoCredito.Name = "btnPagoCredito"
+        Me.btnPagoCredito.Size = New System.Drawing.Size(146, 44)
+        Me.btnPagoCredito.TabIndex = 17
+        Me.btnPagoCredito.Text = "Pagar a c&rédito"
+        Me.btnPagoCredito.UseVisualStyleBackColor = False
         '
         'txtCambio
         '
@@ -80,7 +111,7 @@ Partial Class FrmCobroVenta
         Me.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnCancelar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
         Me.btnCancelar.ForeColor = System.Drawing.Color.Black
-        Me.btnCancelar.Location = New System.Drawing.Point(155, 263)
+        Me.btnCancelar.Location = New System.Drawing.Point(155, 305)
         Me.btnCancelar.Name = "btnCancelar"
         Me.btnCancelar.Size = New System.Drawing.Size(146, 44)
         Me.btnCancelar.TabIndex = 16
@@ -120,7 +151,7 @@ Partial Class FrmCobroVenta
         Me.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold)
         Me.btnOK.ForeColor = System.Drawing.Color.Black
-        Me.btnOK.Location = New System.Drawing.Point(5, 263)
+        Me.btnOK.Location = New System.Drawing.Point(5, 305)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(146, 44)
         Me.btnOK.TabIndex = 14
@@ -193,7 +224,7 @@ Partial Class FrmCobroVenta
         Me.AutoScroll = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.CancelButton = Me.btnCancelar
-        Me.ClientSize = New System.Drawing.Size(307, 324)
+        Me.ClientSize = New System.Drawing.Size(307, 458)
         Me.Controls.Add(Me.PanelContainer)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.KeyPreview = True
@@ -225,4 +256,6 @@ Partial Class FrmCobroVenta
     Private WithEvents btnCancelar As Button
     Private WithEvents txtCambio As TextBox
     Friend WithEvents CobroErrorProvider As ErrorProvider
+    Private WithEvents btnPagoCredito As Button
+    Private WithEvents txtDetallesCredito As TextBox
 End Class

@@ -110,8 +110,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Ventas\CobroVentasCreditoController.vb" />
     <Compile Include="Ventas\VentaDetallesController.vb" />
     <Compile Include="Ventas\VentasController.vb" />
+    <Compile Include="Ventas\VentasCreditoController.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

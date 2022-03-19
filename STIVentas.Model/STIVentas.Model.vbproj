@@ -66,6 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AjusteInventarioModel.vb" />
+    <Compile Include="CobroVentasCreditoModel.vb" />
+    <Compile Include="Enums\EstadoCobroVentas.vb" />
+    <Compile Include="Enums\EstadoVentaCredito.vb" />
+    <Compile Include="VentasCreditoModel.vb" />
     <Compile Include="ViewModel\AjusteInventarioViewModel.vb" />
     <Compile Include="CategoriaModel.vb" />
     <Compile Include="ClienteModel.vb" />

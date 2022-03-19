@@ -195,6 +195,14 @@ Public Class FrmMainMDI
         child.Show()
     End Sub
 
+    Private Sub TodasLasVentasACreditoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TodasLasVentasACreditoToolStripMenuItem.Click
+        Dim child As Form = New FrmVentasCreditoListPage With {
+           .MdiParent = Me
+        }
+
+        child.Show()
+    End Sub
+
 #End Region
 
 #Region "Class methods"

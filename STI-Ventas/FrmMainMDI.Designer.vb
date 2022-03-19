@@ -54,6 +54,8 @@ Partial Class FrmMainMDI
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.UsuariosToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AdministraciónToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CréditoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TodasLasVentasACreditoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -227,7 +229,7 @@ Partial Class FrmMainMDI
         '
         'VentasToolStripMenuItem
         '
-        Me.VentasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PuntoDeVentasToolStripMenuItem, Me.TodasLasVentasToolStripMenuItem})
+        Me.VentasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PuntoDeVentasToolStripMenuItem, Me.TodasLasVentasToolStripMenuItem, Me.CréditoToolStripMenuItem})
         Me.VentasToolStripMenuItem.Name = "VentasToolStripMenuItem"
         Me.VentasToolStripMenuItem.Size = New System.Drawing.Size(53, 20)
         Me.VentasToolStripMenuItem.Text = "Ventas"
@@ -235,13 +237,13 @@ Partial Class FrmMainMDI
         'PuntoDeVentasToolStripMenuItem
         '
         Me.PuntoDeVentasToolStripMenuItem.Name = "PuntoDeVentasToolStripMenuItem"
-        Me.PuntoDeVentasToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
+        Me.PuntoDeVentasToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PuntoDeVentasToolStripMenuItem.Text = "Punto de Ventas"
         '
         'TodasLasVentasToolStripMenuItem
         '
         Me.TodasLasVentasToolStripMenuItem.Name = "TodasLasVentasToolStripMenuItem"
-        Me.TodasLasVentasToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
+        Me.TodasLasVentasToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.TodasLasVentasToolStripMenuItem.Text = "Todas las ventas"
         '
         'ToolStripMenuItem2
@@ -254,14 +256,27 @@ Partial Class FrmMainMDI
         'UsuariosToolStripMenuItem1
         '
         Me.UsuariosToolStripMenuItem1.Name = "UsuariosToolStripMenuItem1"
-        Me.UsuariosToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.UsuariosToolStripMenuItem1.Size = New System.Drawing.Size(155, 22)
         Me.UsuariosToolStripMenuItem1.Text = "Usuarios"
         '
         'AdministraciónToolStripMenuItem
         '
         Me.AdministraciónToolStripMenuItem.Name = "AdministraciónToolStripMenuItem"
-        Me.AdministraciónToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AdministraciónToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.AdministraciónToolStripMenuItem.Text = "Administración"
+        '
+        'CréditoToolStripMenuItem
+        '
+        Me.CréditoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TodasLasVentasACreditoToolStripMenuItem})
+        Me.CréditoToolStripMenuItem.Name = "CréditoToolStripMenuItem"
+        Me.CréditoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CréditoToolStripMenuItem.Text = "Crédito"
+        '
+        'TodasLasVentasACreditoToolStripMenuItem
+        '
+        Me.TodasLasVentasACreditoToolStripMenuItem.Name = "TodasLasVentasACreditoToolStripMenuItem"
+        Me.TodasLasVentasACreditoToolStripMenuItem.Size = New System.Drawing.Size(209, 22)
+        Me.TodasLasVentasACreditoToolStripMenuItem.Text = "Todas las Ventas a Credito"
         '
         'FrmMainMDI
         '
@@ -320,4 +335,6 @@ Partial Class FrmMainMDI
     Private WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
     Friend WithEvents UsuariosToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents AdministraciónToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CréditoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TodasLasVentasACreditoToolStripMenuItem As ToolStripMenuItem
 End Class
