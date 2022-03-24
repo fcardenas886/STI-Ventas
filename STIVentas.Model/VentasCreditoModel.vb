@@ -20,11 +20,11 @@ Public Class VentasCreditoModel : Implements IDBTable
 	Public Property Moneda As String
 	Public Property CodigoCliente As String
 	Public Property Fecha As DateTime
-	Public Property Monto As Decimal
+	Public Property MontoVenta As Decimal
 	Public Property Abono As Decimal
 	Public Property Estado As EstadoVentaCredito
 	Public Property MontoPagado As Decimal
-	Public Property CobradoPor As Integer
+	Public Property CreadoPor As Integer
 
 	Sub New(Id_ As Int64, IdCliente_ As Integer, Moneda_ As String, Fecha_ As DateTime, Monto_ As Decimal, Status_ As EstadoVentaCredito, MontoPagado_ As Decimal, CobradoPor_ As Integer,
 			IdVenta_ As Integer, CodigoCliente_ As String, Abono_ As Decimal)
@@ -32,10 +32,10 @@ Public Class VentasCreditoModel : Implements IDBTable
 		IdCliente = IdCliente_
 		Moneda = Moneda_
 		Fecha = Fecha_
-		Monto = Monto_
+		MontoVenta = Monto_
 		Estado = Status_
 		MontoPagado = MontoPagado_
-		CobradoPor = CobradoPor_
+		CreadoPor = CobradoPor_
 		IdVenta = IdVenta_
 		CodigoCliente = CodigoCliente_
 		Abono = Abono_

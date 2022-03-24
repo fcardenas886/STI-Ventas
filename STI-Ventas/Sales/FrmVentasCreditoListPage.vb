@@ -17,6 +17,8 @@ Public Class FrmVentasCreditoListPage
     Protected Friend Overrides Sub ResetFilters()
         txtOrdenVenta.Clear()
         cboCliente.SelectedIndex = -1
+        cboMoneda.SelectedIndex = -1
+        chkEnableStatusFilter.Checked = False
     End Sub
 
     ''' <summary>
@@ -31,7 +33,7 @@ Public Class FrmVentasCreditoListPage
         Try
             Cursor = Cursors.WaitCursor
             controller = New VentasCreditoController()
-            deleted = controller.Delete(GetCurrentPurchaseOrder())
+            deleted = controller.Delete(GetCurrentSalesOrder())
 
             If Not deleted Then
                 HandleException(controller.LastError)
@@ -68,14 +70,14 @@ Public Class FrmVentasCreditoListPage
     ''' <remarks>18.03.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Overrides Sub LoadRecords()
         Dim controller As VentasCreditoController
-        Dim records As List(Of VentasCreditoModel)
+        Dim records As List(Of VentasCreditoViewModel)
         Dim dbSelect As DBSelect
         Dim dbFilter As DBFilterFields
         Dim style As DataGridViewCellStyle
 
         Try
             Cursor = Cursors.WaitCursor
-            'sql = "SELECT Id, IdVenta, IdCliente, CodigoCliente, MontoVenta, Abono, Fecha, Estado, Moneda, CreadoPor, MontoPagado FROM TblVentasCredito"
+
             If dgvListPage.Columns().Count < 1 Then
 
                 style = New DataGridViewCellStyle()
@@ -84,7 +86,7 @@ Public Class FrmVentasCreditoListPage
                 dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Id", .HeaderText = "Id"})
                 dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "NumeroVenta", .HeaderText = "Número"})
                 dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Cliente", .HeaderText = "Cliente"})
-                dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Nombre", .HeaderText = "Nombre"})
+                dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Nombre", .HeaderText = "Nombre cliente"})
 
                 Dim cboEstatusOC As New DataGridViewComboBoxColumn With {
                     .DataSource = GetOrdenVentaStatusValues(),
@@ -100,8 +102,8 @@ Public Class FrmVentasCreditoListPage
                 dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Abono", .HeaderText = "Abono", .DefaultCellStyle = style})
                 dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "MontoPagado", .HeaderText = "Monto pagado", .DefaultCellStyle = style})
                 dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Moneda", .HeaderText = "Moneda"})
-                dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "FormaPago", .HeaderText = "Forma pago"})
                 dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "CreadoPor", .HeaderText = "Creado por"})
+                dgvListPage.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "NumeroPagos", .HeaderText = "Número de pagos", .DefaultCellStyle = style})
                 dgvListPage.Columns(1).Visible = True
 
             End If
@@ -115,7 +117,7 @@ Public Class FrmVentasCreditoListPage
                     dbSelect.FilterFields.Add(dbFilter)
                 End If
                 If cboCliente.SelectedValue IsNot Nothing AndAlso Not String.IsNullOrEmpty(cboCliente.SelectedValue.ToString()) Then
-                    dbSelect.FilterFields.Add(New DBFilterFields("Cliente", DBFilterType.Equal, cboCliente.SelectedValue))
+                    dbSelect.FilterFields.Add(New DBFilterFields("IdCliente", DBFilterType.Equal, cboCliente.SelectedValue))
                 End If
                 If Not String.IsNullOrEmpty(txtOrdenVenta.Text) Then
                     dbSelect.FilterFields.Add(New DBFilterFields("NumeroVenta", DBFilterType.Contains, String.Format("%{0}%", txtOrdenVenta.Text)))
@@ -125,15 +127,14 @@ Public Class FrmVentasCreditoListPage
                 End If
             End If
 
-            records = CType(controller.GetList(), List(Of VentasCreditoModel))
-            'records = controller.GetListWithFilters(Of VentasCreditoModel)(dbSelect)
+            records = controller.GetViewModel(dbSelect)
             dgvListPage.Rows.Clear()
 
-            For Each model As VentasCreditoModel In records
-                dgvListPage.Rows().Add(model.Id, model.IdVenta, model.IdCliente,
-                                        "", model.Estado,
-                                        model.Fecha.ToShortDateString(), model.Monto.ToString("N2"), model.Abono.ToString("N2"), model.MontoPagado.ToString("N2"),
-                                        model.Moneda, "", model.CobradoPor)
+            For Each model As VentasCreditoViewModel In records
+                dgvListPage.Rows().Add(model.Id, model.NumeroVenta, model.CodigoCliente,
+                                        model.Nombre, model.Estado,
+                                        model.Fecha.ToShortDateString(), model.MontoVenta.ToString("N2"), model.Abono.ToString("N2"), model.MontoPagado.ToString("N2"),
+                                        model.Moneda, model.CreadoPor, model.NumeroPago)
             Next
 
             If records.Count < 1 And Not String.IsNullOrEmpty(controller.LastError) Then
@@ -163,14 +164,18 @@ Public Class FrmVentasCreditoListPage
     ''' </summary>
     ''' <remarks>18.03.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Public Overrides Sub OnEditRecordSelected()
-        Dim recordId As Long = GetCurrentRecordId()
+        Dim model As VentasCreditoViewModel = GetCurrentDataGridRecord()
 
-        If recordId < 1 Then
-            HandleException("Seleccione un registro en la tabla para poder editar.")
+        If model IsNot Nothing AndAlso model.Id < 1 Then
+            HandleException("Seleccione un registro en la tabla para poder ver los detalles.")
             Return
         End If
 
-        HandleException("No implementado")
+        Dim pagos As New FrmVentaCreditoDetallePagoListPage(model) With {
+            .MdiParent = MdiParent
+        }
+
+        pagos.Show()
     End Sub
 
     Private Function GetOrdenVentaStatusValues() As Array
@@ -191,6 +196,16 @@ Public Class FrmVentasCreditoListPage
 
         cboEstatus.DataSource = estatus
         cboEstatus.Enabled = False
+
+        NuevoToolStripMenuItem1.Text = "Nueva orden de venta"
+        EliminarToolStripMenuItem.Visible = False
+        EditarToolStripMenuItem.Visible = False
+
+        If Not AccionesToolStripMenuItem.DropDownItems.Contains(CobrarVentaToolStripMenuItem) Then
+            AccionesToolStripMenuItem.DropDownItems.Add(CobrarVentaToolStripMenuItem)
+        End If
+
+        CobrarVentaToolStripMenuItem.Visible = True
 
     End Sub
 
@@ -230,7 +245,7 @@ Public Class FrmVentasCreditoListPage
         Try
             Cursor = Cursors.WaitCursor
 
-            FillClienteRutComboBox(Me, cboCliente)
+            FillClienteComboBox(Me, cboCliente)
             FillCurrencyComboBox(Me, cboMoneda)
 
         Finally
@@ -256,7 +271,7 @@ Public Class FrmVentasCreditoListPage
     ''' Maneja el evento clic del grig
     ''' </summary>
     ''' <param name="e">Evento que se detona</param>
-    ''' <remarks>07.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
+    ''' <remarks>18.03.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Overrides Sub OnSelectedRow(e As DataGridViewCellEventArgs)
         If e.RowIndex >= 0 Then
             OnEditRecordSelected()
@@ -267,14 +282,14 @@ Public Class FrmVentasCreditoListPage
     ''' Valida si puede eliminar el registro
     ''' </summary>
     ''' <returns>True si puede borrar el registro</returns>
-    ''' <remarks>06.02.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
+    ''' <remarks>18.03.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Friend Overrides Function ValidateDelete() As Boolean
         Dim ret As Boolean = True
-        Dim ordenVenta As VentasCreditoModel = GetCurrentPurchaseOrder()
+        Dim ordenVenta As VentasCreditoModel = GetCurrentSalesOrder()
         Dim strMsg As String = String.Empty
 
-        If ordenVenta.Estado <> EstadoOrdenVenta.Borrador Then
-            strMsg = "Solo se pueden eliminar ordenes de venta en borrador"
+        If ordenVenta.Estado <> EstadoVentaCredito.Creado Then
+            strMsg = "Solo se pueden eliminar ordenes de venta en creado."
         End If
 
         If Not String.IsNullOrEmpty(strMsg) Then
@@ -284,7 +299,7 @@ Public Class FrmVentasCreditoListPage
         Return ret
     End Function
 
-    Public Function GetCurrentPurchaseOrder() As VentasCreditoModel
+    Public Function GetCurrentSalesOrder() As VentasCreditoModel
         Dim dbTable As New VentasCreditoModel
         Dim controller As VentasCreditoController
         Dim records As List(Of VentasCreditoModel)
@@ -330,14 +345,14 @@ Public Class FrmVentasCreditoListPage
     ''' <remarks>18.03.2022 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Overrides Sub OnRowEnter(rowIndex As Integer)
         Dim enabled As Boolean = False
-        Dim estatus As EstadoOrdenVenta
+        Dim estatus As EstadoVentaCredito
 
         If rowIndex >= 0 Then
-            estatus = CType(dgvListPage.Rows().Item(rowIndex).Cells.Item("Estado").Value, EstadoOrdenVenta)
-            enabled = estatus = EstadoOrdenVenta.Borrador
+            estatus = CType(dgvListPage.Rows().Item(rowIndex).Cells.Item("Estado").Value, EstadoVentaCredito)
+            enabled = estatus = EstadoVentaCredito.PendientePago
         End If
 
-        EliminarToolStripMenuItem.Enabled = enabled
+        CobrarVentaToolStripMenuItem.Enabled = enabled
     End Sub
 
     Protected Function ValidateConfirmPurchaseOrder(ordenVenta As VentasCreditoModel) As Boolean
@@ -347,7 +362,7 @@ Public Class FrmVentasCreditoListPage
         If ordenVenta Is Nothing Or ordenVenta.Id = 0 Then
             strMsg = "No se puede recuperar la orden de venta." & Environment.NewLine
         Else
-            If ordenVenta.Estado <> EstadoOrdenVenta.Borrador Then
+            If ordenVenta.Estado <> EstadoVentaCredito.PendientePago Then
                 strMsg = "La orden de venta tiene un estatus no valido." & Environment.NewLine
             End If
         End If
@@ -359,12 +374,76 @@ Public Class FrmVentasCreditoListPage
         Return ret
     End Function
 
+    Private Sub CobrarVenta()
+        Dim cobro As FrmCobrarVentaCredito
+
+        Try
+            If ValidateCobrarVenta() Then
+                cobro = New FrmCobrarVentaCredito(GetCurrentDataGridRecord())
+
+                cobro.ShowDialog(Me)
+
+                If cobro.Cobrado Then
+
+                    FilterRecords()
+                End If
+            End If
+
+        Catch ex As Exception
+            HandleException(ex)
+        End Try
+    End Sub
+
+    Private Function ValidateCobrarVenta() As Boolean
+        Dim ret As Boolean = True
+        Dim model As VentasCreditoViewModel = GetCurrentDataGridRecord()
+
+        If model Is Nothing OrElse model.Id < 1 Then
+            CheckFailed("No se pudo recuperar la orden de venta actual.")
+        Else
+            If model.Estado <> EstadoVentaCredito.PendientePago Then
+                CheckFailed("Solo se pueden cobrar ordenes de venta pendientes de pago.")
+            End If
+        End If
+
+        Return ret
+    End Function
+
+    Public Function GetCurrentDataGridRecord() As VentasCreditoViewModel
+        Dim dbTable As New VentasCreditoViewModel
+        Dim dataGridViewRow As DataGridViewRow
+
+        Try
+            Cursor = Cursors.WaitCursor
+
+            dbTable.Id = GetCurrentRecordId()
+
+            If dgvListPage.CurrentRow IsNot Nothing Then
+                dataGridViewRow = dgvListPage.CurrentRow()
+
+                dbTable.NumeroVenta = CStr((dataGridViewRow.Cells().Item(1).Value))
+                dbTable.MontoVenta = CDec((dataGridViewRow.Cells().Item(6).Value))
+                dbTable.NumeroPago = CInt((dataGridViewRow.Cells().Item(11).Value))
+                dbTable.Estado = CType((dataGridViewRow.Cells().Item(4).Value), EstadoVentaCredito)
+
+            End If
+
+        Finally
+            Cursor = Cursors.Default
+        End Try
+        Return dbTable
+    End Function
+
 #End Region
 
 #Region "Events"
 
     Private Sub chkEnableStatusFilter_CheckedChanged(sender As Object, e As EventArgs) Handles chkEnableStatusFilter.CheckedChanged
         HandleStatusFilter()
+    End Sub
+
+    Private Sub CobrarVentaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CobrarVentaToolStripMenuItem.Click
+        CobrarVenta()
     End Sub
 
 #End Region

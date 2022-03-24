@@ -121,7 +121,9 @@
     <Compile Include="UsuarioModel.vb" />
     <Compile Include="ViewModel\AjusteInventarioRegistroModel.vb" />
     <Compile Include="ViewModel\ClienteViewModel.vb" />
+    <Compile Include="ViewModel\CobroVentaCreditoViewModel.vb" />
     <Compile Include="ViewModel\OrdenVentaCobroViewModel.vb" />
+    <Compile Include="ViewModel\VentasCreditoViewModel.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

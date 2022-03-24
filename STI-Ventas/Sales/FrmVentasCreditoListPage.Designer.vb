@@ -31,6 +31,7 @@ Partial Class FrmVentasCreditoListPage
         Me.txtOrdenVenta = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.CobrarVentaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBoxFilters.SuspendLayout()
         Me.PanelContainer.SuspendLayout()
         Me.SuspendLayout()
@@ -131,6 +132,12 @@ Partial Class FrmVentasCreditoListPage
         Me.Label1.TabIndex = 33
         Me.Label1.Text = "Orden venta"
         '
+        'CobrarVentaToolStripMenuItem
+        '
+        Me.CobrarVentaToolStripMenuItem.Name = "CobrarVentaToolStripMenuItem"
+        Me.CobrarVentaToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CobrarVentaToolStripMenuItem.Text = "Cobrar venta"
+        '
         'FrmVentasCreditoListPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -155,4 +162,5 @@ Partial Class FrmVentasCreditoListPage
     Friend WithEvents txtOrdenVenta As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents CobrarVentaToolStripMenuItem As ToolStripMenuItem
 End Class

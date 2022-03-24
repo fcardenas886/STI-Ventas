@@ -81,7 +81,7 @@ Public Class VentaDetallesController : Inherits ControllerBase : Implements IDBO
             table = CType(iTable, OrdenVentaDetalleModel)
             params = New List(Of MySqlParameter)
             dbConnector = New DBConnector()
-            sql = "UPDATE TblVentaDetalle SET NumeroCompra = @IdVenta, IdVenta= @IdVenta, NumeroLinea= @NumeroLinea, IdProducto= @IdProducto, " &
+            sql = "UPDATE TblVentaDetalle SET IdVenta= @IdVenta, NumeroLinea= @NumeroLinea, IdProducto= @IdProducto, " &
                     "Unidad= @Unidad, Nombre= @Nombre, Cantidad= @Cantidad, PrecioUnitario= @PrecioUnitario, Descuento= @Descuento, Monto = @Monto, IdArticulo = @IdArticulo " &
                     "WHERE Id = @Id;"
 
