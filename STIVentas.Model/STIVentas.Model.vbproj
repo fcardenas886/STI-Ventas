@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AjusteInventarioModel.vb" />
+    <Compile Include="ModuloModel.vb" />
     <Compile Include="PermisosModel.vb" />
     <Compile Include="ViewModel\AjusteInventarioViewModel.vb" />
     <Compile Include="CategoriaModel.vb" />

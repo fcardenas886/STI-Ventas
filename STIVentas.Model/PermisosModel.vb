@@ -33,4 +33,15 @@ Public Class PermisosModel : Implements IDBTable
         Eliminar = Eliminar_
 
     End Sub
+
+    Sub New(ByVal IdUsuario_ As Integer, ByVal IdModulo_ As Integer, ByVal Insertar_ As Boolean, ByVal Editar_ As Boolean, ByVal Eliminar_ As Boolean)
+
+
+        IdUsuario = IdUsuario_
+        IdModulo = IdModulo_
+        Insertar = Insertar_
+        Editar = Editar_
+        Eliminar = Eliminar_
+
+    End Sub
 End Class

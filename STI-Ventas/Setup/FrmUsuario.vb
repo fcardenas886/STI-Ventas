@@ -217,6 +217,7 @@ Public Class FrmUsuario
                 dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Email", .HeaderText = "Email"})
                 dtGridView.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Password", .HeaderText = "Password", .Visible = False})
                 dtGridView.Columns.Add(New DataGridViewCheckBoxColumn With {.Name = "Estatus", .HeaderText = "Estatus"})
+                dtGridView.Columns.Add(New DataGridViewButtonColumn With {.Name = "Asignar", .HeaderText = "Asignar"})
             End If
 
             controller = New UsuarioController()

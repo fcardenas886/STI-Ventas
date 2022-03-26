@@ -75,11 +75,13 @@ Public Class FrmGestionPermisos
 
     Protected Sub LoadPermisosRecords()
 
-
+        Dim controller As ModuloController
+        Dim records As List(Of ModuloModel)
         Try
             Cursor = Cursors.WaitCursor
 
             If dgvPermisos.Columns().Count < 1 Then
+                dgvPermisos.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Id", .HeaderText = "Id"})
                 dgvPermisos.Columns.Add(New DataGridViewCheckBoxColumn With {.Name = "Asignar", .HeaderText = "Asignar"})
                 dgvPermisos.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "NombrePermiso", .HeaderText = "Permiso", .MinimumWidth = 400})
                 dgvPermisos.Columns.Add(New DataGridViewCheckBoxColumn With {.Name = "Agregar", .HeaderText = "Agregar"})
@@ -89,17 +91,25 @@ Public Class FrmGestionPermisos
 
             dgvPermisos.Rows().Clear()
 
-            dgvPermisos.Rows().Add(False, "Ventas", False, False, False)
-            dgvPermisos.Rows().Add(True, "Compras", True, True, True)
-            dgvPermisos.Rows().Add(True, "Usuarios", True, True, False)
-            dgvPermisos.Rows().Add(True, "Productos", False, True, False)
-            dgvPermisos.Rows().Add(False, "Ajustes de inventario", False, False, True)
+            controller = New ModuloController()
+            records = CType(controller.GetList(), List(Of ModuloModel))
 
+            'dgvUsuarios.DataSource = records
+            dgvPermisos.Rows.Clear()
+
+            For Each model As ModuloModel In records
+                dgvPermisos.Rows().Add(model.Id, model.Idmodulo, model.Nombre)
+            Next
+
+            If records.Count < 1 And Not String.IsNullOrEmpty(controller.LastError) Then
+                HandleException(controller.LastError)
+            End If
         Catch ex As Exception
             HandleException(ex)
         Finally
             Cursor = Cursors.Default
         End Try
+
 
     End Sub
 
@@ -109,7 +119,56 @@ Public Class FrmGestionPermisos
 
     Protected Sub GuardaPermisos()
 
+        InsertRecord()
+
+
     End Sub
+
+
+    Protected Friend Function InsertRecord() As Boolean
+        Dim ret As Boolean = False
+        Dim uomController As PermisosController
+
+        Try
+
+
+            Cursor = Cursors.WaitCursor
+            uomController = New PermisosController()
+            ret = uomController.Insert(GetCurrentTable())
+
+            If Not ret Then
+                HandleException(uomController.LastError)
+            End If
+
+        Catch ex As Exception
+            HandleException(ex)
+        Finally
+            Cursor = Cursors.Default
+        End Try
+
+        Return ret
+    End Function
+
+
+    Public Function GetCurrentTable() As IDBTable
+        Dim row As DataGridViewRow = dgvUsuarios.CurrentRow
+        Dim row2 As DataGridViewRow = dgvPermisos.CurrentRow
+        Dim idu As Integer
+        idu = CInt(row.Cells("Id").Value)
+        Dim dbTable As New PermisosModel With {
+            .Id = 0,
+            .IdUsuario = idu,
+            .IdModulo = CInt(row2.Cells("Id").Value),
+            .Insertar = CBool(row2.Cells("Agregar").Value),
+            .Editar = CBool(row2.Cells("Editar").Value),
+            .Eliminar = CBool(row2.Cells("Eliminar").Value)
+        }
+
+        ' dbTable.Password = IIf(String.IsNullOrEmpty(txtPassword.Text), txtPassword.Text, New AES().Encrypt(txtPassword.Text, DBSettings.appPwdUnique, 256))
+        'dbTable.Status = IIf(chkEnabled.Checked, EstadoUsuario.Activo, EstadoUsuario.Inactivo)
+
+        Return dbTable
+    End Function
 
     Private Sub CierraForm()
         Close()
@@ -131,6 +190,8 @@ Public Class FrmGestionPermisos
 
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
         GuardaPermisos()
+        Console.WriteLine("entro al boton")
+        Console.WriteLine("")
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
