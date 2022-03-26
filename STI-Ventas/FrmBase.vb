@@ -29,6 +29,7 @@ Public Class FrmBase
         isNewRecord = True
     End Sub
     Private Sub FrmBase_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        VerificaPermisos()
         ClearFields()
         OnFormLoaded()
     End Sub
@@ -222,6 +223,19 @@ Public Class FrmBase
     ''' <param name="e">Evento que se detona</param>
     ''' <remarks>31.01.2021 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Overridable Sub OnSelectedRow(ByVal e As DataGridViewCellEventArgs)
+
+    End Sub
+
+    Protected Overridable Function UsuarioTieneAccesoAForm() As Boolean
+
+        Return True
+    End Function
+
+    Private Sub VerificaPermisos()
+
+        If Not UsuarioTieneAccesoAForm() Then
+            LanzaErrorNoPermisos(Me)
+        End If
 
     End Sub
 

@@ -66,8 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AjusteInventarioModel.vb" />
-    <Compile Include="ModuloModel.vb" />
-    <Compile Include="PermisosModel.vb" />
+    <Compile Include="CobroVentasCreditoModel.vb" />
+    <Compile Include="Enums\EstadoCobroVentas.vb" />
+    <Compile Include="Enums\EstadoVentaCredito.vb" />
+    <Compile Include="VentasCreditoModel.vb" />
     <Compile Include="ViewModel\AjusteInventarioViewModel.vb" />
     <Compile Include="CategoriaModel.vb" />
     <Compile Include="ClienteModel.vb" />
@@ -119,7 +121,10 @@
     <Compile Include="UsuarioModel.vb" />
     <Compile Include="ViewModel\AjusteInventarioRegistroModel.vb" />
     <Compile Include="ViewModel\ClienteViewModel.vb" />
+    <Compile Include="ViewModel\CobroVentaCreditoViewModel.vb" />
+    <Compile Include="ViewModel\CobroVentasCreditoViewModel.vb" />
     <Compile Include="ViewModel\OrdenVentaCobroViewModel.vb" />
+    <Compile Include="ViewModel\VentasCreditoViewModel.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

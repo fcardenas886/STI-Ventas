@@ -350,6 +350,7 @@ Public Class DBConnector
         Return success
     End Function
 
+#Region "Store procedure Region"
     Public Function ExecuteStoreProcedure(sql As String, Optional params As List(Of MySqlParameter) = Nothing, Optional outputParams As MySqlParameter = Nothing) As Integer
         Dim command As MySqlCommand
         Dim insertResult As Integer
@@ -390,5 +391,44 @@ Public Class DBConnector
 
         Return insertResult
     End Function
+
+    Public Function ExecuteStoreProcedure(sql As String, Optional params As List(Of MySqlParameter) = Nothing) As DataTable
+        Dim command As MySqlCommand
+        Dim dataAdapter As MySqlDataAdapter
+        Dim ret As DataTable = New DataTable()
+
+        Try
+            ResetLastError()
+
+            Using connection As New MySqlConnection(GetConnectionString())
+                connection.Open()
+
+                command = New MySqlCommand(sql, connection) With {
+                    .CommandType = CommandType.StoredProcedure
+                }
+
+                If params IsNot Nothing Then
+                    For Each param As MySqlParameter In params
+                        command.Parameters.Add(param)
+                    Next
+                End If
+
+                dataAdapter = New MySqlDataAdapter With {
+                    .SelectCommand = command
+                }
+
+                dataAdapter.Fill(ret)
+
+                connection.Close()
+            End Using
+
+        Catch ex As Exception
+            AppendError(ex)
+        End Try
+
+        Return ret
+
+    End Function
+#End Region
 
 End Class

@@ -157,16 +157,40 @@
     <Compile Include="Purch\FrmConfirmarOrdenCompra.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Sales\FrmCobrarVentaCredito.Designer.vb">
+      <DependentUpon>FrmCobrarVentaCredito.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\FrmCobrarVentaCredito.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Sales\FrmCobroVenta.Designer.vb">
       <DependentUpon>FrmCobroVenta.vb</DependentUpon>
     </Compile>
     <Compile Include="Sales\FrmCobroVenta.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Sales\FrmVentaCreditoDetallePagoListPage.Designer.vb">
+      <DependentUpon>FrmVentaCreditoDetallePagoListPage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\FrmVentaCreditoDetallePagoListPage.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Sales\FrmVentaPOS.Designer.vb">
       <DependentUpon>FrmVentaPOS.vb</DependentUpon>
     </Compile>
     <Compile Include="Sales\FrmVentaPOS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales\FrmVentasCredito.Designer.vb">
+      <DependentUpon>FrmVentasCredito.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\FrmVentasCredito.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales\FrmVentasCreditoListPage.Designer.vb">
+      <DependentUpon>FrmVentasCreditoListPage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\FrmVentasCreditoListPage.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Sales\FrmVentasListPage.Designer.vb">
@@ -303,11 +327,23 @@
     <EmbeddedResource Include="Purch\FrmConfirmarOrdenCompra.resx">
       <DependentUpon>FrmConfirmarOrdenCompra.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Sales\FrmCobrarVentaCredito.resx">
+      <DependentUpon>FrmCobrarVentaCredito.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sales\FrmCobroVenta.resx">
       <DependentUpon>FrmCobroVenta.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Sales\FrmVentaCreditoDetallePagoListPage.resx">
+      <DependentUpon>FrmVentaCreditoDetallePagoListPage.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sales\FrmVentaPOS.resx">
       <DependentUpon>FrmVentaPOS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales\FrmVentasCredito.resx">
+      <DependentUpon>FrmVentasCredito.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales\FrmVentasCreditoListPage.resx">
+      <DependentUpon>FrmVentasCreditoListPage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sales\FrmVentasListPage.resx">
       <DependentUpon>FrmVentasListPage.vb</DependentUpon>

@@ -287,6 +287,48 @@ Public Class VentasController : Inherits ControllerBase : Implements IDBOperatio
         End Try
     End Sub
 
+    Public Function GetTotals_CreditLimit(idVenta As Integer) As OrdenVentaTotales
+        Dim totals As OrdenVentaTotales = Nothing
+        Dim dbConnector As DBConnector
+        Dim sql As String
+        Dim dataTable As DataTable
+        Dim params As List(Of MySqlParameter)
+
+        Try
+            params = New List(Of MySqlParameter)
+            dbConnector = New DBConnector()
+            sql = "SP_GetVentaTotalsPorId"
+
+            params.Add(BuildParameter("@PI_IdVenta", idVenta, DbType.Int32))
+            dataTable = dbConnector.ExecuteStoreProcedure(sql, params)
+            totals = New OrdenVentaTotales()
+
+            For Each dataRow As DataRow In dataTable.Rows
+                totals =
+                        New OrdenVentaTotales With {
+                            .NumeroLineas = dataRow("NumeroLineas"),
+                            .Cantidad = dataRow("Cantidad"),
+                            .Total = dataRow("Total"),
+                            .Descuento = dataRow("Descuento"),
+                            .LimiteCredito = dataRow("LimiteCredito"),
+                            .CreditoActual = dataRow("CreditoActual"),
+                            .MontoPagado = dataRow("MontoPagado"),
+                            .MontoPagadoCobros = dataRow("MontoPagadoCobros")
+                            }
+                Exit For
+
+            Next
+
+            totals.IdVenta = idVenta
+            LastError = dbConnector.LastError
+
+        Catch ex As Exception
+            AppendError(ex)
+        End Try
+
+        Return totals
+    End Function
+
 #End Region
 
 End Class

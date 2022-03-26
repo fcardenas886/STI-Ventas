@@ -61,6 +61,10 @@ Module FormHelperModule
         MsgBox(exception, MsgBoxStyle.Information, "STI-Ventas")
     End Sub
 
+    Public Sub LanzaErrorNoPermisos(formName As Form)
+        HandleError(String.Format("No tiene permisos para acceder al formulario {0}", IIf(formName Is Nothing, "actual", formName.Text)))
+    End Sub
+
 #End Region
 
 #Region "Helpers para forms"

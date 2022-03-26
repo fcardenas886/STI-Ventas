@@ -170,10 +170,24 @@ Public Class FrmListPageBase
 
     End Sub
 
+    Protected Overridable Function UsuarioTieneAccesoAForm() As Boolean
+
+        Return True
+    End Function
+
+    Private Sub VerificaPermisos()
+
+        If Not UsuarioTieneAccesoAForm() Then
+            LanzaErrorNoPermisos(Me)
+        End If
+
+    End Sub
+
 #End Region
 
 #Region "Events"
     Private Sub FrmListPageBase_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        VerificaPermisos()
         OnFormLoaded()
         ResetFilters()
     End Sub

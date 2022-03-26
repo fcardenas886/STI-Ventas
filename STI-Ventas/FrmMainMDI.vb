@@ -43,6 +43,7 @@ Public Class FrmMainMDI
 
 #Region "Events"
     Private Sub FrmMainMDI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        VerificaPermisos()
         InitControls()
     End Sub
 
@@ -195,6 +196,14 @@ Public Class FrmMainMDI
         child.Show()
     End Sub
 
+    Private Sub TodasLasVentasACreditoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TodasLasVentasACreditoToolStripMenuItem.Click
+        Dim child As Form = New FrmVentasCreditoListPage With {
+           .MdiParent = Me
+        }
+
+        child.Show()
+    End Sub
+
 #End Region
 
 #Region "Class methods"
@@ -205,6 +214,19 @@ Public Class FrmMainMDI
     ''' <remarks>31.01.2021 jorge.nin92@gmail.com: Se crea el metodo</remarks>
     Protected Sub InitControls()
         Me.Text = GetPOSName()
+    End Sub
+
+    Protected Overridable Function UsuarioTieneAccesoAForm() As Boolean
+
+        Return True
+    End Function
+
+    Private Sub VerificaPermisos()
+
+        If Not UsuarioTieneAccesoAForm() Then
+            LanzaErrorNoPermisos(Me)
+        End If
+
     End Sub
 
 
