@@ -1003,6 +1003,19 @@ Public Class FrmVentaPOS
         End If
     End Sub
 
+    Protected Overridable Function UsuarioTieneAccesoAForm() As Boolean
+
+        Return True
+    End Function
+
+    Private Sub VerificaPermisos()
+
+        If Not UsuarioTieneAccesoAForm() Then
+            LanzaErrorNoPermisos(Me)
+        End If
+
+    End Sub
+
 #End Region
 
 #Region "Events"
@@ -1025,6 +1038,7 @@ Public Class FrmVentaPOS
     End Sub
 
     Private Sub FrmVentaPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        VerificaPermisos()
         LoadComboBoxData()
     End Sub
 

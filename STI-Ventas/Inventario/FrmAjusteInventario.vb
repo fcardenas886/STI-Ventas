@@ -884,11 +884,25 @@ Public Class FrmAjusteInventario
         Return ret
     End Function
 
+    Protected Overridable Function UsuarioTieneAccesoAForm() As Boolean
+
+        Return True
+    End Function
+
+    Private Sub VerificaPermisos()
+
+        If Not UsuarioTieneAccesoAForm() Then
+            LanzaErrorNoPermisos(Me)
+        End If
+
+    End Sub
+
 #End Region
 
 #Region "Events"
 
     Private Sub FrmAjusteInventario_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        VerificaPermisos()
         OnFormLoaded()
     End Sub
 

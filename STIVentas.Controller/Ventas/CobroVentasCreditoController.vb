@@ -145,6 +145,45 @@ Public Class CobroVentasCreditoController : Inherits ControllerBase : Implements
         Return NombreTabla
     End Function
 
+    Public Function GetCobrosPorVentaCredito(idVentaCredito As Integer) As List(Of CobroVentasCreditoViewModel)
+        Dim ret As New List(Of CobroVentasCreditoViewModel)
+        Dim dbConnector As DBConnector
+        Dim sql As String
+        Dim dataTable As DataTable
+        Dim params As List(Of MySqlParameter)
+
+        Try
+            dbConnector = New DBConnector()
+            params = New List(Of MySqlParameter)
+            sql = "SELECT Id, Moneda, Fecha, Monto, MontoPagado, Estado, Username FROM CobrosClienteView WHERE IdVentaCredito = @IdVentaCredito;"
+
+            params.Add(BuildParameter("@IdVentaCredito", idVentaCredito, DbType.Int32))
+
+            dataTable = dbConnector.ReadDataTable(sql)
+
+            For Each dataRow As DataRow In dataTable.Rows
+                ret.Add(
+                        New CobroVentasCreditoViewModel With {
+                            .Id = dataRow(0),
+                            .Moneda = dataRow(1),
+                            .Fecha = dataRow(2),
+                            .Monto = dataRow(3),
+                            .MontoPagado = dataRow(4),
+                            .Estado = dataRow(5),
+                            .Username = dataRow(6)
+                            }
+                        )
+            Next
+
+            LastError = dbConnector.LastError
+
+        Catch ex As Exception
+            AppendError(ex)
+        End Try
+
+        Return ret
+    End Function
+
 #End Region
 
 #Region "Class Methods"

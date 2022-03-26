@@ -122,6 +122,7 @@
     <Compile Include="ViewModel\AjusteInventarioRegistroModel.vb" />
     <Compile Include="ViewModel\ClienteViewModel.vb" />
     <Compile Include="ViewModel\CobroVentaCreditoViewModel.vb" />
+    <Compile Include="ViewModel\CobroVentasCreditoViewModel.vb" />
     <Compile Include="ViewModel\OrdenVentaCobroViewModel.vb" />
     <Compile Include="ViewModel\VentasCreditoViewModel.vb" />
   </ItemGroup>
