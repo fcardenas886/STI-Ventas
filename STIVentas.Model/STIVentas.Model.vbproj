@@ -70,6 +70,7 @@
     <Compile Include="Enums\EstadoCobroVentas.vb" />
     <Compile Include="Enums\EstadoVentaCredito.vb" />
     <Compile Include="ModuloModel.vb" />
+    <Compile Include="PermisosModel.vb" />
     <Compile Include="VentasCreditoModel.vb" />
     <Compile Include="ViewModel\AjusteInventarioViewModel.vb" />
     <Compile Include="CategoriaModel.vb" />
